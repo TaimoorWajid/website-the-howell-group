@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@use './styles/variables';
+@use './styles/typography';
+@use './styles/utilities';
+
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html { background: var(--color-off-white); scroll-behavior: auto; }
+body { background: var(--color-off-white); color: var(--color-charcoal); margin: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--color-red); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }

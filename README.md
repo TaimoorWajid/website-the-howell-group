@@ -1,59 +1,30 @@
-# TheHowellGroup
+# The Howell Group
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+The Howell Group is an Angular 21 standalone, zoneless, SSR/hybrid frontend for a headless WordPress installation. This repository currently contains the production foundation only; page content and the cinematic homepage are deliberately deferred.
 
-## Development server
-
-To start a local development server, run:
+## Local development
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Build and test with `npm run build` and `npm test -- --watch=false`. The SSR production server can be started with `npm run serve:ssr:the-howell-group` after a build.
 
-## Code scaffolding
+## Architecture
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Routes are defined in `src/app/app.routes.ts` and share a global header/footer shell. Future feature pages should be added as lazy feature routes without putting API or animation logic in templates. The public app talks only to the public WordPress REST API at the configured `/wp-json/howell/v1` base URL; no WordPress or database credentials belong in this project.
 
-```bash
-ng generate component component-name
-```
+The API layer lives under `src/app/core/api` and exposes typed services for projects, services, team, testimonials, insights, careers, and contact. Models live in `src/app/core/models`.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+GSAP and ScrollTrigger are registered once by `AnimationManagerService`. DOM work must be created through that service, guarded by browser detection, and reverted with a GSAP context. `SmoothScrollService` initializes Lenis once, syncs it with ScrollTrigger, and disables it for reduced-motion users. Three.js services provide browser-only renderer, camera, scene, asset-loading, and disposal primitives; no scene is created yet.
 
-```bash
-ng generate --help
-```
+## Configuration
 
-## Building
+The Angular CLI development file replacement selects `src/environments/environment.development.ts`; production uses `src/environments/environment.ts`. Both currently point to the remote public CMS API. Only public URLs may be configured here.
 
-To build the project run:
+## Design and accessibility
 
-```bash
-ng build
-```
+Design tokens are centralized in `src/styles/_variables.scss`. The palette is restrained white/off-white/charcoal/teal with red reserved as an accent. System font fallbacks are used until approved brand fonts are supplied. Global focus states and reduced-motion behavior are included; future interactions must preserve keyboard access, semantic structure, meaningful image alt text, and readable content without hover or animation.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the system map and implementation rules.
