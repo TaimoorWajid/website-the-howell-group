@@ -41,7 +41,7 @@ Angular SSR uses server rendering for all routes so dynamic content can later pr
 src/app/core        API, configuration, models, animation, scroll, SEO, Three.js
 src/app/layout      global header, footer, navigation shell, cursor placeholder
 src/app/shared      reusable components and future directives/pipes
-src/app/features    route-owned page implementations (not built in this phase)
+src/app/features    route-owned page implementations, currently including home
 src/styles          centralized tokens, typography, and utilities
 src/environments    public build-time configuration
 ```

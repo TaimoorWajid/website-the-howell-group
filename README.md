@@ -1,6 +1,6 @@
 # The Howell Group
 
-The Howell Group is an Angular 21 standalone, zoneless, SSR/hybrid frontend for a headless WordPress installation. This repository currently contains the production foundation only; page content and the cinematic homepage are deliberately deferred.
+The Howell Group is an Angular 21 standalone, zoneless, SSR/hybrid frontend for a headless WordPress installation. The homepage experience is implemented on top of a reusable production foundation; deeper CMS-driven page experiences remain incremental work.
 
 ## Local development
 
@@ -13,7 +13,7 @@ Build and test with `npm run build` and `npm test -- --watch=false`. The SSR pro
 
 ## Architecture
 
-Routes are defined in `src/app/app.routes.ts` and share a global header/footer shell. Future feature pages should be added as lazy feature routes without putting API or animation logic in templates. The public app talks only to the public WordPress REST API at the configured `/wp-json/howell/v1` base URL; no WordPress or database credentials belong in this project.
+Routes are defined in `src/app/app.routes.ts` and share a global header/footer shell. The homepage lives in `src/app/features/home` and is split into focused section components. Future feature pages should be added as lazy feature routes without putting API or animation logic in templates. The public app talks only to the public WordPress REST API at the configured `/wp-json/howell/v1` base URL; no WordPress or database credentials belong in this project.
 
 The API layer lives under `src/app/core/api` and exposes typed services for projects, services, team, testimonials, insights, careers, and contact. Models live in `src/app/core/models`.
 

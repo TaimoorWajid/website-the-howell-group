@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
+import { HomePageComponent } from './features/home/home-page.component';
 import { FoundationPageComponent } from './shared/components/foundation-page.component';
 
 export const routes: Routes = [
-  { path: '', component: FoundationPageComponent, data: { title: 'The Howell Group' } },
+  { path: '', component: HomePageComponent, data: { title: 'The Howell Group | Building what matters.' } },
   { path: 'projects', component: FoundationPageComponent, data: { title: 'Projects | The Howell Group' } },
   { path: 'projects/:slug', component: FoundationPageComponent, data: { title: 'Project | The Howell Group' } },
   { path: 'services', component: FoundationPageComponent, data: { title: 'Services | The Howell Group' } },

@@ -1,0 +1,9 @@
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { RevealDirective } from '../../../shared/directives/reveal.directive';
+
+@Component({ selector: 'app-home-final-cta', imports: [RouterLink, RevealDirective], template: `<section class="final-cta" aria-labelledby="cta-title"><div class="section-shell"><p class="section-label" appReveal>07 / Next</p><h2 id="cta-title" appReveal>Let’s make<br /><em>something lasting.</em></h2><div class="cta-bottom" appReveal><p>Have a place, an idea or a question in mind?</p><a class="button" routerLink="/contact">Start a conversation <span aria-hidden="true">↗</span></a></div></div></section>`, styles: [`
+    .final-cta { background: var(--color-teal); color: var(--color-white); padding: clamp(7rem, 15vw, 14rem) 0 clamp(5rem, 10vw, 9rem); } .section-shell { margin: 0 auto; max-width: var(--content-max-width); padding-left: var(--page-gutter); padding-right: var(--page-gutter); } .section-label { color: var(--color-white); font-size: .68rem; letter-spacing: .15em; margin: 0; text-transform: uppercase; } h2 { font-size: clamp(4rem, 10vw, 10rem); letter-spacing: -.08em; line-height: .84; margin: 6rem 0 8rem; } h2 em { color: var(--color-charcoal); font-style: normal; } .cta-bottom { align-items: end; border-top: 1px solid rgba(255,255,255,.4); display: flex; justify-content: space-between; padding-top: 1rem; } .cta-bottom p { margin: 0; } .button { border: 1px solid var(--color-white); color: var(--color-white); display: inline-flex; gap: 2rem; letter-spacing: .12em; padding: .95rem 1.1rem; text-decoration: none; text-transform: uppercase; } .button:hover { background: var(--color-white); color: var(--color-teal); }
+    @media (max-width: 48rem) { h2 { margin: 5rem 0; } .cta-bottom { align-items: flex-start; display: block; } .button { margin-top: 1.5rem; } }
+  `] })
+export class HomeFinalCtaComponent {}
