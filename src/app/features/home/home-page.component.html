@@ -1,0 +1,42 @@
+<div class="home-page">
+  <!-- SECTION 01 — HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow" appReveal>Howell Group <span aria-hidden="true">/</span> Built with intent</p>
+      <h1 id="hero-title" class="hero-title"><span class="title-line"><span class="title-word">Building</span></span><span class="title-line"><span class="title-word"><em>what matters.</em></span></span></h1>
+      <p class="hero-lede">Considered construction, development and project leadership for places made to last.</p>
+      <div class="hero-actions"><a class="button button--solid" routerLink="/projects">Explore our work <span aria-hidden="true">&rarr;</span></a><a class="text-link" routerLink="/services">Our capabilities <span aria-hidden="true">&darr;</span></a></div>
+    </div>
+    <div class="hero-visual" aria-label="Abstract architectural line study" role="img">
+      <div class="visual-grid"></div><div class="visual-frame visual-frame--outer"></div><div class="visual-frame visual-frame--inner"></div><div class="visual-line visual-line--vertical"></div><div class="visual-line visual-line--horizontal"></div><span class="visual-mark visual-mark--teal"></span><span class="visual-mark visual-mark--red"></span>
+      @defer (on viewport) { <app-home-hero-three /> } @placeholder { <span class="three-placeholder" aria-hidden="true"></span> }
+      <p class="visual-caption">A study in structure<br />and proportion</p>
+    </div>
+    <div class="hero-index" aria-hidden="true"><span>01</span><span class="hero-index-line"></span><span>07</span></div>
+  </section>
+
+  <!-- SECTION 02 — INTRO / POSITIONING -->
+  <section class="intro section-shell" aria-labelledby="intro-title">
+    <p class="section-label" appReveal>02 / Positioning</p>
+    <div class="intro-content"><h2 id="intro-title" appReveal>We make the complex feel <em>considered.</em></h2><div class="intro-copy" appReveal><p>Howell Group brings clarity to ambitious places. We align vision, detail and delivery to create work that feels inevitable when it is complete.</p><p class="muted">A considered approach from first conversation to final handover.</p></div></div>
+  </section>
+
+  <!-- SECTION 03 — FEATURED PROJECTS -->
+  <section class="projects section-shell" aria-labelledby="projects-title">
+    <div class="section-heading"><p class="section-label" appReveal>03 / Selected work</p><a class="text-link" routerLink="/projects" appReveal>View all projects <span aria-hidden="true">&rarr;</span></a></div>
+    <div class="projects-heading"><h2 id="projects-title" appReveal>Places with<br /><em>purpose.</em></h2><p appReveal>Our work is shaped by context, precision and the people who will use it.</p></div>
+    @if (projectsLoading()) { <p class="data-status" role="status">Loading selected work&hellip;</p> } @else if (projects().length) { <div class="project-list">@for (project of projects(); track project.id) { <a class="project-card" [routerLink]="['/projects', project.slug]" appReveal><div class="project-media">@if (project.images?.[0]; as image) { <img [src]="image.src" [alt]="image.alt" loading="lazy" /> } @else { <div class="media-placeholder"><span>Project visual</span></div> }</div><div class="project-meta"><div><p class="project-type">{{ project.categories?.[0]?.name ?? 'Featured project' }}</p><h3>{{ project.title }}</h3></div><div class="project-details"><span>{{ project.location ?? 'Location to follow' }}</span><span>{{ project.year ?? '&mdash;' }}</span><span aria-hidden="true">&rarr;</span></div></div></a> }</div> } @else { <div class="empty-projects" appReveal><span class="empty-rule"></span><p>Featured projects will appear here as the Howell Group archive is connected.</p><a class="text-link" routerLink="/contact">Discuss a project <span aria-hidden="true">&rarr;</span></a></div> }
+  </section>
+
+  <!-- SECTION 04 — SERVICES / CAPABILITIES -->
+  <section class="services" aria-labelledby="services-title"><div class="section-shell services-inner"><div class="services-intro"><p class="section-label" appReveal>04 / Capabilities</p><h2 id="services-title" appReveal>From first line<br />to <em>final detail.</em></h2></div><div class="service-list" appReveal>@for (service of serviceItems; track service.name; let i = $index) { <button type="button" class="service-item" [class.is-active]="activeService() === i" (mouseenter)="activeService.set(i)" (focus)="activeService.set(i)" (click)="activeService.set(i)"><span class="service-number">0{{ i + 1 }}</span><span class="service-name">{{ service.name }}</span><span class="service-description">{{ service.description }}</span><span class="service-arrow" aria-hidden="true">&rarr;</span></button> }</div></div></section>
+
+  <!-- SECTION 05 — ABOUT / COMPANY -->
+  <section class="about section-shell" aria-labelledby="about-title"><div class="about-visual" role="img" aria-label="Abstract architectural elevation"><div class="elevation elevation--back"></div><div class="elevation elevation--front"></div><span class="elevation-mark"></span><p>Context / Detail / Continuity</p></div><div class="about-copy"><p class="section-label" appReveal>05 / The group</p><h2 id="about-title" appReveal>A better way to bring <em>ideas to ground.</em></h2><p class="about-lede" appReveal>We are a group of builders, thinkers and collaborators who believe the best work begins with attention.</p><p class="about-body" appReveal>Our role is to hold the whole picture while respecting every detail. The result is work with a clear point of view, delivered with care.</p><a class="text-link" routerLink="/about" appReveal>About Howell Group <span aria-hidden="true">&rarr;</span></a></div></section>
+
+  <!-- SECTION 06 — INSIGHTS / NEWS -->
+  <section class="insights section-shell" aria-labelledby="insights-title"><div class="section-heading"><p class="section-label" appReveal>06 / Thinking</p><a class="text-link" routerLink="/insights" appReveal>All insights <span aria-hidden="true">&rarr;</span></a></div><h2 id="insights-title" appReveal>Ideas worth<br /><em>building on.</em></h2>@if (insightsLoading()) { <p class="data-status" role="status">Loading insights&hellip;</p> } @else if (insights().length) { <div class="insight-grid">@for (insight of insights(); track insight.id) { <a class="insight-card" [routerLink]="['/insights', insight.slug]" appReveal>@if (insight.image; as image) { <img [src]="image.src" [alt]="image.alt" loading="lazy" /> } @else { <div class="insight-placeholder" aria-hidden="true"></div> }<p class="insight-date">{{ insight.date ?? 'Insight' }}</p><h3>{{ insight.title }}</h3><span class="text-link">Read more <span aria-hidden="true">&rarr;</span></span></a> }</div> } @else { <div class="empty-insights" appReveal><p>Insights will appear here as the Howell Group journal is connected.</p><a class="text-link" routerLink="/contact">Stay connected <span aria-hidden="true">&rarr;</span></a></div> }</section>
+
+  <!-- SECTION 07 — FINAL CTA -->
+  <section class="final-cta" aria-labelledby="cta-title"><div class="section-shell"><p class="section-label" appReveal>07 / Next</p><h2 id="cta-title" appReveal>Let&rsquo;s make<br /><em>something lasting.</em></h2><div class="cta-bottom" appReveal><p>Have a place, an idea or a question in mind?</p><a class="button" routerLink="/contact">Start a conversation <span aria-hidden="true">&rarr;</span></a></div></div></section>
+</div>
