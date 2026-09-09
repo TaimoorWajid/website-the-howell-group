@@ -1,0 +1,47 @@
+<section class="scroll-grid" [class.scroll-grid--enhanced]="enhanced()" aria-label="Our approach">
+  <!-- Responsive rows each receive a scroll runway and sticky reveal stage. -->
+  @for (row of rows(); track $index; let rowIndex = $index) {
+    <div class="scroll-grid__runway" data-scroll-row>
+      <div class="scroll-grid__stage">
+        <!-- Empty opening state fades before the first panel appears. -->
+        @if (rowIndex === 0) {
+          <div class="scroll-grid__intro" [style.opacity]="cueOpacity(rowIndex)">
+            <p class="scroll-grid__label">{{ label }}</p>
+            <span class="scroll-grid__line" aria-hidden="true"></span>
+          </div>
+        }
+        <!-- Panels and numbered connecting line share a reversible scroll timeline. -->
+        <div class="scroll-grid__cards" role="list" [style.--columns]="columns()">
+          @for (card of row; track $index; let index = $index) {
+            <article class="scroll-card" role="listitem" data-reveal-card
+              [class.scroll-card--revealed]="amount(rowIndex, index) >= .99"
+              [style.--reveal]="amount(rowIndex, index)"
+              [style.--line]="lineProgress(rowIndex)"
+              [style.--segments]="row.length" [style.--index]="index">
+              <div class="scroll-card__panel scroll-card__image">
+                @if (card.image) {
+                  <img [src]="card.image" [alt]="card.imageAlt ?? ''" loading="lazy" decoding="async" />
+                } @else {
+                  <span class="scroll-card__art" aria-hidden="true">{{ card.icon ?? card.number ?? 'Aa' }}</span>
+                }
+              </div>
+              <div class="scroll-card__track" aria-hidden="true">
+                <span class="scroll-card__stroke"></span>
+                <span class="scroll-card__number">{{ card.number ?? (rowIndex * columns() + index + 1) }}</span>
+              </div>
+              <div class="scroll-card__panel scroll-card__content">
+                <h2>{{ card.title }}</h2>
+                <p>{{ card.description }}</p>
+                @if (card.href) {
+                  <a class="scroll-card__link" [href]="card.href" [attr.tabindex]="amount(rowIndex, index) < .99 ? -1 : null">
+                    Explore <span aria-hidden="true">&rarr;</span>
+                  </a>
+                }
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</section>
