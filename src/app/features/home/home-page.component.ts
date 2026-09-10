@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, DestroyRef, ElementRef, OnDestroy, PLATFORM_ID, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, OnDestroy, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import gsap from 'gsap';
@@ -12,12 +12,15 @@ import { Insight, Project } from '../../core/models/content.models';
 import { SeoService } from '../../core/services/seo.service';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { ScrollRevealCard, ScrollRevealGridCardsComponent } from '../../shared/components/scroll-reveal-grid-cards/scroll-reveal-grid-cards.component';
+import { FeaturedProjectsComponent } from '../../shared/components/featured-projects/featured-projects.component';
+import { FEATURED_PROJECT_SAMPLES } from '../../shared/components/featured-projects/featured-projects.data';
+import { FeaturedProject } from '../../shared/components/featured-projects/featured-projects.types';
 
 interface ServiceItem { name: string; description: string; }
 
 @Component({
   selector: 'app-home-page',
-  imports: [RouterLink, RevealDirective, ScrollRevealGridCardsComponent],
+  imports: [RouterLink, RevealDirective, ScrollRevealGridCardsComponent, FeaturedProjectsComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
@@ -32,6 +35,20 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   private animationContext: gsap.Context | null = null;
 
   protected readonly projects = signal<ReadonlyArray<Project>>([]);
+  protected readonly featuredProjects = computed<readonly FeaturedProject[]>(() =>
+    this.projects().length ? this.projects().map(project => ({
+      id: project.id, title: project.title,
+      location: project.location ?? 'Location to be announced',
+      category: project.categories?.[0]?.name ?? 'Construction',
+      area: project.area ?? 'Not published',
+      year: project.year ? String(project.year) : 'To be announced',
+      status: project.status ?? 'Details forthcoming',
+      client: project.client, value: project.value,
+      description: project.excerpt,
+      image: project.images?.[0]?.src ?? '/images/projects/fallback.svg',
+      imageAlt: project.images?.[0]?.alt ?? project.title
+    })) : FEATURED_PROJECT_SAMPLES
+  );
   protected readonly insights = signal<ReadonlyArray<Insight>>([]);
   protected readonly projectsLoading = signal(true);
   protected readonly insightsLoading = signal(true);
@@ -41,11 +58,6 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     { number: '02', title: 'Structure', description: 'Precision made visible through line, weight and proportion.', image: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Geometric architectural facade' },
     { number: '03', title: 'Context', description: 'Every place begins by listening to what is already there.', image: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Architectural structure against an open sky' },
     { number: '04', title: 'Light', description: 'Atmosphere shaped by the movement of the day.', image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Sunlit modern interior' }
-  ];
-  protected readonly projectPlaceholders: ReadonlyArray<Project> = [
-    { id: 'placeholder-01', slug: 'the-built-environment', title: 'The Built Environment', excerpt: 'Temporary editorial project placeholder.', location: 'Coming soon', year: 2026, images: [{ src: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1600&q=85', alt: 'Geometric modern concrete architecture' }] },
-    { id: 'placeholder-02', slug: 'between-lines', title: 'Between Lines', excerpt: 'Temporary editorial project placeholder.', location: 'Coming soon', year: 2026, images: [{ src: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1600&q=85', alt: 'Minimal architectural facade with strong lines' }] },
-    { id: 'placeholder-03', slug: 'a-place-to-last', title: 'A Place to Last', excerpt: 'Temporary editorial project placeholder.', location: 'Coming soon', year: 2026, images: [{ src: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=85', alt: 'Contemporary home set within a quiet landscape' }] }
   ];
   protected readonly insightPlaceholders: ReadonlyArray<Insight> = [
     { id: 'insight-placeholder-01', slug: 'the-value-of-restraint', title: 'The value of restraint', excerpt: 'Temporary editorial insight placeholder.', date: 'Journal', image: { src: 'https://images.unsplash.com/photo-1531835551805-16d864c8d311?auto=format&fit=crop&w=1200&q=85', alt: 'Light and shadow across a concrete interior' } },

@@ -21,11 +21,7 @@
   <app-scroll-reveal-grid-cards [cards]="scrollRevealCards" label="Scroll below to see effect" />
 
   <!-- SECTION 04 — FEATURED PROJECTS -->
-  <section class="projects section-shell" aria-labelledby="projects-title">
-    <div class="section-heading"><p class="section-label">02 — Selected work</p><a class="text-link" routerLink="/projects"><span class="red-dot" aria-hidden="true"></span>View all projects <span aria-hidden="true">&rarr;</span></a></div>
-    <div class="projects-heading"><h2 id="projects-title" appReveal>Places with<br /><em>purpose.</em></h2><p appReveal>Our work is shaped by context, precision and the people who will use it.</p></div>
-    @if (projectsLoading()) { <p class="data-status" role="status">Loading selected work&hellip;</p> } @else { <div class="project-list">@for (project of (projects().length ? projects() : projectPlaceholders); track project.id) { <a class="project-card" [routerLink]="['/projects', project.slug]" appReveal><div class="project-media">@if (project.images?.[0]; as image) { <img [src]="image.src" [alt]="image.alt" loading="lazy" /> }</div><div class="project-meta"><div><p class="project-type">{{ project.categories?.[0]?.name ?? 'Project study' }}</p><h3>{{ project.title }}</h3></div><div class="project-details"><span>{{ project.location ?? 'Coming soon' }}</span><span>{{ project.year ?? '&mdash;' }}</span><span aria-hidden="true">&rarr;</span></div></div></a> }</div> }
-  </section>
+  <app-featured-projects [projects]="featuredProjects()" />
 
   <!-- SECTION 05 — SERVICES / CAPABILITIES -->
   <section class="services" aria-labelledby="services-title"><div class="services-spotlight" aria-hidden="true"></div><div class="section-shell services-inner"><div class="services-intro"><p class="section-label">03 — Capabilities</p><h2 id="services-title" appReveal>From first line<br />to <em>final detail.</em></h2></div><div class="service-list" appReveal>@for (service of serviceItems; track service.name; let i = $index) { <button type="button" class="service-item" [class.is-active]="activeService() === i" (mouseenter)="activeService.set(i)" (focus)="activeService.set(i)" (click)="activeService.set(i)"><span class="service-number">0{{ i + 1 }}</span><span class="service-name">{{ service.name }}</span><span class="service-description">{{ service.description }}</span><span class="service-arrow" aria-hidden="true">&rarr;</span></button> }</div></div></section>

@@ -1,0 +1,66 @@
+<section class="featured" [attr.aria-labelledby]="headingId()">
+  <!-- INTRODUCTION / DISPLAY OPTIONS -->
+  <header class="featured__intro">
+    <div>
+      <p class="eyebrow">02 — Selected work</p>
+      <h2 [id]="headingId()">Places with<br /><em>purpose.</em></h2>
+    </div>
+    <div class="featured__intro-copy">
+      <p>A selection of places shaped by context, precision and the people who use them.</p>
+      <a routerLink="/projects">View all projects <span aria-hidden="true">↗</span></a>
+      <button type="button" [attr.aria-pressed]="listMode()" (click)="listMode.set(!listMode())">
+        {{ listMode() ? 'Use scroll showcase' : 'Read as a list' }}
+      </button>
+    </div>
+  </header>
+
+  @if (projects().length) {
+    <!-- PINNED VIEWPORT / COUNTER -->
+    <div class="featured__stage">
+      <div class="featured__toolbar">
+        <span class="eyebrow">Featured projects</span>
+        <div class="featured__counter" aria-label="Active project">
+          @for (index of [active()]; track index) { <span class="featured__current">{{ number(index + 1) }}</span> }
+          <span class="featured__total"> / {{ number(projects().length) }}</span>
+        </div>
+        <button class="featured__skip" type="button" (click)="skip()">Skip showcase ↓</button>
+      </div>
+
+      <!-- DATA-DRIVEN PROJECT STACK: all information remains in the semantic DOM. -->
+      <div class="featured__stack" role="list">
+        @for (project of projects(); track project.id; let index = $index) {
+          <article class="project" role="listitem" [attr.aria-label]="project.title">
+            <img class="project__image" [src]="project.image" [alt]="project.imageAlt"
+              [style.object-position]="project.imagePosition ?? 'center'"
+              [attr.loading]="index <= active() + 1 ? 'eager' : 'lazy'"
+              decoding="async" (error)="imageFailed($event)" />
+            <div class="project__shade" aria-hidden="true"></div>
+            <div class="project__top">
+              <span class="eyebrow">Featured project / {{ number(index + 1) }}</span>
+              <span class="project__status">{{ project.status }}</span>
+            </div>
+            <div class="project__bottom">
+              <div class="project__identity">
+                @if (project.placeholder) { <p class="project__sample">Illustrative project / sample data</p> }
+                <h3>{{ project.title }}</h3>
+                <p class="project__location">{{ project.location }}</p>
+                @if (project.description) { <p class="project__description">{{ project.description }}</p> }
+              </div>
+              <dl class="project__facts">
+                <div><dt>Sector</dt><dd>{{ project.category }}</dd></div>
+                <div><dt>Area</dt><dd>{{ project.area }}</dd></div>
+                <div><dt>Year</dt><dd>{{ project.year }}</dd></div>
+                @if (project.client) { <div><dt>Client</dt><dd>{{ project.client }}</dd></div> }
+                @if (project.value) { <div><dt>Value</dt><dd>{{ project.value }}</dd></div> }
+              </dl>
+            </div>
+          </article>
+        }
+      </div>
+      <!-- SCROLL PROGRESS: visual only, no noisy live announcements. -->
+      <div class="featured__progress" aria-hidden="true"><span [style.transform]="'scaleX(' + progress() + ')'"></span></div>
+    </div>
+  } @else {
+    <p class="featured__empty">Selected projects will be published here shortly.</p>
+  }
+</section>
