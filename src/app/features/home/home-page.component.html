@@ -1,21 +1,9 @@
 <div class="home-page">
   <!-- SECTION 01 — HERO -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-visual" aria-hidden="true"></div>
-    <div class="hero-copy">
-      <p class="eyebrow" appReveal>Howell Group <span aria-hidden="true">/</span> Built with intent</p>
-      <h1 id="hero-title" class="hero-title"><span class="title-line"><span class="title-word">Building</span></span><span class="title-line"><span class="title-word">what <em>matters.</em></span></span></h1>
-      <p class="hero-lede">Considered construction, development and project leadership for places made to last.</p>
-      <div class="hero-actions"><a class="button button--solid" routerLink="/projects">Explore our work <span aria-hidden="true">&rarr;</span></a><a class="text-link" routerLink="/services">Our capabilities <span aria-hidden="true">&darr;</span></a></div>
-    </div>
-    <div class="hero-index" aria-hidden="true"><span>01</span><span class="hero-index-line"></span><span>07</span></div>
-  </section>
+  <app-home-hero />
 
   <!-- SECTION 02 — INTRO / POSITIONING -->
-  <section class="intro section-shell" aria-labelledby="intro-title">
-    <p class="section-label"><span class="section-rule" aria-hidden="true"></span>01 — Positioning</p>
-    <div class="intro-content"><h2 id="intro-title" appReveal>We make the complex feel <em>considered.</em></h2><div class="intro-copy" appReveal><p>Howell Group brings clarity to ambitious places. We align vision, detail and delivery to create work that feels inevitable when it is complete.</p><p class="muted">A considered approach from first conversation to final handover.</p></div></div>
-  </section>
+  <app-why-howell-section />
 
   <!-- SECTION 03 — SCROLL REVEAL GRID CARDS -->
   <app-scroll-reveal-grid-cards [cards]="scrollRevealCards" label="Scroll below to see effect" />

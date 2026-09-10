@@ -1,1 +1,4 @@
-<canvas #canvas aria-hidden="true"></canvas>
+<div class="architecture" aria-hidden="true" [class.is-ready]="ready()">
+  <img class="architecture-fallback" src="/images/hero/architectural-study.svg" alt="" width="1200" height="1000" fetchpriority="high" decoding="async" />
+  <div #stage class="architecture-stage"></div>
+</div>

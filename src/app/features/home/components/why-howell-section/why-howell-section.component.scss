@@ -1,0 +1,32 @@
+:host { display: block; }
+.why-howell { display: grid; grid-template-columns: 40% minmax(0, 1fr); min-height: clamp(40.625rem, 78svh, 51.25rem); background: var(--color-white); }
+.why-image-mask { position: relative; overflow: hidden; min-width: 0; }
+picture { display: block; height: 100%; }
+.why-image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.why-copy { position: relative; display: flex; align-items: center; padding: clamp(3rem, 6vw, 6rem) var(--page-gutter) clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 6rem); min-width: 0; }
+.why-content { width: 100%; max-width: 43rem; }
+.why-eyebrow { font-size: .65rem; font-weight: 500; line-height: 1.5; letter-spacing: .16em; color: var(--color-muted); margin: 0 0 1.5rem; }
+h2 { color: var(--color-dark-teal); font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 3.2vw, 3.65rem); letter-spacing: -.045em; line-height: 1.09; margin: 0 0 1.6rem; }
+.heading-mask, .body-mask { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+.heading-mask > span, .body-mask > span { display: block; }
+.why-body { color: var(--color-body); font-size: clamp(.9rem, 1.1vw, 1.0625rem); line-height: 1.65; max-width: 54ch; margin: 0 0 1.8rem; }
+.why-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 48px; max-width: 100%; padding: .9rem 1.15rem; border: 1px solid var(--color-teal); color: var(--color-dark-teal); background: transparent; text-decoration: none; font-size: .625rem; font-weight: 500; line-height: 1.5; letter-spacing: .1em; transition: background-color .24s, color .24s; }
+.why-arrow { width: 1rem; height: 1rem; flex-shrink: 0; translate: 0; transition: translate .24s; }
+.why-link:hover, .why-link:focus-visible { background: var(--color-dark-teal); color: var(--color-white); }
+.why-link:hover .why-arrow, .why-link:focus-visible .why-arrow { translate: 3px; }
+.why-link:focus-visible { outline: 2px solid var(--color-teal); outline-offset: 5px; }
+.why-drawing { position: absolute; left: 0; bottom: 1.5rem; width: clamp(7rem, 14vw, 14rem); height: auto; pointer-events: none; stroke: var(--color-teal); stroke-width: .75; opacity: .18; }
+.drawing-path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+@media (width < 768px) {
+  .why-howell { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .why-copy { grid-row: 1; padding: clamp(3rem, 8vw, 4.5rem) var(--page-gutter); }
+  .why-content { max-width: 36rem; }
+  h2 { font-size: clamp(2rem, 6.3vw, 2.8rem); margin-bottom: 1.4rem; }
+  .why-body { font-size: .9375rem; }
+  .body-mask, .body-mask > span { display: inline; }
+  .why-image-mask { aspect-ratio: 4 / 3; }
+  .why-image { object-position: 50% 62%; }
+  .why-drawing { bottom: .6rem; width: 6rem; }
+  .drawing-datum { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .why-link, .why-arrow { transition: none; } }

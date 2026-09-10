@@ -1,58 +1,59 @@
-import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnDestroy, PLATFORM_ID, ViewChild, inject } from '@angular/core';
-import * as THREE from 'three';
-import { APP_CONFIG } from '../../../../core/config/app-config';
-import { disposeObject } from '../../../../core/three/three-dispose.util';
+import { Component, ElementRef, Injector, OnDestroy, ViewChild, afterNextRender, inject, signal } from '@angular/core';
+import type { HeroSceneController } from './hero-scene.controller';
 
 @Component({ selector: 'app-home-hero-three', templateUrl: './home-hero-three.component.html', styleUrl: './home-hero-three.component.scss' })
-export class HomeHeroThreeComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('canvas', { static: true }) private readonly canvas!: ElementRef<HTMLCanvasElement>;
-  private readonly platformId = inject(PLATFORM_ID);
-  private renderer: THREE.WebGLRenderer | null = null;
-  private scene: THREE.Scene | null = null;
-  private camera: THREE.PerspectiveCamera | null = null;
-  private structure: THREE.Group | null = null;
-  private frameId: number | null = null;
-  private lastFrame = 0;
-  private resizeObserver: ResizeObserver | null = null;
-  private visibilityObserver: IntersectionObserver | null = null;
-  private visible = true;
-  private reducedMotion = false;
+export class HomeHeroThreeComponent implements OnDestroy {
+  @ViewChild('stage', { static: true }) private stage!: ElementRef<HTMLElement>;
+  private readonly injector = inject(Injector);
+  protected readonly ready = signal(false);
+  private controller?: HeroSceneController;
+  private motion?: MediaQueryList;
+  private mobile?: MediaQueryList;
+  private frame: number | null = null;
+  private generation = 0;
+  private destroyed = false;
+  private readonly modeChanged = (): void => { this.reset(); this.schedule(); };
 
-  ngAfterViewInit(): void { if (!isPlatformBrowser(this.platformId)) return; this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; this.initialize(); }
-
-  private initialize(): void {
-    const container = this.canvas.nativeElement.parentElement;
-    if (!container) return;
-    try {
-      this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas.nativeElement, antialias: true, alpha: true, powerPreference: 'high-performance' });
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      this.scene = new THREE.Scene();
-      this.camera = new THREE.PerspectiveCamera(45, container.clientWidth / Math.max(container.clientHeight, 1), .1, 1000);
-      this.camera.position.set(0, .2, 8);
-      this.structure = this.createStructure();
-      this.scene.add(this.structure);
-      this.resizeObserver = new ResizeObserver(() => this.resize()); this.resizeObserver.observe(container);
-      this.visibilityObserver = new IntersectionObserver(([entry]) => { this.visible = entry.isIntersecting; if (this.visible && !this.reducedMotion) this.startLoop(); }); this.visibilityObserver.observe(container);
-      this.resize(); this.render(); if (!this.reducedMotion) this.startLoop();
-    } catch { this.renderer?.dispose(); this.renderer = null; }
-  }
-
-  private createStructure(): THREE.Group {
-    const group = new THREE.Group();
-    const material = new THREE.LineBasicMaterial({ color: APP_CONFIG.visualColors.teal, transparent: true, opacity: .72 });
-    const redMaterial = new THREE.LineBasicMaterial({ color: APP_CONFIG.visualColors.red, transparent: true, opacity: .9 });
-    [{ width: 2.3, height: 3.7, depth: 1.1, x: -1.3, y: 0 }, { width: 1.55, height: 5.2, depth: 1.1, x: .25, y: .65 }, { width: 2.1, height: 2.7, depth: 1.1, x: 1.75, y: -.45 }].forEach((building, index) => {
-      const geometry = new THREE.BoxGeometry(building.width, building.height, building.depth); const edges = new THREE.EdgesGeometry(geometry); geometry.dispose();
-      const lines = new THREE.LineSegments(edges, index === 1 ? redMaterial : material); lines.position.set(building.x, building.y, 0); group.add(lines);
+  constructor() {
+    afterNextRender(() => {
+      this.motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.mobile = window.matchMedia('(max-width: 48rem)');
+      this.motion.addEventListener('change', this.modeChanged);
+      this.mobile.addEventListener('change', this.modeChanged);
+      this.schedule();
     });
-    return group;
   }
-
-  private startLoop(): void { if (this.frameId === null) this.frameId = requestAnimationFrame(time => this.animate(time)); }
-  private animate(time: number): void { this.frameId = null; if (!this.visible || !this.structure) return; if (time - this.lastFrame < 33) { this.startLoop(); return; } this.lastFrame = time; this.structure.rotation.y = Math.sin(time * .00012) * .16; this.structure.rotation.x = Math.sin(time * .00008) * .035; this.render(); this.startLoop(); }
-  private render(): void { if (this.renderer && this.scene && this.camera) this.renderer.render(this.scene, this.camera); }
-  private resize(): void { const container = this.canvas.nativeElement.parentElement; if (!container || !this.renderer || !this.camera) return; this.renderer.setSize(container.clientWidth, container.clientHeight, false); this.camera.aspect = container.clientWidth / Math.max(container.clientHeight, 1); this.camera.updateProjectionMatrix(); this.render(); }
-
-  ngOnDestroy(): void { if (this.frameId !== null) cancelAnimationFrame(this.frameId); this.resizeObserver?.disconnect(); this.visibilityObserver?.disconnect(); if (this.structure) disposeObject(this.structure); this.renderer?.dispose(); this.frameId = null; this.structure = null; this.scene = null; this.camera = null; this.renderer = null; }
+  private schedule(): void {
+    // SSR, mobile, reduced motion and data-saving devices retain the same composed
+    // SVG. No WebGL bundle is requested until after essential content has painted.
+    const capability = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
+    if (this.destroyed || this.motion?.matches || this.mobile?.matches || capability.connection?.saveData || (capability.deviceMemory !== undefined && capability.deviceMemory <= 2)) return;
+    const generation = this.generation;
+    const started = performance.now();
+    this.frame = requestAnimationFrame(() => {
+      this.frame = requestAnimationFrame(() => {
+        this.frame = null;
+        void import('./hero-scene.controller').then(({ HeroSceneController }) => {
+          if (this.destroyed || generation !== this.generation) return;
+          try {
+            this.controller = new HeroSceneController(this.stage.nativeElement, this.injector, ready => this.ready.set(ready));
+            this.controller.initialize(performance.now() - started < 800);
+          } catch { this.controller?.destroy(); this.ready.set(false); }
+        }).catch(() => this.ready.set(false));
+      });
+    });
+  }
+  private reset(): void {
+    this.generation++;
+    if (this.frame !== null) cancelAnimationFrame(this.frame);
+    this.frame = null;
+    this.controller?.destroy(); this.controller = undefined;
+    this.ready.set(false);
+  }
+  ngOnDestroy(): void {
+    this.destroyed = true;
+    this.reset();
+    this.motion?.removeEventListener('change', this.modeChanged);
+    this.mobile?.removeEventListener('change', this.modeChanged);
+  }
 }
