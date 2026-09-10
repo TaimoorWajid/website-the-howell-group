@@ -1,0 +1,19 @@
+<header class="site-header" [class.mega-open]="active()">
+  <a class="brand" routerLink="/" aria-label="The Howell Group home">The Howell Group</a>
+  <nav aria-label="Primary navigation">
+    @for (menu of menus(); track menu.id) {
+      <div class="nav-item" [class.route-active]="router.isActive(menu.path, false) || (menu.id === 'about' && router.isActive('/careers', false))">
+        <button type="button" [id]="'trigger-' + menu.id" [class.selected]="active()?.id === menu.id && !closing()" [attr.aria-expanded]="active()?.id === menu.id && !closing()" [attr.aria-controls]="'mega-' + menu.id" (click)="toggle(menu, $event)" (keydown.arrowdown)="active()?.id === menu.id ? enterPanel($event) : toggle(menu, $event)" (keydown.tab)="tabIntoPanel($event, menu.id)">{{ menu.label }} <span class="chevron" aria-hidden="true"></span></button>
+      </div>
+    }
+    <a routerLink="/contact" routerLinkActive="route-active" ariaCurrentWhenActive="page">Contact</a>
+    <a class="project-cta" routerLink="/contact">Start your project <app-navigation-icon name="arrow" /></a>
+  </nav>
+  <button class="menu-button" type="button" aria-label="Open navigation" aria-haspopup="dialog" aria-controls="primary-navigation" (click)="mobileNavigation.open()" [attr.aria-expanded]="menuOpen()"><app-navigation-icon name="menu" /><span>Menu</span></button>
+  @for (menu of menus(); track menu.id) {
+    <div class="mega-shell" [id]="'mega-' + menu.id" [attr.aria-labelledby]="'trigger-' + menu.id" [hidden]="active()?.id !== menu.id" [attr.inert]="closing() || active()?.id !== menu.id ? '' : null" data-lenis-prevent>
+      @if (active()?.id === menu.id) { <app-mega-menu [config]="active()!" /> }
+    </div>
+  }
+</header>
+<app-mobile-navigation #mobileNavigation [menus]="menus()" (openedChange)="menuOpen.set($event)" (insightsRequested)="loadInsight()" />

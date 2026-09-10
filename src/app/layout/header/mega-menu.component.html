@@ -1,0 +1,21 @@
+<div class="mega-inner">
+  <div class="menu-heading"><div><p class="eyebrow">{{ config.label }}</p><h2>{{ config.introduction }}</h2></div><a class="overview" [routerLink]="config.path">Explore {{ config.label }} <app-navigation-icon name="arrow" /></a></div>
+  <div class="menu-grid">
+    @for (section of config.sections; track section.title) {
+      <section class="menu-section" [attr.aria-label]="section.title">
+        <h3 class="eyebrow">{{ section.title }}</h3>
+        @for (item of section.items; track item.title) {
+          <a class="menu-link" [routerLink]="item.route" routerLinkActive="current" ariaCurrentWhenActive="page">
+            <app-navigation-icon class="item-icon" [name]="item.icon" />
+            <span><span class="item-title">{{ item.title }}</span><span class="description">{{ item.description }}</span></span><app-navigation-icon class="item-arrow" name="arrow" />
+          </a>
+        }
+      </section>
+    }
+    <a class="feature" [routerLink]="config.feature.route">
+      <img [src]="config.feature.image" [alt]="config.feature.alt" width="640" height="720" loading="lazy" decoding="async" />
+      <div class="feature-copy"><p class="eyebrow">{{ config.feature.eyebrow }}</p>@if (config.feature.date) { <p class="feature-date">{{ config.feature.date }}</p> }<h3>{{ config.feature.title }}</h3>@if (config.feature.description) { <p>{{ config.feature.description }}</p> }<span class="feature-cta">{{ config.feature.cta }} <app-navigation-icon name="arrow" /></span></div>
+    </a>
+  </div>
+  <div class="menu-footer"><span>The Howell Group <span aria-hidden="true"> / </span> Building what matters.</span><a routerLink="/contact">Start your project <app-navigation-icon name="arrow" /></a></div>
+</div>

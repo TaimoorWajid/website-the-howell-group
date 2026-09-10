@@ -1,0 +1,39 @@
+<dialog #dialog id="primary-navigation" class="mobile-dialog" aria-label="The Howell Group navigation" (cancel)="cancel($event)" (close)="cleanup()" (keydown)="containTab($event)" data-lenis-prevent>
+  <div class="mobile-header">
+    <a class="mobile-brand" routerLink="/" aria-label="The Howell Group home" (click)="followLink()">The Howell Group</a>
+    <button class="mobile-close" type="button" aria-label="Close navigation" autofocus (click)="close()"><app-navigation-icon name="close" /></button>
+  </div>
+  <div class="mobile-content">
+    <p class="eyebrow">Explore Howell</p>
+    <nav aria-label="Mobile navigation">
+      @for (menu of menus; track menu.id) {
+        <div class="mobile-category" [class.route-active]="router.isActive(menu.path, false) || (menu.id === 'about' && router.isActive('/careers', false))">
+          <button type="button" class="primary-row" [id]="'mobile-trigger-' + menu.id" [attr.aria-expanded]="expanded() === menu.id" [attr.aria-controls]="'mobile-section-' + menu.id" (click)="toggle(menu.id)">
+            <span>{{ menu.label }}</span><app-navigation-icon [name]="expanded() === menu.id ? 'minus' : 'plus'" />
+          </button>
+          <div class="accordion" [id]="'mobile-section-' + menu.id" [attr.aria-labelledby]="'mobile-trigger-' + menu.id" [hidden]="expanded() !== menu.id">
+            <a class="overview" [routerLink]="menu.path" (click)="followLink()">Explore {{ menu.label }}<app-navigation-icon name="arrow" /></a>
+            @for (section of menu.sections; track section.title) {
+              <section [attr.aria-label]="section.title">
+                <h2 class="eyebrow">{{ section.title }}</h2>
+                @for (item of section.items; track item.title) {
+                  <a class="submenu-link" [routerLink]="item.route" routerLinkActive="current" ariaCurrentWhenActive="page" (click)="followLink()">
+                    <app-navigation-icon class="item-icon" [name]="item.icon" />
+                    <span class="item-copy"><span>{{ item.title }}</span><span class="description">{{ item.description }}</span></span>
+                    <app-navigation-icon class="direction" name="arrow" />
+                  </a>
+                }
+              </section>
+            }
+            <a class="overview feature-link" [routerLink]="menu.feature.route" (click)="followLink()">{{ menu.feature.cta }}<app-navigation-icon name="arrow" /></a>
+          </div>
+        </div>
+      }
+      <a class="primary-row contact-row" routerLink="/contact" routerLinkActive="current" ariaCurrentWhenActive="page" (click)="followLink()">Contact<app-navigation-icon name="arrow" /></a>
+    </nav>
+    <div class="mobile-footer">
+      <a class="mobile-cta" routerLink="/contact" (click)="followLink()">Start your project<app-navigation-icon name="arrow" /></a>
+      <p>Building what matters.</p>
+    </div>
+  </div>
+</dialog>

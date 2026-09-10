@@ -1,0 +1,26 @@
+:host { display: block; position: relative; z-index: 10; }
+.site-header { position: relative; align-items: center; display: flex; gap: 1.5rem; justify-content: space-between; padding: 1.25rem var(--page-gutter); transition: background-color .2s, color .2s; }
+.brand { flex-shrink: 0; color: var(--color-charcoal); font-family: var(--font-display); font-size: 1rem; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+nav { display: flex; align-items: center; gap: clamp(.7rem, 1.5vw, 1.5rem); }
+nav a, nav button { color: var(--color-charcoal); font: inherit; font-size: .75rem; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
+nav button { cursor: pointer; border: 0; background: transparent; padding: .6rem 0; white-space: nowrap; }
+.chevron { display: inline-block; width: 5px; height: 5px; border-right: 1px solid; border-bottom: 1px solid; transform: translateY(-2px) rotate(45deg); margin-left: .35rem; }
+.selected .chevron { transform: rotate(225deg); }
+.nav-item { position: relative; }
+.nav-item::after { position: absolute; content: ''; bottom: 0; left: 0; right: 0; height: 2px; background: var(--color-teal); transform: scaleX(0); transition: transform .2s; }
+.nav-item:has(.selected)::after, .nav-item.route-active::after { transform: scaleX(1); }
+nav > .route-active { text-decoration: underline; text-underline-offset: .4rem; }
+.project-cta { border: 1px solid currentColor; padding: .65rem .8rem; white-space: nowrap; }
+.project-cta app-navigation-icon { margin-left: .65rem; width: .9rem; height: .9rem; }
+.mega-open { background: var(--color-darkest-teal); }
+.mega-open .brand, .mega-open nav a, .mega-open nav button { color: var(--color-off-white); }
+.mega-open .nav-item::after { background: #83bdb8; }
+.mega-shell { position: absolute; top: 100%; left: 0; right: 0; max-height: var(--menu-available-height, 80dvh); overflow-y: auto; overscroll-behavior: contain; box-shadow: 0 22px 35px #061f1f24; }
+[hidden] { display: none !important; }
+.menu-button { background: transparent; border: 1px solid var(--color-charcoal); color: var(--color-charcoal); cursor: pointer; display: none; align-items: center; gap: .5rem; min-width: 44px; min-height: 44px; padding: .65rem .8rem; }
+nav button, nav > a { min-height: 44px; display: inline-flex; align-items: center; }
+nav button:hover, nav > a:hover { color: var(--color-teal); }
+.mega-open nav button:hover, .mega-open nav > a:hover { color: #a3d8d0; }
+.mega-open :focus-visible { outline-color: #a3d8d0; }
+@media (max-width: 64rem) { .site-header { gap: 1rem; } nav { gap: .8rem; } nav a, nav button { font-size: .65rem; letter-spacing: .06em; } nav .project-cta { display: none; } }
+@media (width < 768px) { .site-header > nav, .mega-shell { display: none; } .menu-button { display: inline-flex; } }
