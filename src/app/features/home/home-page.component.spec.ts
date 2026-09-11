@@ -33,6 +33,8 @@ describe('HomePageComponent', () => {
     expect(page.querySelector('app-featured-projects h2')).toBeTruthy();
     expect(page.querySelector('app-scroll-reveal-grid-cards')).toBeTruthy();
     expect(page.querySelector('#services-title')).toBeTruthy();
+    expect(page.querySelector('app-services-experience')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-people-before-process');
+    expect(page.querySelector('app-people-before-process')?.nextElementSibling?.id || page.querySelector('app-people-before-process')?.nextElementSibling?.querySelector('h2')?.id).toBe('insights-title');
     expect(page.querySelector('#cta-title')).toBeTruthy();
   });
 });

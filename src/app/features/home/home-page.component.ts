@@ -1,3 +1,5 @@
+import { PeopleBeforeProcessComponent } from './components/people-before-process/people-before-process.component';
+import { ServicesExperienceComponent } from './components/services-experience/services-experience.component';
 import { WhyHowellSectionComponent } from './components/why-howell-section/why-howell-section.component';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 import { isPlatformBrowser } from '@angular/common';
@@ -15,11 +17,11 @@ import { FeaturedProjectsComponent } from '../../shared/components/featured-proj
 import { FEATURED_PROJECT_SAMPLES } from '../../shared/components/featured-projects/featured-projects.data';
 import { FeaturedProject } from '../../shared/components/featured-projects/featured-projects.types';
 
-interface ServiceItem { name: string; description: string; }
+
 
 @Component({
   selector: 'app-home-page',
-  imports: [WhyHowellSectionComponent, HomeHeroComponent, RouterLink, RevealDirective, ScrollRevealGridCardsComponent, FeaturedProjectsComponent],
+  imports: [PeopleBeforeProcessComponent, ServicesExperienceComponent, WhyHowellSectionComponent, HomeHeroComponent, RouterLink, RevealDirective, ScrollRevealGridCardsComponent, FeaturedProjectsComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
@@ -48,7 +50,6 @@ export class HomePageComponent {
   protected readonly insights = signal<ReadonlyArray<Insight>>([]);
   protected readonly projectsLoading = signal(true);
   protected readonly insightsLoading = signal(true);
-  protected readonly activeService = signal(0);
   protected readonly scrollRevealCards: ReadonlyArray<ScrollRevealCard> = [
     { number: '01', title: 'Material', description: 'The quiet language of concrete, steel, timber and light.', image: 'https://images.unsplash.com/photo-1531835551805-16d864c8d311?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Light across a concrete interior' },
     { number: '02', title: 'Structure', description: 'Precision made visible through line, weight and proportion.', image: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85', imageAlt: 'Geometric architectural facade' },
@@ -60,13 +61,7 @@ export class HomePageComponent {
     { id: 'insight-placeholder-02', slug: 'material-and-memory', title: 'Material and memory', excerpt: 'Temporary editorial insight placeholder.', date: 'Journal', image: { src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85', alt: 'Quiet modern interior with natural materials' } },
     { id: 'insight-placeholder-03', slug: 'the-long-view', title: 'The long view', excerpt: 'Temporary editorial insight placeholder.', date: 'Journal', image: { src: 'https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&w=1000&q=85', alt: 'Architectural structure against an open sky' } }
   ];
-  protected readonly serviceItems: ReadonlyArray<ServiceItem> = [
-    { name: 'Construction', description: 'Delivery with discipline, from groundworks to handover.' },
-    { name: 'Development', description: 'Clear thinking around opportunity, context and long-term value.' },
-    { name: 'Design + Build', description: 'A joined-up process where intent survives into detail.' },
-    { name: 'Project Management', description: 'Calm, rigorous leadership across every moving part.' },
-    { name: 'Advisory', description: 'An experienced perspective when the decisions matter most.' }
-  ];
+
 
   constructor() {
     this.seo.update({ title: 'Howell Group | Premium Construction & Development', description: 'Howell Group delivers premium construction, development and project leadership for enduring places, from first concept through final detail and handover.', canonicalPath: '/' });

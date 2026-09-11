@@ -1,0 +1,23 @@
+<section #root class="services-experience" aria-labelledby="services-title">
+  <div #viewport class="services-viewport">
+    <div class="services-grid">
+      <div class="services-intro">
+        <p class="eyebrow">OUR SERVICES</p>
+        <h2 id="services-title"><span class="heading-line"><span>One team from </span></span><span class="heading-line"><span>first question to </span></span><span class="heading-line"><span>final handoff.</span></span></h2>
+      </div>
+      <div class="architectural-visual" aria-hidden="true">
+        <img src="/images/services/coordinated-building.svg" width="700" height="800" alt="" [class.model-ready]="modelReady()" />
+        <div #visual class="model-canvas"></div>
+      </div>
+      <div class="service-list">
+        @for (service of services; track service.number; let i = $index) {
+          <a class="service-row" [class.is-active]="activeServiceIndex() === i" [attr.data-stage]="i" [routerLink]="service.route" (mouseenter)="preview(i, 'hover')" (mouseleave)="preview(null, 'hover')" (focus)="preview(i, 'focus')" (blur)="preview(null, 'focus')">
+            <span class="service-number">{{ service.number }}</span>
+            <span class="service-copy"><span class="service-title">{{ service.title }}</span><span class="service-description">{{ service.description }}</span></span>
+            <span class="service-arrow" aria-hidden="true">↗</span>
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</section>
