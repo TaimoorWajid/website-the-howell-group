@@ -1,0 +1,19 @@
+<app-services-hero />
+<app-service-story />
+<section class="mission" aria-labelledby="mission-title">
+  <div class="mission-visual" aria-hidden="true"><img src="/images/projects/project-04.jpg" width="1600" height="1068" loading="lazy" decoding="async" alt="" /></div>
+  <div class="mission-statements"><h2 id="mission-title">The mission<br />stays in view.</h2><p>Even as the project<br />moves forward.</p><span>People. Decisions. Delivery.</span></div>
+</section>
+<app-services-capabilities />
+<section class="engagement section-shell" aria-labelledby="engagement-title">
+  <div class="engagement-intro"><p class="eyebrow">HOW WE ENGAGE</p><h2 id="engagement-title">Start where you are.</h2><p class="body">Every project is different. Our role is to meet you at the right point, bring clarity, and help you move forward with confidence.</p><a class="red-button" routerLink="/contact">DISCUSS YOUR PROJECT <span aria-hidden="true">↗</span></a></div>
+  <div class="accordion" [class.enhanced]="enhanced()">
+    @for (stage of stages; track stage.number; let i = $index) {
+      <div class="accordion-item" [class.is-open]="opened() === i">
+        <h3><button type="button" [id]="'engagement-button-' + i" [attr.aria-expanded]="!enhanced() || opened() === i" [attr.aria-controls]="'engagement-panel-' + i" (click)="toggle(i)" (keydown)="accordionKey($event,i)"><span class="accordion-number">{{stage.number}} /</span>{{stage.title}}<span class="accordion-symbol" aria-hidden="true">{{!enhanced() || opened() === i ? '−' : '+'}}</span></button></h3>
+        <div class="accordion-panel" [id]="'engagement-panel-' + i" role="region" [attr.aria-labelledby]="'engagement-button-' + i" [attr.inert]="enhanced() && opened() !== i ? '' : null"><div><p>{{stage.body}}</p></div></div>
+      </div>
+    }
+  </div>
+</section>
+<section class="closing" aria-labelledby="closing-title"><img src="/images/why-howell/concrete-interior.webp" width="1400" height="933" loading="lazy" decoding="async" alt="" /><div class="closing-copy section-shell"><p class="eyebrow">LET'S MOVE FORWARD</p><h2 id="closing-title">Let's make the next<br />decision a better one.</h2><p class="body">Tell us where your project stands and what needs to happen next.</p><a class="red-button" routerLink="/contact">START YOUR PROJECT <span aria-hidden="true">↗</span></a></div></section>

@@ -1,0 +1,5 @@
+<section class="capabilities" aria-labelledby="capabilities-title"><p class="eyebrow">OUR CAPABILITIES</p><h2 id="capabilities-title">Keep the priorities connected.</h2><p class="intro">An owner's perspective, at every stage.</p><div class="capabilities-grid">
+  @for (item of capabilities; track item.number) {
+    <article class="capability"><img [src]="item.image" width="1000" height="600" loading="lazy" decoding="async" alt="" /><div class="card-content"><span class="number">{{item.number}}</span><h3>{{item.title}}</h3><p>{{item.body}}</p></div></article>
+  }
+</div></section>

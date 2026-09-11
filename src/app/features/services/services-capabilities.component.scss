@@ -1,0 +1,18 @@
+:host { display: block; background: var(--color-off-white); }
+.capabilities { max-width: var(--content-max-width); margin: auto; padding: clamp(4rem,7vw,7rem) var(--page-gutter); }
+.eyebrow { color: var(--color-muted); font-size: .7rem; letter-spacing: .12em; margin: 0 0 1rem; }
+h2 { font-family: var(--font-display); font-size: clamp(2.2rem,4vw,4rem); font-weight: 400; letter-spacing: -.055em; line-height: 1.08; margin: 0 0 .7rem; }
+.intro { margin: 0 0 2rem; font-size: 1.1rem; }
+.capabilities-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; }
+.capability { position: relative; overflow: hidden; isolation: isolate; background: var(--color-darkest-teal); color: white; min-height: 19rem; border: 1px solid #ffffff30; border-radius: 2px; transform: perspective(900px) rotateX(0) rotateY(0); transition: transform .3s ease; }
+.capability img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; transition: transform .4s; }
+.capability::before { content: ''; position: absolute; inset: 0; z-index: -2; background: linear-gradient(105deg,#061f1ff2,#061f1f9e); }
+.capability::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at var(--light-x,50%) var(--light-y,50%),#438b822b,transparent 55%); opacity: 0; transition: opacity .3s; }
+.card-content { padding: 2rem; }
+.number { font-family: var(--font-display); font-size: 4rem; font-weight: 300; line-height: 1; }
+h3 { font-size: 1.5rem; font-weight: 400; margin: 1.5rem 0 .7rem; }
+.card-content p { line-height: 1.5; margin: 0; max-width: 21rem; }
+.pointer-active { transform: perspective(900px) translateY(-4px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)); }
+.pointer-active img { transform: scale(1.025); }.pointer-active::after { opacity: 1; }
+@media (max-width: 47.999rem) { .capabilities-grid { grid-template-columns: 1fr; } .capability { min-height: 18rem; } }
+@media (prefers-reduced-motion: reduce) { .capability,.capability img,.capability::after { transition: none; transform: none; } }
