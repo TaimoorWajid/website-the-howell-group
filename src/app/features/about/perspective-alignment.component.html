@@ -1,0 +1,15 @@
+<section aria-labelledby="alignment-title"><div class="alignment-viewport">
+  <div class="alignment-grid">
+    <nav class="perspective-rail" aria-label="Perspectives">
+      @for (chapter of chapters; track chapter.number; let i = $index) {
+        <button type="button" [class.is-active]="active() === i" [attr.aria-current]="active() === i ? 'step' : null" (click)="select(i)"><span>{{ chapter.number }} /</span> {{ chapter.label }}</button>
+      }
+    </nav>
+    <div class="alignment-copy"><h2 id="alignment-title">Different perspectives.<br />One shared direction.</h2><div class="perspective-chapters">
+      @for (chapter of chapters; track chapter.number; let i = $index) {
+        <article class="perspective-chapter" [id]="'perspective-' + i" [class.is-active]="active() === i"><p class="chapter-label">{{ chapter.number }} / {{ chapter.label }}</p><h3>{{ chapter.title }}</h3><p>{{ chapter.body }}</p></article>
+      }
+    </div></div>
+    <div class="alignment-visual" aria-hidden="true"><img src="/images/about/perspective-alignment.svg" width="900" height="700" alt="" [class.ready]="ready()" /><div class="alignment-canvas"></div></div>
+  </div>
+</div></section>

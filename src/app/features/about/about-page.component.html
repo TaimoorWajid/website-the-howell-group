@@ -1,0 +1,41 @@
+<section class="about-hero" aria-labelledby="about-page-title">
+  <div class="hero-image-mask" aria-hidden="true"><img class="hero-photo" src="/images/projects/project-01.jpg" width="1600" height="1067" alt="" fetchpriority="high" decoding="async" /></div>
+  <div class="hero-content section-shell">
+    <p class="eyebrow hero-eyebrow">ABOUT THE HOWELL GROUP</p>
+    <h1 id="about-page-title"><span class="hero-line"><span>Built around people. </span></span><span class="hero-line hero-line--light"><span>United by purpose.</span></span></h1>
+    <div class="hero-bottom"><a class="discover-link" href="#about-purpose" (click)="discover($event)">SCROLL TO DISCOVER <span aria-hidden="true"></span></a><p class="hero-body">We bring people, perspective and project leadership together around the owner's mission.</p></div>
+  </div>
+</section>
+
+<section id="about-purpose" class="purpose section-shell" aria-labelledby="purpose-title">
+  <div class="purpose-aside"><p class="eyebrow">OUR REASON FOR BEING</p><div class="purpose-image-mask"><img class="purpose-image" src="/images/projects/project-02.jpg" width="900" height="1100" loading="lazy" decoding="async" alt="" /></div></div>
+  <h2 id="purpose-title" tabindex="-1"><span class="purpose-phrase">Before the plans. </span><span class="purpose-phrase">Before the process. </span><span class="purpose-phrase">There is a purpose.</span></h2>
+  <p class="purpose-body">Our role is to understand that purpose—and bring the right people together to move it forward.</p>
+</section>
+
+<app-perspective-alignment />
+
+<section class="founders section-shell" aria-labelledby="founders-title">
+  <div class="founder-intro"><h2 id="founders-title">The people who<br />started it.</h2><span class="fine-rule" aria-hidden="true"></span><p>Founded by Marc Howell and Eric Laurin, The Howell Group brings an owner's perspective to project leadership.</p></div>
+  <article class="founder-profile"><div class="portrait portrait--marc"><span>Portrait forthcoming.</span></div><h3>Marc Howell</h3><p>Co-founder</p></article>
+  <article class="founder-profile founder-profile--offset"><div class="portrait portrait--eric"><span>Portrait forthcoming.</span></div><h3>Eric Laurin</h3><p>Co-founder</p></article>
+  <p class="founder-note"><span class="fine-rule" aria-hidden="true"></span>Shared purpose.<br />Personal commitment.</p>
+</section>
+
+<section class="values-section" aria-labelledby="values-title">
+  <div class="section-shell"><h2 id="values-title">Principles you can work with.</h2></div>
+  <div class="values-gallery" (pointerleave)="hoveredValue.set(null)">
+    @for (value of values; track value.number; let i = $index) {
+      <button class="value-panel" type="button" [class.is-active]="displayedValue() === i" [style.flex-grow]="displayedValue() === i ? 1.3 : 1" [attr.aria-pressed]="selectedValue() === i" (pointerenter)="previewValue($event,i)" (focus)="selectValue(i)" (click)="selectValue(i)">
+        <img [src]="value.image" width="900" height="1100" alt="" loading="lazy" decoding="async" /><span class="value-content"><span class="value-number">{{ value.number }} /</span><span class="value-title">{{ value.title }}</span><span class="value-rule" aria-hidden="true"></span><span class="value-body">{{ value.body }}</span></span>
+      </button>
+    }
+  </div>
+</section>
+
+<section class="photo-essay section-shell" aria-labelledby="essay-title">
+  <div class="essay-copy"><h2 id="essay-title">The work is complex.<br />The relationship<br />should be clear.</h2><span class="red-rule" aria-hidden="true"></span><p>Open communication, shared understanding and respect for the people involved shape how we work together.</p><a class="text-link" routerLink="/services">EXPLORE OUR SERVICES <span aria-hidden="true">↗</span></a></div>
+  <div class="essay-images" aria-hidden="true"><div class="essay-mask essay-mask--wide"><img class="essay-image" src="/images/projects/project-04.jpg" width="1600" height="1068" loading="lazy" decoding="async" alt="" /></div><div class="essay-mask essay-mask--detail"><img class="essay-image" src="/images/why-howell/concrete-interior.webp" width="1400" height="933" loading="lazy" decoding="async" alt="" /></div><div class="essay-mask essay-mask--garden"><img class="essay-image" src="/images/projects/project-03.jpg" width="1200" height="1600" loading="lazy" decoding="async" alt="" /></div></div>
+</section>
+
+<section class="about-closing" aria-labelledby="about-closing-title"><img class="closing-photo" src="/images/why-howell/concrete-interior.webp" width="1400" height="933" loading="lazy" decoding="async" alt="" /><div class="closing-content section-shell"><span class="together-word" aria-hidden="true">TOGETHER</span><h2 id="about-closing-title">Tell us what matters to you.</h2><p>Let's talk about the project, the people and the path ahead.</p><div class="closing-action"><span class="red-rule" aria-hidden="true"></span><a class="outline-button" routerLink="/contact">START A CONVERSATION <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a></div></div></section>

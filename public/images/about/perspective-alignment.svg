@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" fill="none">
+  <path d="M68 520 558 424 845 535 341 653Z" fill="#143c38" stroke="#527870"/>
+  <path d="m167 296 422-89 160 65v278l-422 88-160-64Z" fill="#0c302e"/>
+  <path d="m167 296 422-89 160 65-422 89Z" fill="#aabbb1"/>
+  <path d="m167 306 160 66v243l-160-63Z" fill="#4b7570" fill-opacity=".5" stroke="#9abdb2"/>
+  <path d="m327 372 422-89v254l-422 88Z" fill="#548c88" fill-opacity=".3" stroke="#c2d8cf" stroke-width="2"/>
+  <path d="m327 491 422-89m-422 206 422-89M467 343v253M608 313v254M187 314v244M248 338v243M347 368v252M729 287v253" stroke="#c1d4c9" stroke-width="3"/>
+  <path d="M397 357v251M537 327v251M679 297v251m-492-110 140 57" stroke="#88b1a8"/>
+  <path d="m314 368 13 4v253l-13-5Zm140-30 13-3v255l-13 3Zm141-30 13-3v255l-13 3Zm141-30 13-3v263l-13 3Z" fill="#a4b8ac"/>
+  <path d="m157 552 170 73 432-92v14l-432 90-170-73Z" fill="#8fa59a"/>
+  <path d="m167 296 160 65v11l-160-66Zm160 65 422-89v11l-422 89Z" fill="#d1d9cb"/>
+  <path d="m327 648 432-90M137 579l161 71" stroke="#73988c" stroke-opacity=".45"/>
+</svg>
