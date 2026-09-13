@@ -6,10 +6,11 @@ import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
 import { prefersReducedMotion } from '../../core/animations/animation.util';
 import { MegaMenuConfig } from './mega-menu.types';
 import { NavigationIconComponent } from './navigation-icon.component';
+import { BrandLogoComponent } from '../../shared/components/brand-logo.component';
 
 @Component({
   selector: 'app-mobile-navigation',
-  imports: [RouterLink, RouterLinkActive, NavigationIconComponent],
+  imports: [RouterLink, RouterLinkActive, NavigationIconComponent, BrandLogoComponent],
   templateUrl: './mobile-navigation.component.html',
   styleUrl: './mobile-navigation.component.scss'
 })

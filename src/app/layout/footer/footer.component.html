@@ -1,0 +1,37 @@
+<footer class="site-footer">
+  <div class="footer-shell">
+    @if (showInvitation()) {
+      <section class="invitation" aria-labelledby="footer-invitation-title">
+        <div><p class="eyebrow">LET'S TALK ABOUT WHAT'S NEXT</p><h2 id="footer-invitation-title">A clear next step starts with a conversation.</h2></div>
+        <a class="project-button" [routerLink]="links.contact">START YOUR PROJECT <span aria-hidden="true">&#8599;</span></a>
+      </section>
+    }
+    <div class="footer-content">
+      <div class="brand-column">
+        <a class="wordmark" [routerLink]="links.home" aria-label="The Howell Group home"><app-brand-logo [onDark]="true" /></a>
+        <svg class="architecture" viewBox="0 0 380 100" fill="none" stroke="currentColor" stroke-width=".8" aria-hidden="true" focusable="false">
+          <path d="M4 83H374M43 83V55L104 37L241 65M104 37V83M70 47V83M132 43V83M146 83V45L178 51V83M167 83V40L252 21L299 35V89M200 33V85M252 21V90M299 50L324 56M190 55V83M209 59V85M226 62V87M299 85H325M4 83L252 91H374" />
+        </svg>
+        <p class="brand-description">Owner-focused program, design and construction management, with experienced partnership from first question to final handoff.</p>
+      </div>
+      <nav class="explore-column" aria-labelledby="footer-explore-title">
+        <h2 class="eyebrow" id="footer-explore-title">EXPLORE</h2>
+        <ul>@for (link of links.explore; track link.route) { <li><a class="text-link" [routerLink]="link.route">{{ link.label }}</a></li> }</ul>
+      </nav>
+      <nav class="services-column" aria-labelledby="footer-services-title">
+        <h2 class="eyebrow" id="footer-services-title">OUR SERVICES</h2>
+        <ul>@for (link of links.services; track link.fragment) { <li><a class="text-link" [routerLink]="link.route" [fragment]="link.fragment">{{ link.label }}</a></li> }</ul>
+      </nav>
+      <section class="conversation" aria-labelledby="footer-conversation-title">
+        <h2 class="eyebrow" id="footer-conversation-title">START A CONVERSATION</h2>
+        <p>Tell us about your project and what matters most.</p>
+        <a class="text-link conversation-link" [routerLink]="links.contact">Contact our team <span aria-hidden="true">&#8599;</span></a>
+      </section>
+      <span class="outline-word" aria-hidden="true">HOWELL</span>
+    </div>
+    <div class="utility-row">
+      <p>&copy; {{ year }} The Howell Group.</p>
+      <button class="text-link" type="button" (click)="backToTop()">Back to top <span aria-hidden="true">&#8593;</span></button>
+    </div>
+  </div>
+</footer>

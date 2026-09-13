@@ -23,6 +23,17 @@ export class SmoothScrollService {
   start(): void { this.lenis?.start(); }
   scrollTo(target: string | number): void { this.lenis?.scrollTo(target); }
 
+  backToTop(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const view = this.document.defaultView;
+    if (!view) return;
+    // Focus without scrolling so that focus does not cause a second jump.
+    this.document.getElementById('main-content')?.focus({ preventScroll: true });
+    const reducedMotion = view.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (this.lenis) this.lenis.scrollTo(0, { immediate: reducedMotion });
+    else view.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' });
+  }
+
   destroy(): void {
     if (!this.lenis) return;
     this.lenis.off('scroll', ScrollTrigger.update);

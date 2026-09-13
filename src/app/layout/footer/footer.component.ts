@@ -1,10 +1,36 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { filter, map, startWith } from 'rxjs';
+import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
+import { FOOTER_LINKS } from './footer.data';
+import { BrandLogoComponent } from '../../shared/components/brand-logo.component';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink],
-  template: `<footer><p>&copy; {{ year }} The Howell Group</p><a routerLink="/contact">Start a conversation</a></footer>`,
-  styles: [`footer { align-items: center; background: var(--color-darkest-teal); border-top: 1px solid rgba(255,255,255,.08); color: rgba(255,255,255,.5); display: flex; justify-content: space-between; margin: 0; padding: 1.5rem var(--page-gutter); } footer a { color: rgba(255,255,255,.5); font-size: .75rem; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; } footer a:hover { color: var(--color-white); } p { color: inherit; font-size: .75rem; margin: 0; } @media (max-width: 48rem) { footer { align-items: flex-start; flex-direction: column; gap: 1rem; } }`]
+  imports: [RouterLink, BrandLogoComponent],
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss'
 })
-export class FooterComponent { protected readonly year = new Date().getFullYear(); }
+export class FooterComponent {
+  private readonly router = inject(Router);
+  private readonly scroll = inject(SmoothScrollService);
+  protected readonly year = new Date().getFullYear();
+  protected readonly links = FOOTER_LINKS;
+  protected readonly showInvitation = toSignal(this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd),
+    startWith(null),
+    map(() => {
+      let route = this.router.routerState.snapshot.root;
+      let show = true;
+      while (route) {
+        if (route.data['footerInvitation'] !== undefined) show = route.data['footerInvitation'];
+        if (!route.firstChild) break;
+        route = route.firstChild;
+      }
+      return show;
+    })
+  ), { requireSync: true });
+
+  protected backToTop(): void { this.scroll.backToTop(); }
+}

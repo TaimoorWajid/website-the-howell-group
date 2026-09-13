@@ -1,5 +1,5 @@
 <header class="site-header" [class.mega-open]="active()">
-  <a class="brand" routerLink="/" aria-label="The Howell Group home">The Howell Group</a>
+  <a class="brand" routerLink="/" aria-label="The Howell Group home"><app-brand-logo [onDark]="!!active()" /></a>
   <nav aria-label="Primary navigation">
     @for (menu of menus(); track menu.id) {
       <div class="nav-item" [class.route-active]="router.isActive(menu.path, false) || (menu.id === 'about' && router.isActive('/careers', false))">

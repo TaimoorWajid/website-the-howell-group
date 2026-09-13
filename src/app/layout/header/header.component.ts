@@ -10,8 +10,9 @@ import { MegaMenuConfig } from './mega-menu.types';
 import { MegaMenuComponent } from './mega-menu.component';
 import { MobileNavigationComponent } from './mobile-navigation.component';
 import { NavigationIconComponent } from './navigation-icon.component';
+import { BrandLogoComponent } from '../../shared/components/brand-logo.component';
 
-@Component({ selector: 'app-header', imports: [RouterLink, RouterLinkActive, MegaMenuComponent, MobileNavigationComponent, NavigationIconComponent], templateUrl: './header.component.html', styleUrl: './header.component.scss', host: { '(document:keydown.escape)': 'escape($event)', '(document:click)': 'outsideClick($event)', '(document:focusin)': 'outsideFocus($event)' } })
+@Component({ selector: 'app-header', imports: [RouterLink, RouterLinkActive, MegaMenuComponent, MobileNavigationComponent, NavigationIconComponent, BrandLogoComponent], templateUrl: './header.component.html', styleUrl: './header.component.scss', host: { '(document:keydown.escape)': 'escape($event)', '(document:click)': 'outsideClick($event)', '(document:focusin)': 'outsideFocus($event)' } })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   private readonly smoothScroll = inject(SmoothScrollService);
   private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);

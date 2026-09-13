@@ -1,6 +1,6 @@
 <dialog #dialog id="primary-navigation" class="mobile-dialog" aria-label="The Howell Group navigation" (cancel)="cancel($event)" (close)="cleanup()" (keydown)="containTab($event)" data-lenis-prevent>
   <div class="mobile-header">
-    <a class="mobile-brand" routerLink="/" aria-label="The Howell Group home" (click)="followLink()">The Howell Group</a>
+    <a class="mobile-brand" routerLink="/" aria-label="The Howell Group home" (click)="followLink()"><app-brand-logo [onDark]="true" /></a>
     <button class="mobile-close" type="button" aria-label="Close navigation" autofocus (click)="close()"><app-navigation-icon name="close" /></button>
   </div>
   <div class="mobile-content">

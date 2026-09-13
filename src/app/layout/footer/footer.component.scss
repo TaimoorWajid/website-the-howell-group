@@ -1,0 +1,53 @@
+:host { display: block; }
+.site-footer { background: var(--color-dark-teal); color: var(--color-white); }
+.footer-shell { max-width: var(--content-max-width); margin-inline: auto; padding-inline: var(--page-gutter); }
+a { color: inherit; text-decoration: none; }
+.eyebrow { font-family: var(--font-body); font-size: .75rem; font-weight: 400; line-height: 1.5; letter-spacing: .18em; margin-bottom: 1rem; }
+.invitation { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-block: 2rem; border-bottom: 1px solid rgb(255 255 255 / .45); }
+.invitation .eyebrow { margin-bottom: .5rem; }
+.invitation h2 { font-family: var(--font-body); font-size: clamp(1.4rem, 2vw, 1.8rem); line-height: 1.3; margin: 0; }
+.project-button { display: inline-flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 1rem; border: 1px solid rgb(255 255 255 / .75); padding: .9rem 1.25rem; font-size: .75rem; letter-spacing: .17em; }
+.project-button:hover { background: rgb(255 255 255 / .06); }
+.footer-content { position: relative; display: grid; grid-template-columns: 1.5fr .7fr minmax(16rem, 1.2fr) 1fr; gap: clamp(1.25rem, 2vw, 2rem); padding-block: 2.75rem 5.5rem; }
+.footer-content > :not(.outline-word) { min-width: 0; position: relative; z-index: 1; }
+.footer-content nav, .conversation { border-left: 1px solid rgb(255 255 255 / .45); padding-left: clamp(1.25rem, 2vw, 2rem); }
+.wordmark { display: inline-block; max-width: 100%; --brand-logo-width: 20rem; }
+.architecture { display: block; width: min(100%, 23rem); height: auto; margin-block: .5rem 1.25rem; color: rgb(255 255 255 / .65); }
+.brand-description { max-width: 25rem; margin: 0; }
+p { line-height: 1.55; }
+ul { list-style: none; margin: 0; padding: 0; }
+.text-link { display: inline-block; padding-block: .55rem; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .4rem; text-decoration-thickness: 1px; transition: text-decoration-color 180ms ease; }
+.text-link:hover, .text-link:focus-visible { text-decoration-color: currentColor; }
+.conversation p { margin-bottom: .3rem; }
+.conversation-link { text-decoration-color: var(--color-red); text-decoration-thickness: 2px; }
+a span, button span { display: inline-block; margin-left: .25rem; transition: transform 180ms ease; }
+a:hover span, a:focus-visible span { transform: translate(3px, -3px); }
+:is(a, button):focus-visible { outline: 2px solid var(--color-white); outline-offset: 5px; }
+.outline-word { position: absolute; bottom: .25rem; right: 0; color: transparent; -webkit-text-stroke: 1px rgb(255 255 255 / .23); font-family: var(--font-display); font-size: clamp(4rem, 8vw, 7rem); font-weight: 400; letter-spacing: .12em; line-height: 1; pointer-events: none; user-select: none; }
+.utility-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem 2rem; border-top: 1px solid rgb(255 255 255 / .45); padding-block: .7rem; font-size: .8125rem; }
+.utility-row p { margin: 0; }
+.utility-row button { background: none; border: 0; color: inherit; cursor: pointer; font: inherit; min-height: 44px; padding-inline: 0; }
+@media (max-width: 70rem) {
+  .footer-content { grid-template-columns: 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; }
+  .brand-column { grid-column: 1; grid-row: 1; }
+  .explore-column { grid-column: 1; grid-row: 2; }
+  .services-column { grid-column: 2; grid-row: 2; }
+  .conversation { grid-column: 2; grid-row: 1; }
+  .footer-content .explore-column { border: 0; padding-left: 0; }
+  .outline-word { display: none; }
+}
+@media (max-width: 47.999rem) {
+  .invitation { align-items: flex-start; flex-direction: column; gap: 1.25rem; }
+  .footer-content { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 2rem 1.25rem; padding-block: 2rem; }
+  .brand-column { grid-column: 1 / -1; }
+  .footer-content .services-column { padding-left: 1.25rem; }
+  .conversation { grid-column: 1 / -1; grid-row: 3; border-left: 0; border-top: 1px solid rgb(255 255 255 / .45); padding: 1.5rem 0 0; }
+  .text-link { min-height: 44px; }
+}
+@media (max-width: 25rem) {
+  .footer-content { grid-template-columns: minmax(0, 1fr); }
+  .footer-content .services-column { grid-column: 1; grid-row: 3; border-left: 0; padding-left: 0; }
+  .conversation { grid-row: 4; }
+  .project-button { letter-spacing: .1em; max-width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { a, a span, button span { transition: none; } }
