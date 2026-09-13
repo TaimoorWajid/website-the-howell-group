@@ -13,6 +13,6 @@ export const routes: Routes = [
   { path: 'insights/:slug', component: FoundationPageComponent, data: { title: 'Insight | The Howell Group' } },
   { path: 'careers', component: FoundationPageComponent, data: { title: 'Careers | The Howell Group' } },
   { path: 'careers/:slug', component: FoundationPageComponent, data: { title: 'Career | The Howell Group' } },
-  { path: 'contact', component: FoundationPageComponent, data: { title: 'Contact | The Howell Group' } },
+  { path: 'contact', loadComponent: () => import('./features/contact/contact-page.component').then(module => module.ContactPageComponent), data: { title: 'Contact | The Howell Group' } },
   { path: '**', component: FoundationPageComponent, data: { title: 'Page not found | The Howell Group', notFound: true } }
 ];

@@ -1,0 +1,50 @@
+<div class="inquiry-form">
+  <ol class="stepper" aria-label="Inquiry progress">
+    @for (label of steps; track label; let i = $index) {
+      <li [class.active]="step() === i" [class.complete]="furthest() > i"><button type="button" [disabled]="pending() || i > furthest() || status() === 'success'" [attr.aria-label]="'Step ' + (i + 1) + ': ' + label" [attr.aria-current]="step() === i ? 'step' : null" (click)="visit(i)"><span class="step-number" aria-hidden="true">{{ furthest() > i ? '✓' : '0' + (i + 1) }}</span><span>{{ label }}</span></button></li>
+    }
+  </ol>
+  <p class="mobile-progress">Step {{ step() + 1 }} of 3 <span>{{ steps[step()] }}</span></p>
+  @if (status() === 'success') {
+    <div class="success-message" role="status"><h2>Thank you.</h2><p>Your inquiry has been received.</p></div>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="submit()" (keydown)="enter($event)" novalidate [attr.aria-busy]="pending()">
+      <fieldset class="form-fields" [disabled]="pending()">
+        <legend class="sr-only">Project inquiry</legend>
+        <div class="step-content">
+          @switch (step()) {
+            @case (0) {
+              <div formGroupName="personal"><h2 class="step-heading" tabindex="-1">Let's start with you.</h2><p class="required-note">Fields marked <span aria-hidden="true">*</span> are required.</p>
+                <div class="field-grid">
+                  <div class="field"><label for="first-name">First name <span>*</span></label><input id="first-name" formControlName="firstName" autocomplete="given-name" required [attr.aria-invalid]="invalid('personal.firstName')" [attr.aria-describedby]="invalid('personal.firstName') ? 'first-name-error' : null" />@if (invalid('personal.firstName')) { <p id="first-name-error" class="field-error">{{ error('personal.firstName') }}</p> }</div>
+                  <div class="field"><label for="last-name">Last name <span>*</span></label><input id="last-name" formControlName="lastName" autocomplete="family-name" required [attr.aria-invalid]="invalid('personal.lastName')" [attr.aria-describedby]="invalid('personal.lastName') ? 'last-name-error' : null" />@if (invalid('personal.lastName')) { <p id="last-name-error" class="field-error">{{ error('personal.lastName') }}</p> }</div>
+                  <fieldset class="role-field"><legend>I am a… <span>*</span></legend>@for (role of roles; track role; let i = $index) { <label class="radio-label" [for]="'role-' + i"><input type="radio" [id]="'role-' + i" formControlName="role" [value]="role" required [attr.aria-invalid]="invalid('personal.role')" [attr.aria-describedby]="invalid('personal.role') ? 'role-error' : null" />{{ role }}</label> }@if (invalid('personal.role')) { <p id="role-error" class="field-error">Choose the role that best describes you.</p> }</fieldset>
+                  <div class="field" formGroupName="phone"><label for="phone-number">Phone <span>*</span></label><div class="phone-controls"><label class="sr-only" for="phone-country">Phone country and dial code</label><select id="phone-country" formControlName="country" autocomplete="country">@for (country of countries; track country.code) { <option [value]="country.code">{{ country.name }} ({{ country.dial }})</option> }</select><input id="phone-number" formControlName="number" type="tel" autocomplete="tel-national" required [attr.aria-invalid]="phoneInvalid" aria-describedby="phone-hint" /></div><p id="phone-hint" [class.field-error]="phoneInvalid" class="field-hint">{{ phoneHint }}</p></div>
+                  <div class="field"><label for="company">Company <span>*</span></label><input id="company" formControlName="company" autocomplete="organization" required [attr.aria-invalid]="invalid('personal.company')" [attr.aria-describedby]="invalid('personal.company') ? 'company-error' : null" />@if (invalid('personal.company')) { <p id="company-error" class="field-error">{{ error('personal.company') }}</p> }</div>
+                  <div class="field"><label for="email">Email <span>*</span></label><input id="email" formControlName="email" type="email" autocomplete="email" required [attr.aria-invalid]="invalid('personal.email')" [attr.aria-describedby]="invalid('personal.email') ? 'email-error' : null" />@if (invalid('personal.email')) { <p id="email-error" class="field-error">{{ error('personal.email') }}</p> }</div>
+                </div>
+              </div>
+            }
+            @case (1) {
+              <div formGroupName="project"><h2 class="step-heading" tabindex="-1">Tell us about the project.</h2><p class="required-note">Fields marked <span aria-hidden="true">*</span> are required.</p>
+                @if (missingSelections.length) { <p class="availability-note" role="status">Project selections are currently unavailable. Please try again later. Your entries will stay here while this page remains open.</p> }
+                <div class="field-grid">
+                  @for (field of selections; track field.key) {
+                    <div class="field"><label [for]="field.key">{{ field.label }} <span>*</span></label><select [id]="field.key" [formControlName]="field.key" required [attr.aria-invalid]="invalid('project.' + field.key)" [attr.aria-describedby]="field.key + '-hint'"><option value="" disabled>{{ field.options.length ? field.placeholder : 'Options currently unavailable' }}</option>@for (option of field.options; track option.value) { <option [value]="option.value">{{ option.label }}</option> }</select><p [id]="field.key + '-hint'" [class.field-error]="invalid('project.' + field.key)" class="field-hint">{{ !field.options.length ? 'This required selection is not available yet.' : invalid('project.' + field.key) ? error('project.' + field.key) : '' }}</p></div>
+                  }
+                  <div class="field"><label for="city">City <span>*</span></label><input id="city" formControlName="city" autocomplete="address-level2" maxlength="250" placeholder="Enter project city" required [attr.aria-invalid]="invalid('project.city')" aria-describedby="city-count city-error" /><span class="character-count" id="city-count">{{ form.controls.project.controls.city.value.length }} / 250</span><p id="city-error" class="field-error">{{ invalid('project.city') ? error('project.city') : '' }}</p></div>
+                </div>
+              </div>
+            }
+            @case (2) {
+              <div formGroupName="discussion"><h2 class="step-heading" tabindex="-1">What would you like us to know?</h2><div class="discussion-fields"><div class="field"><label for="project-details">Project details</label><textarea id="project-details" formControlName="projectDetails" rows="4" placeholder="What can our team help you with?"></textarea></div><div class="field"><label for="additional-information">Additional information</label><textarea id="additional-information" formControlName="additionalInformation" rows="4" maxlength="1000" placeholder="Anything else we should know?" [attr.aria-invalid]="invalid('discussion.additionalInformation')" aria-describedby="additional-count additional-error"></textarea><span id="additional-count" class="character-count">{{ form.controls.discussion.controls.additionalInformation.value.length }} / 1000</span><p id="additional-error" class="field-error">{{ invalid('discussion.additionalInformation') ? error('discussion.additionalInformation') : '' }}</p></div></div></div>
+            }
+          }
+        </div>
+        <div class="form-actions">@if (step() > 0) { <button class="previous-button" type="button" (click)="previous()"><span aria-hidden="true">←</span> PREVIOUS</button> }@if (step() < 2) { <button class="next-button" type="button" (click)="next()">NEXT <span aria-hidden="true">→</span></button> } @else { <button class="next-button" type="submit">{{ pending() ? 'SENDING…' : 'START THE CONVERSATION' }} <span aria-hidden="true">↗</span></button> }</div>
+      </fieldset>
+      @if (step() === 2) { <p class="privacy-note">Your information will be used to respond to your inquiry.</p> }
+      <div class="submission-status" aria-live="polite" aria-atomic="true">@if (pending()) { <p>Sending your inquiry…</p> } @if (status() === 'error') { <p class="submission-error">We couldn't send your inquiry. Please try again.</p> }</div>
+    </form>
+  }
+</div>
