@@ -21,11 +21,13 @@ export class ProjectRevealDirective implements AfterViewInit, OnDestroy {
         if (prefersReducedMotion()) return;
         try {
           this.context = this.animations.createContext(this.host.nativeElement, () => {
-            gsap.timeline({ delay: (this.appProjectReveal() % 2) * .07 })
-              .fromTo(this.host.nativeElement.querySelector('.project-media'),
+            const timeline = gsap.timeline({ delay: (this.appProjectReveal() % 2) * .07 });
+            const media = this.host.nativeElement.querySelector('.project-media');
+            const copy = this.host.nativeElement.querySelectorAll('[data-card-copy]');
+            if (media) timeline.fromTo(media,
                 { clipPath: 'inset(0 0 10% 0)' },
-                { clipPath: 'inset(0 0 0% 0)', duration: .75, ease: 'power2.out', clearProps: 'clipPath' })
-              .fromTo(this.host.nativeElement.querySelectorAll('[data-card-copy]'),
+                { clipPath: 'inset(0 0 0% 0)', duration: .75, ease: 'power2.out', clearProps: 'clipPath' });
+            if (copy.length) timeline.fromTo(copy,
                 { y: 10, opacity: .65 },
                 { y: 0, opacity: 1, duration: .55, stagger: .08, ease: 'power2.out', clearProps: 'transform,opacity' }, .1);
           });

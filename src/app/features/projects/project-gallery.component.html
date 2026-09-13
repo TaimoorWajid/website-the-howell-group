@@ -1,0 +1,21 @@
+<dialog #dialog class="gallery-dialog" [attr.aria-label]="projectTitle() + ' photo gallery'" (cancel)="cancel($event)" (close)="nativeClose()" (keydown)="keydown($event)" data-lenis-prevent>
+  <div class="gallery-top"><p>{{ projectTitle() }}</p><button #closeButton type="button" aria-label="Close gallery" (click)="close()">Close <span aria-hidden="true">&#215;</span></button></div>
+  @if (opened()) {
+    @if (current(); as image) {
+      <div class="gallery-stage">
+        @if (images().length > 1) { <button class="previous" type="button" aria-label="Previous image" (click)="step(-1)"><span aria-hidden="true">&larr;</span></button> }
+        <figure>
+          @if (!failedImages().has(image.src)) { <img [src]="image.src" [alt]="image.alt" [width]="image.width" [height]="image.height" (error)="imageFailed(image.src)" /> }
+          @else { <div class="image-error">This image could not be loaded. Try another photograph.</div> }
+          <figcaption aria-live="polite" aria-atomic="true"><span>{{ active() + 1 }} / {{ images().length }}</span>{{ image.alt }}</figcaption>
+        </figure>
+        @if (images().length > 1) { <button class="next" type="button" aria-label="Next image" (click)="step(1)"><span aria-hidden="true">&rarr;</span></button> }
+      </div>
+      <div class="thumbnails" role="group" aria-label="Choose a gallery image">
+        @for (thumbnail of images(); track thumbnail.src; let i = $index) {
+          <button type="button" [class.selected]="active() === i" [attr.aria-pressed]="active() === i" [attr.aria-label]="'View image ' + (i + 1) + ': ' + thumbnail.alt" (click)="select(i)"><img [src]="thumbnail.src" alt="" width="100" height="68" loading="lazy" /><span class="thumb-number" aria-hidden="true">{{ i + 1 }}</span></button>
+        }
+      </div>
+    }
+  }
+</dialog>

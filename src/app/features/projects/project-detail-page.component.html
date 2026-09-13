@@ -1,0 +1,50 @@
+﻿@for (detail of details(); track detail.project.slug) {
+  @let project = detail.project;
+  <article>
+    <section class="project-opening page-shell" [appProjectReveal]="0" aria-labelledby="project-title">
+      <div class="opening-nav"><nav class="breadcrumb" aria-label="Breadcrumb"><a routerLink="/projects">Projects</a><span aria-hidden="true">/</span><span aria-current="page">{{ project.title }}</span></nav><a class="all-projects" routerLink="/projects"><span aria-hidden="true">&larr;</span> All projects</a></div>
+      <h1 id="project-title" data-card-copy>{{ project.title }}</h1>
+      <div class="hero-frame project-media">
+        @if (!failedImages().has(project.images[0].src)) { <img class="hero-image" [src]="project.images[0].src" [alt]="project.images[0].alt" [width]="project.images[0].width" [height]="project.images[0].height" fetchpriority="high" (error)="imageFailed(project.images[0].src)" /> }
+        @else { <p class="image-error">Project photograph unavailable</p> }
+        @if (detail.gallery.length) { <button class="gallery-action" type="button" (click)="gallery.open(0, $event)">View gallery <span aria-hidden="true">&#8599;</span></button> }
+      </div>
+    </section>
+    @if (detail.facts.length) {
+      <section class="facts page-shell" aria-label="Project facts"><dl>@for (fact of detail.facts; track fact.label) { <div><dt>{{ fact.label }}</dt><dd>{{ fact.value }}</dd></div> }</dl></section>
+    }
+    @if (detail.overview.length) {
+      <section class="overview page-shell" [appProjectReveal]="0" [class.with-image]="project.overview?.image" aria-labelledby="overview-title">
+        @if (project.overview?.image; as image) { <div class="overview-visual"><p class="eyebrow">Project overview</p><img [src]="image.src" [alt]="image.alt" [width]="image.width" [height]="image.height" loading="lazy" decoding="async" /></div> }
+        <h2 id="overview-title" data-card-copy>The project<br />at a glance.</h2><div class="overview-copy" data-card-copy>@for (paragraph of detail.overview; track $index) { <p>{{ paragraph }}</p> }</div>
+      </section>
+    }
+    @if (detail.gallery.length) {
+      <section class="gallery-section page-shell" aria-labelledby="gallery-title">
+        <header class="section-heading"><p class="eyebrow">Project gallery</p><h2 id="gallery-title">A closer look.</h2></header>
+        <div class="gallery-grid" [class.single-image]="detail.gallery.length === 1">
+          @for (image of detail.gallery; track image.src; let i = $index) {
+            <figure [appProjectReveal]="i"><button class="gallery-image project-media" [class.portrait]="image.height > image.width" type="button" [attr.aria-label]="'Open image ' + (i + 1) + ': ' + image.alt" (click)="gallery.open(i, $event)">
+              @if (!failedImages().has(image.src)) { <img [src]="image.src" [alt]="image.alt" [width]="image.width" [height]="image.height" loading="lazy" decoding="async" (error)="imageFailed(image.src)" /> }
+              @else { <span class="image-error">Photograph unavailable</span> }
+              <span class="expand-icon" aria-hidden="true">&#8599;</span></button><figcaption data-card-copy><span aria-hidden="true">{{ (i + 1).toString().padStart(2, '0') }} / </span>{{ image.caption || image.alt }}</figcaption></figure>
+          }
+        </div>
+      </section>
+    }
+    @if (detail.contribution.length) {
+      <section class="contribution" [appProjectReveal]="0" aria-labelledby="contribution-title"><div class="page-shell contribution-grid"><div><p class="eyebrow">Howell’s contribution</p><h2 id="contribution-title" data-card-copy>The work behind<br />the result.</h2></div><div class="contribution-copy">@for (section of detail.contribution; track section.title) { <div data-card-copy><h3>{{ section.title }}</h3><p>{{ section.text }}</p></div> }</div><svg class="linework" viewBox="0 0 600 180" fill="none" stroke="currentColor" stroke-width=".8" aria-hidden="true" focusable="false"><path d="m20 160 320-110 250 95M80 144V77L300 16l200 65v71M300 16v148M80 77l210 61 210-57M80 104l210 60 210-58M130 63v91M185 48v119M240 33v137M350 32v112M400 48v81M450 64v51M20 170l290-95 280 95" /></svg></div></section>
+    }
+    <section class="continue-section page-shell" aria-labelledby="continue-title">
+      @if (detail.next; as next) {
+        <div class="continue-copy"><p class="eyebrow">Continue exploring</p><h2 id="continue-title">{{ next.title }}</h2><a class="text-link" [routerLink]="['/projects', next.slug]">View next project <span aria-hidden="true">&#8599;</span></a><a class="back-link" routerLink="/projects"><span aria-hidden="true">&larr;</span> Back to all projects</a></div>
+        <img class="next-image" [src]="next.images[0].src" [alt]="next.images[0].alt" [width]="next.images[0].width" [height]="next.images[0].height" loading="lazy" decoding="async" />
+      } @else { <div><h2 id="continue-title">Explore our projects.</h2><a class="back-link" routerLink="/projects">Back to all projects</a></div> }
+    </section>
+    <app-project-gallery #gallery [images]="detail.gallery" [projectTitle]="project.title" />
+  </article>
+} @empty {
+  <section class="not-found page-shell" aria-labelledby="not-found-title"><nav class="breadcrumb" aria-label="Breadcrumb"><a routerLink="/projects">Projects</a><span aria-hidden="true">/</span><span aria-current="page">Project not found</span></nav><p class="eyebrow">404 / Project not found</p><h1 id="not-found-title">We couldn’t find that project.</h1><p>Explore our portfolio to find the project you’re looking for.</p><a class="text-link" routerLink="/projects">Back to all projects <span aria-hidden="true">&rarr;</span></a></section>
+}
+
+
