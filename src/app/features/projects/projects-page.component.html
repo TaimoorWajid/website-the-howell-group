@@ -1,0 +1,49 @@
+﻿<section class="projects-hero page-shell" aria-labelledby="projects-title">
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a routerLink="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Projects</span></nav>
+  <div class="hero-grid">
+    <h1 id="projects-title">Purpose,<br />made tangible.</h1>
+    <div class="hero-intro"><p>Explore our work. Each project brings a different vision, a distinct set of challenges, and a shared commitment to moving it forward.</p><span class="index-label">Project index / 01 &mdash; 06</span></div>
+  </div>
+</section>
+
+<section class="project-listing page-shell" aria-labelledby="project-list-title">
+  <div class="listing-tools">
+    <h2 id="project-list-title">All projects</h2>
+    <div class="search-group" role="search" aria-label="Search projects">
+      <label class="visually-hidden" for="project-search">Search by project name</label>
+      <div class="search-field"><input #searchInput id="project-search" type="search" placeholder="Find a project" autocomplete="off" [value]="query()" (input)="search(searchInput.value)" aria-controls="project-grid" /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg></div>
+      @if (query()) { <button class="clear-search" type="button" (click)="clearSearch()">Clear search</button> }
+    </div>
+    <p class="result-count" role="status" aria-live="polite" aria-atomic="true">{{ filteredProjects().length }} {{ filteredProjects().length === 1 ? 'project' : 'projects' }}<span class="visually-hidden">{{ query().trim() ? ' found' : '' }}</span></p>
+  </div>
+  <ul class="project-grid" id="project-grid">
+    @for (project of filteredProjects(); track project.slug; let i = $index) {
+      <li [appProjectReveal]="i">
+        <a class="project-card" [routerLink]="['/projects', project.slug]" [attr.aria-labelledby]="'project-title-' + project.slug">
+          <div class="project-media">
+            @if (!failedImages().has(project.slug)) {
+              <img [src]="project.images[0].src" [alt]="project.images[0].alt" [width]="project.images[0].width" [height]="project.images[0].height" [attr.loading]="i < 2 ? 'eager' : 'lazy'" decoding="async" (error)="imageFailed(project.slug)" />
+            } @else { <span class="image-unavailable">Project image unavailable</span> }
+          </div>
+          <div class="card-caption">
+            <span class="card-number" data-card-copy aria-hidden="true">{{ (projects.indexOf(project) + 1).toString().padStart(2, '0') }}</span>
+            <h3 data-card-copy [id]="'project-title-' + project.slug">{{ project.title }}</h3>
+            <span class="view-project" data-card-copy aria-hidden="true">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></span>
+          </div>
+        </a>
+      </li>
+    } @empty {
+      <li class="empty-state"><h3>No projects found.</h3><p>Try another project name or clear your search to see all six projects.</p><button type="button" (click)="clearSearch()">Clear search <span aria-hidden="true">&rarr;</span></button></li>
+    }
+  </ul>
+</section>
+
+<section class="approach" aria-labelledby="projects-approach-title">
+  <div class="page-shell approach-grid">
+    <div><p class="eyebrow">Our approach</p><h2 id="projects-approach-title">Different projects.<br />A shared approach.</h2><p class="approach-copy">Clear communication. Thoughtful coordination. A team aligned around the owner’s vision.</p><a class="services-link" routerLink="/services">Explore our services <span aria-hidden="true">&#8599;</span></a></div>
+    <svg class="approach-drawing" viewBox="0 0 560 320" fill="none" stroke="currentColor" stroke-width=".8" aria-hidden="true" focusable="false">
+      <path d="m32 260 292-100 213 92-278 56ZM87 241V117L287 40l194 80v129M287 40v216M87 117l194 81 200-78M87 148l194 80 200-78M87 179l194 80 200-78M87 210l194 79 200-78M126 102v154M166 87v186M206 71v216M245 56v244M326 56v226M365 72v195M404 88v164M443 104v134M281 198v101M52 275l269-92 191 79M24 241l257 67 267-79M66 99l221-78 223 93M287 21v263" />
+      <path d="M54 263v-53m-13 20 13 12 14-20m-21-14 7 10 9-18M510 251v-57m-14 17 14 13 15-21m-20-9 5 12 10-23" />
+    </svg>
+  </div>
+</section>

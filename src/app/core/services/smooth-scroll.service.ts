@@ -23,6 +23,15 @@ export class SmoothScrollService {
   start(): void { this.lenis?.start(); }
   scrollTo(target: string | number): void { this.lenis?.scrollTo(target); }
 
+  /** Restore a listing position without animation or a competing native scroll. */
+  restorePosition(top: number): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (this.lenis) {
+      this.lenis.resize();
+      this.lenis.scrollTo(top, { immediate: true });
+    } else this.document.defaultView?.scrollTo({ top, behavior: 'instant' });
+  }
+
   backToTop(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     const view = this.document.defaultView;

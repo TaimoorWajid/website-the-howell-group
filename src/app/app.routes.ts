@@ -4,7 +4,7 @@ import { FoundationPageComponent } from './shared/components/foundation-page.com
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent, data: { footerInvitation: false, title: 'The Howell Group | Building what matters.' } },
-  { path: 'projects', component: FoundationPageComponent, data: { title: 'Projects | The Howell Group' } },
+  { path: 'projects', loadComponent: () => import('./features/projects/projects-page.component').then(module => module.ProjectsPageComponent), data: { title: 'Projects | The Howell Group' } },
   { path: 'projects/:slug', component: FoundationPageComponent, data: { title: 'Project | The Howell Group' } },
   { path: 'services', loadComponent: () => import('./features/services/services-page.component').then(module => module.ServicesPageComponent), data: { footerInvitation: false, title: 'Services | The Howell Group' } },
   { path: 'services/:slug', component: FoundationPageComponent, data: { title: 'Service | The Howell Group' } },

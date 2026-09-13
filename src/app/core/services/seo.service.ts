@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { APP_CONFIG } from '../config/app-config';
 
@@ -8,7 +8,6 @@ export interface SeoConfig { title: string; description?: string; canonicalPath?
 @Injectable({ providedIn: 'root' })
 export class SeoService {
   private readonly document = inject(DOCUMENT);
-  private readonly platformId = inject(PLATFORM_ID);
   private readonly title = inject(Title);
   private readonly meta = inject(Meta);
 
@@ -22,7 +21,7 @@ export class SeoService {
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'robots', content: config.noIndex ? 'noindex, nofollow' : 'index, follow' });
     if (config.image) this.meta.updateTag({ property: 'og:image', content: config.image });
-    if (!isPlatformBrowser(this.platformId)) this.setCanonical(config.canonicalPath ?? '/');
+    this.setCanonical(config.canonicalPath ?? '/');
   }
 
   private setCanonical(path: string): void {
