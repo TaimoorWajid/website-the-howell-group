@@ -1,4 +1,5 @@
 :host { display: block; min-width: 0; }
+.market-context { margin-bottom: 2rem; }
 .inquiry-form { padding: clamp(2rem,4vw,4rem); background: var(--color-white); }
 .stepper { display: flex; gap: .7rem; list-style: none; margin: 0 0 2.4rem; padding: 0; }
 .stepper li { min-width: 0; flex: 1; position: relative; }.stepper li:not(:last-child)::after { content: ''; position: absolute; right: -.35rem; top: 18px; width: .7rem; height: 1px; background: var(--color-line); }

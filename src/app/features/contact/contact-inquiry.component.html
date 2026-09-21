@@ -11,6 +11,9 @@
     <form [formGroup]="form" (ngSubmit)="submit()" (keydown)="enter($event)" novalidate [attr.aria-busy]="pending()">
       <fieldset class="form-fields" [disabled]="pending()">
         <legend class="sr-only">Project inquiry</legend>
+        @if (marketContextEnabled()) {
+          <div class="field market-context"><label for="market-context">Market (optional)</label><input id="market-context" formControlName="marketContext" maxlength="100" [attr.aria-invalid]="invalid('marketContext')" aria-describedby="market-context-hint" /><p id="market-context-hint" class="field-hint">{{ invalid('marketContext') ? error('marketContext') : 'You can change or remove this market.' }}</p></div>
+        }
         <div class="step-content">
           @switch (step()) {
             @case (0) {

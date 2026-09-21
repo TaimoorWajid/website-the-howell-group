@@ -1,0 +1,36 @@
+﻿@for (detail of details(); track detail.market.slug) {
+  @let market = detail.market;
+  <article>
+    <section class="market-hero page-shell" [appProjectReveal]="0" aria-labelledby="market-title">
+      <div class="hero-copy"><nav class="breadcrumb" aria-label="Breadcrumb"><a routerLink="/markets">Markets</a><span aria-hidden="true">/</span><span aria-current="page">{{ market.name }}</span></nav><p class="eyebrow">{{ market.name }}</p>
+        <h1 id="market-title">@for (line of market.detail.heading; track $index) { <span data-card-copy>{{ line }}</span> }</h1><p class="hero-intro" data-card-copy>{{ market.detail.intro }}</p><a class="explore-link" [routerLink]="['/markets', market.slug]" fragment="market-introduction">Explore this market <span aria-hidden="true">&darr;</span></a>
+      </div>
+      <figure class="hero-photo project-media"><img [src]="market.image.src" [alt]="market.image.alt" [width]="market.image.width" [height]="market.image.height" fetchpriority="high" /><figcaption>Illustrative image</figcaption></figure>
+    </section>
+    <section class="market-introduction page-shell" id="market-introduction" [appProjectReveal]="0" aria-labelledby="introduction-title">
+      <div><span class="red-rule" aria-hidden="true"></span><h2 id="introduction-title" data-card-copy>{{ market.detail.introductionHeading }}</h2><p data-card-copy>{{ market.detail.introductionCopy }}</p></div>
+      <figure class="introduction-photo project-media"><img [src]="market.detail.introductionImage.src" [alt]="market.detail.introductionImage.alt" [width]="market.detail.introductionImage.width" [height]="market.detail.introductionImage.height" loading="lazy" decoding="async" /><figcaption>Illustrative image</figcaption></figure>
+    </section>
+    <section class="market-priorities" aria-labelledby="priorities-title">
+      <div class="page-shell priorities-grid"><figure class="priority-visual"><app-markets-massing mode="layers" [activeLayer]="activePriority()" /><figcaption>Conceptual study</figcaption></figure>
+        <div><h2 id="priorities-title">{{ market.detail.prioritiesHeading }}</h2><ol class="priorities-list">@for (priority of market.detail.priorities; track priority.title; let i = $index) { <li class="priority-row" [class.active]="activePriority() === i"><span class="priority-number" aria-hidden="true">{{ (i + 1).toString().padStart(2, '0') }}</span><div><h3>{{ priority.title }}</h3><p>{{ priority.copy }}</p></div></li> }</ol></div>
+      </div>
+    </section>
+    @if (detail.related.length) {
+      <section class="related-markets page-shell" aria-labelledby="related-title"><header class="section-heading"><div><span class="red-rule" aria-hidden="true"></span><h2 id="related-title">{{ market.slug === 'healthcare' ? 'Explore care environments.' : 'Explore connected markets.' }}</h2></div><a class="text-link" routerLink="/markets">View all markets <span aria-hidden="true">&rarr;</span></a></header>
+        <div class="card-grid">@for (related of detail.related; track related.slug) { <a class="image-card" [routerLink]="['/markets', related.slug]"><div class="card-image"><img [src]="related.image.src" [alt]="related.image.alt" [width]="related.image.width" [height]="related.image.height" loading="lazy" decoding="async" /></div><div class="card-copy"><h3>{{ related.name }}</h3><p>Explore {{ related.name.toLowerCase() }} environments.</p><span class="card-arrow" aria-hidden="true">&rarr;</span></div></a> }</div>
+      </section>
+    }
+    @if (detail.projects.length) {
+      <section class="relevant-work page-shell" aria-labelledby="work-title"><header class="section-heading"><div><span class="red-rule" aria-hidden="true"></span><h2 id="work-title">Relevant work.</h2></div><a class="text-link" routerLink="/projects">View all projects <span aria-hidden="true">&rarr;</span></a></header>
+        <div class="card-grid">@for (project of detail.projects; track project.slug) { <a class="image-card project-card" [routerLink]="['/projects', project.slug]" [attr.aria-labelledby]="'related-project-' + project.slug"><div class="card-image"><img [src]="project.images[0].src" [alt]="project.images[0].alt" [width]="project.images[0].width" [height]="project.images[0].height" loading="lazy" decoding="async" /></div><div class="card-copy"><h3 [id]="'related-project-' + project.slug">{{ project.title }}</h3><span class="project-affordance" aria-hidden="true">View project &rarr;</span></div></a> }</div>
+      </section>
+    }
+    @if (detail.services.length) {
+      <section class="relevant-services page-shell" aria-labelledby="services-title"><span class="red-rule" aria-hidden="true"></span><h2 id="services-title">Support around your project.</h2><nav class="services-grid" aria-label="Relevant services">@for (service of detail.services; track service.id) { <a routerLink="/services" [fragment]="service.id">{{ service.name }} <span aria-hidden="true">&rarr;</span></a> }</nav></section>
+    }
+    <section class="market-invitation" aria-labelledby="invitation-title"><div class="page-shell invitation-grid"><div><span class="red-rule" aria-hidden="true"></span><h2 id="invitation-title">{{ market.detail.invitation }}</h2></div><a class="outline-button" routerLink="/contact" [queryParams]="{ market: market.slug }" fragment="project-inquiry">Start a conversation <span aria-hidden="true">&rarr;</span></a><svg viewBox="0 0 800 300" fill="none" stroke="currentColor" stroke-width=".6" aria-hidden="true" focusable="false"><path d="M0 0c100 250 400 400 800 0M100 0c100 200 300 350 600 0M300 300C400 100 500 0 800 0M400 300C550 100 600 80 800 60" /></svg></div></section>
+  </article>
+} @empty {
+  <section class="not-found page-shell" aria-labelledby="not-found-title"><p class="eyebrow">404 / Market not found</p><h1 id="not-found-title">We couldn’t find that market.</h1><p>Explore our markets to find the environment you have in mind.</p><a class="text-link" routerLink="/markets">Back to all markets <span aria-hidden="true">&rarr;</span></a></section>
+}

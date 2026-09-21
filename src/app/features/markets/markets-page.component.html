@@ -1,0 +1,37 @@
+﻿<section class="markets-hero page-shell" aria-labelledby="markets-title">
+  <div class="hero-copy"><p class="eyebrow">OUR MARKETS</p><h1 id="markets-title">Different places.<br />Distinct priorities.</h1><p class="hero-intro">Explore the environments that shape a project’s purpose, planning and delivery.</p></div>
+  <app-markets-massing />
+</section>
+<div class="architectural-strip"><img src="/images/projects/project-03.jpg" alt="Sculptural contemporary architecture against an open sky" width="1600" height="1067" decoding="async" /><span>Different environments.<br />Different possibilities.</span></div>
+
+<section class="market-explorer page-shell" aria-labelledby="explorer-title">
+  <header class="section-heading"><div><p class="eyebrow">EXPLORE OUR MARKETS</p><h2 id="explorer-title">Choose a market.</h2></div><p class="imagery-note">Illustrative market imagery</p></header>
+  <div class="explorer-grid">
+    <figure class="market-window">
+      <div class="image-stack">
+        @for (market of markets; track market.slug; let i = $index) { <img [class.active]="active() === i" [src]="market.image.src" [alt]="market.image.alt" [attr.aria-hidden]="active() !== i" [width]="market.image.width" [height]="market.image.height" [attr.loading]="i === 0 ? 'eager' : 'lazy'" decoding="async" /> }
+      </div><figcaption>{{ markets[active()].name }}</figcaption>
+    </figure>
+    <nav class="market-list" aria-label="Explore markets">
+      @for (market of markets; track market.slug; let i = $index) {
+        <a class="market-row" [class.active]="active() === i" [routerLink]="['/markets', market.slug]" [attr.aria-labelledby]="'market-' + market.slug" (pointerenter)="hover(i, $event)" (pointerleave)="leave()" (focus)="focus(i)" (blur)="blur()">
+          <img class="mobile-market-image" [src]="market.image.src" [alt]="market.image.alt" [width]="market.image.width" [height]="market.image.height" loading="lazy" decoding="async" />
+          <span class="market-number" aria-hidden="true">{{ (i + 1).toString().padStart(2, '0') }}</span><span class="market-name" [id]="'market-' + market.slug">{{ market.name }}</span><span class="market-arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      }
+    </nav>
+  </div>
+</section>
+
+<section class="perspective" aria-labelledby="perspective-title">
+  <div class="page-shell"><header class="perspective-heading"><p class="eyebrow">PEOPLE. PLACE. PURPOSE.</p><h2 id="perspective-title">Every environment asks different questions.</h2></header>
+    <div class="perspective-grid">@for (item of perspectives; track item.title; let i = $index) {
+      <div class="perspective-card" [appProjectReveal]="i"><svg viewBox="0 0 240 190" fill="currentColor" fill-opacity=".09" stroke="currentColor" stroke-width=".8" aria-hidden="true" focusable="false"><path [attr.d]="item.path" /></svg><h3 data-card-copy>{{ item.title }}</h3><p data-card-copy>{{ item.copy }}</p></div>
+    }</div>
+  </div>
+</section>
+
+<section class="closing page-shell" aria-labelledby="markets-closing-title">
+  <img src="/images/projects/project-04.jpg" alt="Light-filled workplace interior" width="1600" height="1068" loading="lazy" decoding="async" />
+  <div><h2 id="markets-closing-title">Start with the place you want to create.</h2><p>Tell us about your project and what matters most.</p><a class="outline-button" routerLink="/contact">Start a conversation <span aria-hidden="true">&#8599;</span></a></div>
+</section>

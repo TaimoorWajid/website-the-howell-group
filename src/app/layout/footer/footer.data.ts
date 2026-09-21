@@ -8,6 +8,7 @@ export const FOOTER_LINKS = {
     { label: 'Home', route: '/' },
     { label: 'About Us', route: '/about' },
     { label: 'Projects', route: '/projects' },
+    { label: 'Markets', route: '/markets' },
     { label: 'Insights', route: '/insights' },
     { label: 'Contact', route: '/contact' }
   ],

@@ -24,3 +24,4 @@ nav button:hover, nav > a:hover { color: var(--color-teal); }
 .mega-open :focus-visible { outline-color: #a3d8d0; }
 @media (max-width: 64rem) { .site-header { gap: 1rem; } nav { gap: .8rem; } nav a, nav button { font-size: .65rem; letter-spacing: .06em; } nav .project-cta { display: none; } }
 @media (width < 768px) { .site-header > nav, .mega-shell { display: none; } .menu-button { display: inline-flex; } }
+@media (max-width: 80rem) { nav .project-cta { display: none; } }
