@@ -4,12 +4,14 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { AnimationManagerService } from '../../../../core/animations/animation-manager.service';
 import { prefersReducedMotion } from '../../../../core/animations/animation.util';
+import { TEAM } from '../../../../core/data/company.data';
 
 @Component({
   selector: 'app-people-before-process', imports: [RouterLink],
   templateUrl: './people-before-process.component.html', styleUrl: './people-before-process.component.scss'
 })
 export class PeopleBeforeProcessComponent implements OnDestroy {
+  protected readonly people = TEAM;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly animations = inject(AnimationManagerService);
   private readonly zone = inject(NgZone);
@@ -33,7 +35,7 @@ export class PeopleBeforeProcessComponent implements OnDestroy {
             .from('.people-eyebrow', { opacity: 0, y: 8, duration: .4 }, .12)
             .from(splitHeading ? '.heading-mask > span' : 'h2', { yPercent: splitHeading ? 105 : 0, y: splitHeading ? 0 : 12, opacity: 0, duration: .65, stagger: .1 }, .25)
             .from('.people-body', { opacity: 0, y: 10, duration: .5 }, .55)
-            .from('.people-link, .founder-line', { opacity: 0, y: 8, duration: .4, stagger: .12 }, .85);
+            .from('.people-link', { opacity: 0, y: 8, duration: .4, stagger: .12 }, .85);
           this.trigger = ScrollTrigger.create({ trigger: this.host.nativeElement, animation: timeline, start: 'top 80%', once: true, toggleActions: 'play none none none' });
         });
       } catch { this.revealImmediately(); }

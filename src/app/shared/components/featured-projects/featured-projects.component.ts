@@ -99,6 +99,11 @@ export class FeaturedProjectsComponent {
     });
   }
 
+  protected revealForKeyboard(event: FocusEvent): void {
+    // Reveal the complete list for keyboard navigation without moving mouse targets.
+    if ((event.target as HTMLElement).matches(':focus-visible')) this.listMode.set(true);
+  }
+
   protected skip(): void { this.smoothScroll.scrollTo(this.endPosition + 1); }
   protected number(value: number): string { return String(value).padStart(2, '0'); }
   protected imageFailed(event: Event): void {

@@ -62,3 +62,8 @@ dd { font-size: 16px; margin: .2rem 0 0; }
   }
 }
 @media (prefers-reduced-motion: reduce) { .featured__current { animation: none; } }
+
+.project__identity h3 a { color: inherit; font: inherit; letter-spacing: inherit; text-transform: none; text-decoration: none; }
+.project__identity h3 a:hover { text-decoration: underline; text-underline-offset: .15em; }
+
+.project__bottom:not(:has(.project__facts)) { grid-template-columns: minmax(0, 1fr); }

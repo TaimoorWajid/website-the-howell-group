@@ -7,7 +7,7 @@
     <p class="eyebrow">Explore Howell</p>
     <nav aria-label="Mobile navigation">
       @for (menu of menus; track menu.id) {
-        <div class="mobile-category" [class.route-active]="router.isActive(menu.path, false) || (menu.id === 'about' && router.isActive('/careers', false))">
+        <div class="mobile-category" [class.route-active]="router.isActive(menu.path, false) || (menu.id === 'about' && (router.isActive('/careers', false) || router.isActive('/our-approach', false)))">
           <button type="button" class="primary-row" [id]="'mobile-trigger-' + menu.id" [attr.aria-expanded]="expanded() === menu.id" [attr.aria-controls]="'mobile-section-' + menu.id" (click)="toggle(menu.id)">
             <span>{{ menu.label }}</span><app-navigation-icon [name]="expanded() === menu.id ? 'minus' : 'plus'" />
           </button>

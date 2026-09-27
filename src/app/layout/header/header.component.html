@@ -2,7 +2,7 @@
   <a class="brand" routerLink="/" aria-label="The Howell Group home"><app-brand-logo [onDark]="!!active()" /></a>
   <nav aria-label="Primary navigation">
     @for (menu of menus(); track menu.id) {
-      <div class="nav-item" [class.route-active]="router.isActive(menu.path, false) || (menu.id === 'about' && router.isActive('/careers', false))">
+      <div class="nav-item" [class.route-active]="router.isActive(menu.path, false) || (menu.id === 'about' && (router.isActive('/careers', false) || router.isActive('/our-approach', false)))">
         <button type="button" [id]="'trigger-' + menu.id" [class.selected]="active()?.id === menu.id && !closing()" [attr.aria-expanded]="active()?.id === menu.id && !closing()" [attr.aria-controls]="'mega-' + menu.id" (click)="toggle(menu, $event)" (keydown.arrowdown)="active()?.id === menu.id ? enterPanel($event) : toggle(menu, $event)" (keydown.tab)="tabIntoPanel($event, menu.id)">{{ menu.label }} <span class="chevron" aria-hidden="true"></span></button>
       </div>
     }

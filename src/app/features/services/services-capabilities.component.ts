@@ -1,9 +1,10 @@
+import { RouterLink } from '@angular/router';
 import { afterNextRender, Component, ElementRef, inject, NgZone, OnDestroy } from '@angular/core';
 import gsap from 'gsap';
 import { AnimationManagerService } from '../../core/animations/animation-manager.service';
 import { SERVICE_CAPABILITIES } from './services.data';
 
-@Component({selector:'app-services-capabilities',templateUrl:'./services-capabilities.component.html',styleUrl:'./services-capabilities.component.scss'})
+@Component({selector:'app-services-capabilities',imports:[RouterLink],templateUrl:'./services-capabilities.component.html',styleUrl:'./services-capabilities.component.scss'})
 export class ServicesCapabilitiesComponent implements OnDestroy {
   readonly capabilities = SERVICE_CAPABILITIES;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);

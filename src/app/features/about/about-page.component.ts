@@ -6,11 +6,12 @@ import { prefersReducedMotion } from '../../core/animations/animation.util';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
 import { SeoService } from '../../core/services/seo.service';
 import { PerspectiveAlignmentComponent } from './perspective-alignment.component';
-import { ABOUT_VALUES } from './about.data';
+import { ABOUT_TEAM, ABOUT_VALUES } from './about.data';
 
 @Component({ selector: 'app-about-page', imports: [RouterLink, PerspectiveAlignmentComponent], templateUrl: './about-page.component.html', styleUrl: './about-page.component.scss' })
 export class AboutPageComponent implements OnDestroy {
   readonly values = ABOUT_VALUES;
+  readonly people = ABOUT_TEAM;
   readonly selectedValue = signal(2);
   readonly hoveredValue = signal<number | null>(null);
   readonly displayedValue = computed(() => this.hoveredValue() ?? this.selectedValue());
@@ -21,7 +22,7 @@ export class AboutPageComponent implements OnDestroy {
   private media?: gsap.MatchMedia;
 
   constructor() {
-    inject(SeoService).update({ title: 'About | The Howell Group', description: "Built around people. United by purpose. We bring people, perspective and project leadership together around the owner's mission.", canonicalPath: '/about' });
+    inject(SeoService).update({ title: 'About | We Deliver Your Mission | The Howell Group', description: "Meet The Howell Group: owner representation and people-centric teams focused on healthcare in Southern California, with flexibility to support clients elsewhere.", canonicalPath: '/about', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }, { name: 'The Howell Group', path: '/about#about-howell' }] });
     afterNextRender(() => this.zone.runOutsideAngular(() => {
       this.animations.setup(); this.media = gsap.matchMedia();
       this.media.add({ motion: '(prefers-reduced-motion: no-preference)', desktop: '(min-width: 48rem)' }, context => {
@@ -38,9 +39,10 @@ export class AboutPageComponent implements OnDestroy {
           gsap.to(select('.hero-image-mask'), { clipPath: 'inset(5% 4% 7% 4%)', ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .5 } });
           gsap.fromTo(select('.hero-photo'), { scale: 1.045 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .5 } });
           root.querySelectorAll('.purpose-phrase').forEach(phrase => gsap.fromTo(phrase, { color: palette.getPropertyValue('--color-muted').trim() }, { color: palette.getPropertyValue('--color-teal').trim(), ease: 'none', scrollTrigger: { trigger: phrase, start: 'top 78%', end: 'top 42%', scrub: .3 } }));
-          gsap.timeline({ scrollTrigger: { trigger: select('.founders'), start: 'top 78%', once: true } })
+          gsap.timeline({ scrollTrigger: { trigger: select('.team'), start: 'top 78%', once: true } })
             .from(select('.portrait--marc'), { clipPath: 'inset(0 100% 0 0)', y: 12, duration: 1, ease: 'power3.out' }, 0)
-            .from(select('.portrait--eric'), { clipPath: 'inset(0 0 0 100%)', y: 12, duration: 1, ease: 'power3.out' }, .15);
+            .from(select('.portrait--eric'), { clipPath: 'inset(0 0 0 100%)', y: 12, duration: 1, ease: 'power3.out' }, .15)
+            .from(select('.portrait--brett'), { clipPath: 'inset(0 100% 0 0)', y: 12, duration: 1, ease: 'power3.out' }, .3);
           gsap.from(root.querySelectorAll('.essay-mask'), { clipPath: 'inset(100% 0 0 0)', duration: 1, stagger: .13, ease: 'power3.out', scrollTrigger: { trigger: select('.photo-essay'), start: 'top 80%', once: true } });
           gsap.to(select('.together-word'), { color: 'rgba(182,216,207,.16)', duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: select('.about-closing'), start: 'top 85%', once: true } });
           if (context.conditions!['desktop']) {

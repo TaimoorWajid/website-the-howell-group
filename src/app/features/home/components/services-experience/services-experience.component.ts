@@ -42,12 +42,12 @@ export class ServicesExperienceComponent {
           gsap.from(element.querySelectorAll('.eyebrow, .heading-line > span, .architectural-visual, .service-row'), { y: 16, opacity: 0, duration: .55, stagger: .07, scrollTrigger: { trigger: element, start: 'top 85%', once: true } });
           const state = { progress: 0 };
           if (desktop && this.viewport().nativeElement.scrollHeight <= window.innerHeight + 1) {
-            timeline = gsap.timeline({ scrollTrigger: { trigger: this.viewport().nativeElement, start: 'top top', end: () => `+=${window.innerHeight * 3}`, pin: true, pinSpacing: true, scrub: .45, anticipatePin: 1, invalidateOnRefresh: true } });
-            timeline.to(state, { progress: 1, duration: 4, ease: 'none', onUpdate: () => { this.progress = state.progress; this.updatePresentation(); } });
+            timeline = gsap.timeline({ scrollTrigger: { trigger: this.viewport().nativeElement, start: 'top top', end: () => `+=${window.innerHeight * (this.services.length - 1)}`, pin: true, pinSpacing: true, scrub: .45, anticipatePin: 1, invalidateOnRefresh: true } });
+            timeline.to(state, { progress: 1, duration: this.services.length, ease: 'none', onUpdate: () => { this.progress = state.progress; this.updatePresentation(); } });
           } else {
             rows = new IntersectionObserver(entries => {
               const entering = entries.filter(entry => entry.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-              if (entering) { this.progress = Number((entering.target as HTMLElement).dataset['stage']) / 4; this.updatePresentation(true); }
+              if (entering) { this.progress = Number((entering.target as HTMLElement).dataset['stage']) / this.services.length; this.updatePresentation(true); }
             }, { rootMargin: '-20% 0px -35% 0px' });
             element.querySelectorAll('.service-row').forEach(row => rows!.observe(row));
           }
@@ -87,7 +87,7 @@ export class ServicesExperienceComponent {
     const index = this.focus ?? this.hover;
     this.setActive(index ?? serviceStageIndex(this.progress));
     if (this.reduced) return;
-    const target = index === null ? this.progress : index / 4;
+    const target = index === null ? this.progress : index / this.services.length;
     this.previewTween?.kill();
     if (animate) this.previewTween = gsap.to(this.presentation, { progress: target, duration: .35, ease: 'power2.out', onUpdate: () => this.scene?.setProgress(this.presentation.progress) });
     else { this.presentation.progress = target; this.scene?.setProgress(target); }

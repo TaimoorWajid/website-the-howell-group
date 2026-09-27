@@ -1,13 +1,18 @@
+import { SERVICES } from '../../../../core/data/company.data';
 export type ServiceModelLayer = 'site' | 'program' | 'design' | 'structure' | 'envelope' | 'integration';
 export interface HowellServiceStage { number: string; title: string; description: string; route: string; layers: readonly ServiceModelLayer[]; }
-// Detail pages are not yet published; keep all destinations on the valid index.
-export const HOWELL_SERVICE_STAGES: readonly HowellServiceStage[] = [
-  { number: '01', title: 'PROGRAM MANAGEMENT', description: 'Aligning scope, stakeholders and strategy across the full program.', route: '/services', layers: ['site', 'program'] },
-  { number: '02', title: 'DESIGN MANAGEMENT', description: 'Guiding design decisions so vision, performance and budget stay connected.', route: '/services', layers: ['design', 'envelope'] },
-  { number: '03', title: 'CONSTRUCTION MANAGEMENT', description: 'Protecting quality, cost, schedule and communication in the field.', route: '/services', layers: ['structure'] },
-  { number: '04', title: 'PARTNERSHIP & CONSULTING', description: 'Bringing seasoned perspective wherever the project needs it most.', route: '/services', layers: ['site', 'program', 'design', 'structure', 'envelope', 'integration'] }
+// Shared service records supply canonical detail destinations.
+const STAGE_LAYERS: readonly (readonly ServiceModelLayer[])[] = [
+  ['site', 'program'], ['design', 'envelope'], ['structure'], ['program', 'integration'],
+  ['site', 'program', 'design', 'structure', 'envelope', 'integration']
 ];
-export function serviceStageIndex(progress: number): number { return Math.min(3, Math.floor(Math.max(0, Number.isFinite(progress) ? progress : 0) * 4)); }
+export const HOWELL_SERVICE_STAGES: readonly HowellServiceStage[] = SERVICES.map((service, index) => ({
+  number: String(index + 1).padStart(2, '0'), title: service.title.toUpperCase(),
+  description: service.description ?? '', route: '/services/' + service.slug, layers: STAGE_LAYERS[index]
+}));
+export function serviceStageIndex(progress: number): number {
+  return Math.min(HOWELL_SERVICE_STAGES.length - 1, Math.floor(Math.max(0, Number.isFinite(progress) ? progress : 0) * HOWELL_SERVICE_STAGES.length));
+}
 export interface ServiceBuildingPart { layer: ServiceModelLayer; size: [number, number, number]; at: [number, number, number]; }
 export function serviceBuildingParts(): ServiceBuildingPart[] {
   const parts: ServiceBuildingPart[] = [];
@@ -41,15 +46,16 @@ export const SERVICE_LAYERS: readonly ServiceModelLayer[] = ['site', 'program', 
 /** Continuous, reversible keyframe interpolation; stage selection stays discrete. */
 export function layerPose(layer: ServiceModelLayer, progress: number): { opacity: number; y: number; x: number } {
   const p = Math.max(0, Math.min(1, progress));
-  const phase = Math.min(3, p * 4);
-  const from = Math.min(2, Math.floor(phase));
-  const amount = phase >= 3 ? 1 : phase - from;
+  const last = HOWELL_SERVICE_STAGES.length - 1;
+  const phase = Math.min(last, p * HOWELL_SERVICE_STAGES.length);
+  const from = Math.min(last - 1, Math.floor(phase));
+  const amount = phase >= last ? 1 : phase - from;
   const eased = amount * amount * (3 - 2 * amount);
   const visibility = HOWELL_SERVICE_STAGES.map(stage => stage.layers.includes(layer) ? .78 : .13);
   const explosion: Record<ServiceModelLayer, number[]> = {
-    site: [0, 0, 0, 0], program: [.5, .2, .1, 0], design: [2.6, 1.7, .8, 0],
-    structure: [1, .6, 0, 0], envelope: [3.6, 2, 1.2, 0], integration: [4.3, 3, 1.7, 0]
+    site: [0, 0, 0, 0, 0], program: [.5, .2, .1, .05, 0], design: [2.6, 1.7, .8, .4, 0],
+    structure: [1, .6, 0, 0, 0], envelope: [3.6, 2, 1.2, .6, 0], integration: [4.3, 3, 1.7, .8, 0]
   };
   const lerp = (a: number, b: number): number => a + (b - a) * eased;
-  return { opacity: lerp(visibility[from], visibility[from + 1]), y: lerp(explosion[layer][from], explosion[layer][from + 1]), x: layer === 'envelope' ? lerp([.7,.35,.2,0][from], [.7,.35,.2,0][from + 1]) : 0 };
+  return { opacity: lerp(visibility[from], visibility[from + 1]), y: lerp(explosion[layer][from], explosion[layer][from + 1]), x: layer === 'envelope' ? lerp([.7,.35,.2,.1,0][from], [.7,.35,.2,.1,0][from + 1]) : 0 };
 }

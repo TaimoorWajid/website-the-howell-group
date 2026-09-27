@@ -1,18 +1,19 @@
-import { SERVICE_CHAPTERS } from '../../features/services/services.data';
+import { SERVICES } from '../../core/data/company.data';
 
-// Detail routes are placeholders; link to the published service chapters.
+// Shared service names and canonical detail destinations.
 export const FOOTER_LINKS = {
   home: '/',
   contact: '/contact',
   explore: [
     { label: 'Home', route: '/' },
     { label: 'About Us', route: '/about' },
+    { label: 'Our Approach', route: '/our-approach' },
     { label: 'Projects', route: '/projects' },
     { label: 'Markets', route: '/markets' },
     { label: 'Insights', route: '/insights' },
     { label: 'Contact', route: '/contact' }
   ],
-  services: SERVICE_CHAPTERS.map(chapter => ({
-    label: chapter.name, route: '/services', fragment: chapter.id
+  services: SERVICES.map(service => ({
+    label: service.title, route: '/services/' + service.slug
   }))
 } as const;

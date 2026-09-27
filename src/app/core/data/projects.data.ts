@@ -13,7 +13,8 @@ export interface PortfolioProject extends Project {
 
 // Verified names and image associations: https://thehowellgroup.co/projects/
 // The configured CMS is unavailable. Share this collection with the detail template;
-// do not substitute the homepage's fictional editorial samples.
+// Shared with the homepage. Quantities/outcomes are withheld pending attribution
+// reconciliation: docs/client-content/content-source-register.md.
 export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
   {
     "id": "aliso-ridge-behavioral-hospital",
@@ -27,7 +28,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "height": 384
       }
     ],
-    "area": "80,000 sq ft",
     "gallery": [
       {
         "src": "/images/projects/client/aliso-ridge-behavioral-hospital-gallery-1.webp",
@@ -50,7 +50,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     "overview": {
       "paragraphs": [
-        "A new 119-bed hospital for acute and crisis behavioral care, delivered as ground-up construction under HCAI (OSHPD) 1 jurisdiction."
+        "The project scope is a ground-up hospital for acute and crisis behavioral care."
       ],
       "image": {
         "src": "/images/projects/client/aliso-ridge-behavioral-hospital-gallery-1.webp",
@@ -58,9 +58,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "width": 681,
         "height": 455
       }
-    },
-    "contribution": {
-      "outcome": "Savings of $6.6 million on a $43.5 million project."
     }
   },
   {
@@ -75,7 +72,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "height": 430
       }
     ],
-    "area": "68,209 sq ft",
     "gallery": [
       {
         "src": "/images/projects/client/anaheim-community-hospital-gallery-1.webp",
@@ -120,7 +116,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "height": 800
       }
     ],
-    "area": "80,000 sq ft",
     "gallery": [
       {
         "src": "/images/projects/client/kpc-global-oc.webp",
@@ -143,7 +138,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     "overview": {
       "paragraphs": [
-        "The project scope includes surgical lighting and HVAC remodeling in nine operating rooms, a new cooling-tower yard and a new central plant."
+        "The project scope includes surgical lighting and HVAC remodeling in operating rooms, a new cooling-tower yard and a new central plant."
       ],
       "image": {
         "src": "/images/projects/client/kpc-global-oc.webp",
@@ -165,7 +160,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "height": 800
       }
     ],
-    "area": "5,900 sq ft",
     "gallery": [
       {
         "src": "/images/projects/client/western-university-medical-school-gallery-1.webp",
@@ -196,9 +190,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "width": 854,
         "height": 1139
       }
-    },
-    "contribution": {
-      "outcome": "Savings of $128,000 on a $1.3 million project."
     }
   },
   {
@@ -235,7 +226,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     "overview": {
       "paragraphs": [
-        "The program scope includes behavioral-health conversions across portions of three floors, five elevator replacements, generator upgrades, fire sprinklers and plumbing equipment and seismic work."
+        "The program scope includes behavioral-health conversions across the campus, elevator replacements, generator upgrades, fire sprinklers and plumbing equipment and seismic work."
       ],
       "image": {
         "src": "/images/projects/client/los-angeles-downtown-medical-center-gallery-2.webp",
@@ -257,7 +248,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "height": 652
       }
     ],
-    "area": "2,684 sq ft",
     "gallery": [
       {
         "src": "/images/projects/client/kpc-global-chapman-gallery-1.webp",
@@ -280,7 +270,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     "overview": {
       "paragraphs": [
-        "Surgical lighting and HVAC remodeling across three operating rooms under HCAI (OSHPD) 1 jurisdiction."
+        "Surgical lighting and HVAC remodeling across operating rooms under HCAI (OSHPD) 1 jurisdiction."
       ],
       "image": {
         "src": "/images/projects/client/kpc-global-chapman-gallery-2.webp",
@@ -288,9 +278,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         "width": 1166,
         "height": 778
       }
-    },
-    "contribution": {
-      "outcome": "Savings of $68,300 on a $310,200 project."
     }
   }
 ];

@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MARKETS, Market } from '../../core/data/markets.data';
 import { PORTFOLIO_PROJECTS } from '../../core/data/projects.data';
 import { SeoService } from '../../core/services/seo.service';
-import { SERVICE_CHAPTERS } from '../services/services.data';
+import { SERVICES } from '../../core/data/company.data';
 import { ProjectRevealDirective } from '../projects/project-reveal.directive';
 import { MarketsMassingComponent } from './markets-massing.component';
 
@@ -25,7 +25,7 @@ export class MarketDetailPageComponent implements OnDestroy {
     return [{ market,
       related: market.detail.relatedMarkets.flatMap(slug => { const item = MARKETS.find(other => other.slug === slug && other.slug !== market.slug); return item ? [item] : []; }),
       projects: market.detail.projectSlugs.flatMap(slug => { const item = PORTFOLIO_PROJECTS.find(project => project.slug === slug); return item ? [item] : []; }),
-      services: market.detail.services.flatMap(id => { const item = SERVICE_CHAPTERS.find(service => service.id === id); return item ? [item] : []; })
+      services: market.detail.services.flatMap(id => { const item = SERVICES.find(service => service.id === id); return item ? [item] : []; })
     }];
   });
   private cleanup?: () => void;
@@ -41,7 +41,7 @@ export class MarketDetailPageComponent implements OnDestroy {
       if (response) response.status = market ? 200 : 404;
       const name = market?.name ?? 'Market not found';
       const path = `/markets/${encodeURIComponent(slug)}`;
-      seo.update({ title: `${name} | The Howell Group`, description: market?.detail.intro ?? 'Explore the markets and environments that shape a project’s purpose, planning and delivery.', canonicalPath: path, image: market?.image.src, noIndex: !market, breadcrumbs: [{ name: 'Markets', path: '/markets' }, { name, path }] });
+      seo.update({ title: `${name} | The Howell Group`, description: market?.detail.intro ?? 'Explore the markets and environments that shape a project’s purpose, planning and delivery.', canonicalPath: path, image: market?.image.src, noIndex: !market, breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Markets', path: '/markets' }, { name, path }] });
     });
     afterNextRender(() => this.zone.runOutsideAngular(() => {
       const media = window.matchMedia('(min-width: 768px) and (prefers-reduced-motion: no-preference)');

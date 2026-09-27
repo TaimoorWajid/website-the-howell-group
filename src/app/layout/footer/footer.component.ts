@@ -1,3 +1,4 @@
+import { COMPANY } from '../../core/data/company.data';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
@@ -17,6 +18,7 @@ export class FooterComponent {
   private readonly scroll = inject(SmoothScrollService);
   protected readonly year = new Date().getFullYear();
   protected readonly links = FOOTER_LINKS;
+  protected readonly company = COMPANY;
   protected readonly showInvitation = toSignal(this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
     startWith(null),

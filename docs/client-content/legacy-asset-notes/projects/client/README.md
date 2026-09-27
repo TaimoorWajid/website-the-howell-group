@@ -53,3 +53,10 @@ project status was inferred. The Aliso, Western and Chapman contribution section
 use their clearly stated historical project savings. KPC OC's inconsistent
 financial figure and LADMC's dated "unavailable until 2025" statement are omitted.
 Other contribution fields remain absent until approved copy is provided.
+
+## September 2026 content reconciliation
+
+The shared project collection now withholds numeric areas and financial outcomes
+pending reconciliation with the supplied personal-experience brochures. Existing
+photo associations and links remain. Internal decisions are recorded outside
+public assets in docs/client-content/content-source-register.md.

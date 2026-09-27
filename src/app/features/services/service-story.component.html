@@ -9,11 +9,11 @@
       @for (chapter of chapters; track chapter.id; let i = $index) {
         <img class="story-image" [class.is-active]="active() === i" [src]="chapter.image" alt="" width="900" height="1200" loading="lazy" decoding="async" />
       }
-      <span class="image-counter">{{ chapters[active()].number }} / 04</span>
+      <span class="image-counter">{{ chapters[active()].number }} / {{ chapters.length }}</span>
       <span class="image-rule"></span>
     </div>
     <div class="story-copy">
-      <header><p class="eyebrow">OUR SERVICES</p><h2 id="story-title">Four disciplines.<br />One connected approach.</h2></header>
+      <header><p class="eyebrow">OUR SERVICES</p><h2 id="story-title">Five services.<br />One connected approach.</h2></header>
       <div class="chapters">
         @for (chapter of chapters; track chapter.id; let i = $index) {
           <article class="service-chapter" [id]="chapter.id" [class.is-active]="active() === i">
@@ -22,7 +22,7 @@
             <p class="eyebrow">{{ chapter.number }} / {{ chapter.name }}</p>
             <h3 tabindex="-1">{{ chapter.title }}</h3>
             <p class="chapter-body">{{ chapter.body }}</p>
-            <a class="chapter-link" routerLink="/contact">{{ chapter.link }} <span aria-hidden="true">↗</span></a>
+            <a class="chapter-link" [routerLink]="chapter.route">{{ chapter.link }} <span aria-hidden="true">↗</span></a>
           </article>
         }
       </div>

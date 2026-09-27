@@ -1,5 +1,5 @@
 :host { display: block; --story-header: 0px; --story-nav-height: 88px; background: var(--color-off-white); }
-.service-nav { position: sticky; top: var(--story-header); z-index: 4; background: var(--color-off-white); border-block: 1px solid var(--color-line); display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); padding: 1.25rem var(--page-gutter); gap: 1rem; }
+.service-nav { position: sticky; top: var(--story-header); z-index: 4; background: var(--color-off-white); border-block: 1px solid var(--color-line); display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); padding: 1.25rem var(--page-gutter); gap: 1rem; }
 .service-nav a { color: var(--color-charcoal); text-decoration: none; font-size: .8rem; padding: .25rem 0 .25rem 1rem; border-left: 1px solid var(--color-muted); min-height: 44px; position: relative; }
 .service-nav a span { display: block; font-size: .7rem; margin-bottom: .3rem; }
 .service-nav a::after { content: ''; position: absolute; left: -1px; top: 0; bottom: 0; width: 2px; background: var(--color-dark-teal); transform: scaleY(0); transform-origin: top; transition: transform .3s; }

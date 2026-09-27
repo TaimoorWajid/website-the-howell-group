@@ -16,3 +16,5 @@ h3 { font-size: 1.5rem; font-weight: 400; margin: 1.5rem 0 .7rem; }
 .pointer-active img { transform: scale(1.025); }.pointer-active::after { opacity: 1; }
 @media (max-width: 47.999rem) { .capabilities-grid { grid-template-columns: 1fr; } .capability { min-height: 18rem; } }
 @media (prefers-reduced-motion: reduce) { .capability,.capability img,.capability::after { transition: none; transform: none; } }
+
+.card-content a { display: inline-flex; align-items: center; gap: .7rem; min-height: 44px; margin-top: 1rem; color: inherit; font-size: .75rem; text-underline-offset: .3em; }

@@ -6,10 +6,10 @@
   <app-why-howell-section />
 
   <!-- SECTION 03 — SCROLL REVEAL GRID CARDS -->
-  <app-scroll-reveal-grid-cards [cards]="scrollRevealCards" label="Scroll below to see effect" />
+  <app-scroll-reveal-grid-cards [cards]="scrollRevealCards" label="Your mission, carried through every decision" />
 
   <!-- SECTION 04 — FEATURED PROJECTS -->
-  <app-featured-projects [projects]="featuredProjects()" />
+  <app-featured-projects [projects]="featuredProjects" />
 
   <!-- SECTION 05 — SERVICES / CAPABILITIES -->
   <app-services-experience />
@@ -17,9 +17,20 @@
   <!-- SECTION 06 — ABOUT / COMPANY -->
   <app-people-before-process />
 
+  <section class="lifecycle section-shell" aria-labelledby="lifecycle-title">
+    <p class="section-label">From planning to patient readiness</p>
+    <h2 id="lifecycle-title" appReveal>Clarity through<br /><em>every phase.</em></h2>
+    <p class="lifecycle-intro">Howell can contribute at any stage. Earlier involvement gives us greater opportunity to influence the project, align the team and plan for operational readiness.</p>
+    <p><a class="text-link" routerLink="/our-approach">Explore our approach <span aria-hidden="true">&rarr;</span></a></p>
+    <ol class="lifecycle-phases">@for (phase of phases; track phase.number) { <li><span>{{ phase.number }}</span>{{ phase.title }}<span class="phase-arrow" aria-hidden="true">→</span></li> }</ol>
+  </section>
+
   <!-- SECTION 07 — INSIGHTS / NEWS -->
-  <section class="insights section-shell" aria-labelledby="insights-title"><div class="section-heading"><p class="section-label">05 — Thinking</p><a class="text-link" routerLink="/insights">All insights <span aria-hidden="true">&rarr;</span></a></div><h2 id="insights-title" appReveal>Ideas worth<br /><em>building on.</em></h2>@if (insightsLoading()) { <p class="data-status" role="status">Loading insights&hellip;</p> } @else { <div class="insight-grid">@for (insight of (insights().length ? insights() : insightPlaceholders); track insight.id; let i = $index) { <a class="insight-card" [class.insight-card--featured]="i === 0" [routerLink]="['/insights', insight.slug]" appReveal><img [src]="insight.image?.src" [alt]="insight.image?.alt ?? ''" loading="lazy" /><p class="insight-date">Journal <span aria-hidden="true">/</span> {{ insight.date ?? 'Coming soon' }}</p><h3>{{ insight.title }}</h3><span class="text-link">Read more <span aria-hidden="true">&rarr;</span></span></a> }</div> }</section>
+  @if (insights().length) {
+  <section class="insights section-shell" aria-labelledby="insights-title"><div class="section-heading"><p class="section-label">05 — Thinking</p><a class="text-link" routerLink="/insights">All insights <span aria-hidden="true">&rarr;</span></a></div><h2 id="insights-title" appReveal>Ideas worth<br /><em>building on.</em></h2>@if (insightsLoading()) { <p class="data-status" role="status">Loading insights&hellip;</p> } @else { <div class="insight-grid">@for (insight of insights(); track insight.id; let i = $index) { <a class="insight-card" [class.insight-card--featured]="i === 0" [routerLink]="['/insights', insight.slug]" appReveal><img [src]="insight.image?.src" [alt]="insight.image?.alt ?? ''" loading="lazy" /><p class="insight-date">Journal <span aria-hidden="true">/</span> {{ insight.date ?? 'Coming soon' }}</p><h3>{{ insight.title }}</h3><span class="text-link">Read more <span aria-hidden="true">&rarr;</span></span></a> }</div> }</section>
+
+  }
 
   <!-- SECTION 08 — FINAL CTA -->
-  <section class="final-cta" aria-labelledby="cta-title"><div class="final-cta-glow" aria-hidden="true"></div><div class="section-shell"><p class="section-label">06 — Next</p><h2 id="cta-title" appReveal>Let&rsquo;s make<br /><em>something lasting.</em></h2><div class="cta-bottom" appReveal><p>Have a place, an idea or a question in mind?</p><a class="button" routerLink="/contact">Start a conversation <span aria-hidden="true">&rarr;</span></a></div></div></section>
+  <section class="final-cta" aria-labelledby="cta-title"><div class="final-cta-glow" aria-hidden="true"></div><div class="section-shell"><p class="section-label">06 — Next</p><h2 id="cta-title" appReveal>Let&rsquo;s deliver<br /><em>your mission.</em></h2><div class="cta-bottom" appReveal><p>Tell us where your healthcare project stands and what you need next.</p><a class="button" routerLink="/contact">Start a conversation <span aria-hidden="true">&rarr;</span></a></div></div></section>
 </div>

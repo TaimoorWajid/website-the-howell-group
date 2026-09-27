@@ -18,7 +18,7 @@ export class ServicesPageComponent implements OnDestroy {
   private readonly zone=inject(NgZone);
   private media?:gsap.MatchMedia;
   constructor() {
-    inject(SeoService).update({title:'Services | The Howell Group',description:'Program, design and construction management, with experienced partnership wherever your project needs it.',canonicalPath:'/services'});
+    inject(SeoService).update({title:'Services | The Howell Group',description:'Program, design, construction and contract management, with financial solutions through a capital financial advisor partnership.',canonicalPath:'/services',breadcrumbs:[{name:'Home',path:'/'},{name:'Services',path:'/services'}]});
     afterNextRender(()=>{
       this.enhanced.set(true);
       this.zone.runOutsideAngular(()=>{
