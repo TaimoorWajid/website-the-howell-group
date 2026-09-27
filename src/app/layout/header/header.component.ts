@@ -29,6 +29,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   protected readonly menuOpen = signal(false);
   private trigger: HTMLButtonElement | null = null;
   private media?: MediaQueryList;
+  private hoverCloseTimer?: ReturnType<typeof setTimeout>;
   private observer?: ResizeObserver;
   private insightsLoaded = false;
   private readonly resize = (): void => {
@@ -61,13 +62,38 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     this.destroyRef.onDestroy(() => { window.removeEventListener('resize', updateTop); window.removeEventListener('scroll', updateTop); });
   }
   protected toggle(config: MegaMenuConfig, event: Event): void {
+    if ((event as PointerEvent).pointerType === 'mouse' && (event as MouseEvent).detail > 0) return;
     if (this.media?.matches) return;
     if (this.active()?.id === config.id && !this.closing()) { this.close(); return; }
-    this.trigger = event.currentTarget as HTMLButtonElement;
+    this.openMenu(config, event.currentTarget as HTMLButtonElement);
+  }
+  private openMenu(config: MegaMenuConfig, trigger: HTMLButtonElement): void {
+    this.cancelHoverClose();
+    this.trigger = trigger;
     this.panel?.cancelClose();
     this.closing.set(false);
     this.active.set(config);
     if (config.id === 'insights') this.loadInsight();
+  }
+  protected hoverTrigger(config: MegaMenuConfig, event: PointerEvent): void {
+    if (event.pointerType !== 'mouse' || this.media?.matches) return;
+    this.openMenu(config, (event.currentTarget as HTMLElement).closest('button')!);
+  }
+  protected hoverPanel(event: PointerEvent): void {
+    if (event.pointerType !== 'mouse' || !this.active()) return;
+    this.cancelHoverClose();
+    this.panel?.cancelClose();
+    this.closing.set(false);
+  }
+  protected leaveMenu(event: PointerEvent): void {
+    if (event.pointerType !== 'mouse' || !this.active()) return;
+    this.cancelHoverClose();
+    // Allow the pointer to cross the header spacing between label and panel.
+    this.hoverCloseTimer = setTimeout(() => this.close(), 180);
+  }
+  private cancelHoverClose(): void {
+    clearTimeout(this.hoverCloseTimer);
+    this.hoverCloseTimer = undefined;
   }
   protected tabIntoPanel(event: Event, id: string): void {
     if (!(event as KeyboardEvent).shiftKey && this.active()?.id === id && !this.closing()) this.enterPanel(event);
@@ -83,6 +109,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   protected outsideClick(event: Event): void { if (!this.element.nativeElement.contains(event.target as Node)) this.close(); }
   protected outsideFocus(event: Event): void { if (!this.element.nativeElement.contains(event.target as Node)) this.close(); }
   protected close(restoreFocus = false, immediate = false): void {
+    this.cancelHoverClose();
     if (!this.active()) return;
     if (restoreFocus || this.element.nativeElement.querySelector('.mega-shell:not([hidden])')?.contains(this.document.activeElement)) this.trigger?.focus();
     if (immediate) { this.active.set(null); this.closing.set(false); return; }
@@ -101,5 +128,5 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       if (this.active()?.id === 'insights') this.active.set(this.menus().find(menu => menu.id === 'insights')!);
     });
   }
-  ngOnDestroy(): void { this.media?.removeEventListener('change', this.resize); this.observer?.disconnect(); this.smoothScroll.destroy(); }
+  ngOnDestroy(): void { this.cancelHoverClose(); this.media?.removeEventListener('change', this.resize); this.observer?.disconnect(); this.smoothScroll.destroy(); }
 }

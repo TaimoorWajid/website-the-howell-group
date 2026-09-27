@@ -28,6 +28,33 @@ describe('Header mega menu', () => {
     const trigger = root.querySelector<HTMLButtonElement>(`#trigger-${id}`)!;
     trigger.click(); fixture.detectChanges(); return trigger;
   }
+  it('opens only on label hover, bridges the gap, and closes after leaving', async () => {
+    const button = root.querySelector<HTMLButtonElement>('#trigger-services')!;
+    const label = button.querySelector<HTMLElement>('.menu-label')!;
+    const pointer = (element: Element, type: string) => element.dispatchEvent(new PointerEvent(type, { pointerType: 'mouse' }));
+    pointer(button, 'pointerenter'); fixture.detectChanges();
+    expect(root.querySelector('app-mega-menu')).toBeNull();
+    pointer(label, 'pointerenter'); fixture.detectChanges();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    button.dispatchEvent(new PointerEvent('click', { pointerType: 'mouse', detail: 1, bubbles: true }));
+    fixture.detectChanges();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    pointer(label, 'pointerleave');
+    pointer(root.querySelector('#mega-services')!, 'pointerenter');
+    await new Promise(resolve => setTimeout(resolve, 230)); fixture.detectChanges();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    pointer(root.querySelector('#mega-services')!, 'pointerleave');
+    await new Promise(resolve => setTimeout(resolve, 230)); fixture.detectChanges();
+    expect(root.querySelector('app-mega-menu')).toBeNull();
+  });
+  it('ignores touch hover and preserves tap toggling', () => {
+    const button = root.querySelector<HTMLButtonElement>('#trigger-services')!;
+    button.querySelector('.menu-label')!.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'touch' }));
+    fixture.detectChanges(); expect(root.querySelector('app-mega-menu')).toBeNull();
+    const tap = () => { button.dispatchEvent(new PointerEvent('click', { pointerType: 'touch', detail: 1, bubbles: true })); fixture.detectChanges(); };
+    tap(); expect(button.getAttribute('aria-expanded')).toBe('true');
+    tap(); expect(button.getAttribute('aria-expanded')).toBe('false');
+  });
   it('opens each category with one panel and valid disclosure relationships', () => {
     for (const menu of MEGA_MENUS) {
       const trigger = open(menu.id);
