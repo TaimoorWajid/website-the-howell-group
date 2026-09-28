@@ -1,0 +1,27 @@
+// Angular snapshots the old and new routes. Reveal the teal surface first,
+// then uncover the new route in the same left-to-right direction.
+::view-transition { background: #0b3d3d; }
+::view-transition-group(root) { animation: none; }
+::view-transition-image-pair(root) { isolation: isolate; }
+::view-transition-old(root), ::view-transition-new(root) {
+  mix-blend-mode: normal;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  animation-duration: 900ms;
+  animation-timing-function: cubic-bezier(.76, 0, .24, 1);
+  animation-fill-mode: both;
+}
+::view-transition-old(root) { z-index: 1; animation-name: page-cover; }
+::view-transition-new(root) { z-index: 2; animation-name: page-reveal; }
+@keyframes page-cover {
+  0% { clip-path: inset(0 0 0 0); }
+  48%, 100% { clip-path: inset(0 0 0 100%); }
+}
+@keyframes page-reveal {
+  0%, 52% { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}

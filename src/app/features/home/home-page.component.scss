@@ -10,20 +10,20 @@
 
 .final-cta::after { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); content: ''; inset: 0; opacity: .1; pointer-events: none; position: absolute; }
 
-/* SECTION 03 — FEATURED PROJECTS */
+/* SECTION 03 â€” FEATURED PROJECTS */
 .projects { background: var(--color-surface); padding-bottom: clamp(8rem, 16vw, 16rem); padding-top: clamp(6rem, 10vw, 10rem); } .section-heading { align-items: center; display: flex; justify-content: space-between; } .projects-heading { align-items: end; display: flex; justify-content: space-between; margin: 4rem 0 5rem; } .projects h2, .insights h2 { font-size: clamp(3.5rem, 8vw, 8rem); letter-spacing: -.06em; line-height: .9; margin: 0; } .projects h2 em, .insights h2 em { color: var(--color-charcoal); font-style: normal; } .projects-heading > p { color: var(--color-body); font-size: 16px; line-height: 1.7; max-width: 16rem; }
 .red-dot { background: var(--color-red); border-radius: 50%; display: inline-block; height: 6px; margin: 0 .6rem .1rem 0; width: 6px; } .project-list { display: grid; gap: clamp(4rem, 9vw, 10rem); } .project-card { color: var(--color-charcoal); display: block; text-decoration: none; } .project-card:nth-child(even) { margin-left: 16%; width: 84%; } .project-media { aspect-ratio: 1.9 / 1; background: var(--color-dark-teal); overflow: hidden; } .project-media img { filter: grayscale(30%) sepia(10%) saturate(1.2); display: block; height: 100%; object-fit: cover; transition: filter .7s ease, transform .7s ease; width: 100%; } .project-card:hover img, .project-card:focus-visible img { filter: grayscale(0) sepia(0) saturate(1); transform: scale(1.03); }
 .project-meta { align-items: start; border-bottom: 1px solid var(--color-line); display: flex; justify-content: space-between; padding: 1.25rem 0; } .project-type, .insight-date { color: var(--color-muted); font-size: 11px; letter-spacing: .16em; margin: 0 0 .5rem; text-transform: uppercase; } .project-meta h3, .insight-card h3 { font-size: clamp(1.5rem, 3vw, 2.8rem); font-weight: 400; margin: 0; } .project-details { color: var(--color-muted); display: flex; font-size: 12px; gap: 1.25rem; letter-spacing: .05em; padding-top: 1.6rem; } .project-details span:last-child { color: var(--color-charcoal); font-size: 1.2rem; margin-top: -.35rem; }
 .data-status { border-top: 1px solid var(--color-line); color: var(--color-muted); font-size: 16px; padding-top: 1.25rem; }
 
-/* SECTION 04 — SERVICES / CAPABILITIES */
+/* SECTION 04 â€” SERVICES / CAPABILITIES */
 .final-cta::after { opacity: .14; z-index: 0; }
 
-/* SECTION 05 — ABOUT / COMPANY */
-/* SECTION 06 — INSIGHTS / NEWS */
+/* SECTION 05 â€” ABOUT / COMPANY */
+/* SECTION 06 â€” INSIGHTS / NEWS */
 .insights { background: var(--color-white); padding-bottom: clamp(8rem, 16vw, 16rem); padding-top: clamp(8rem, 12vw, 12rem); } .insights h2 { margin: 5rem 0; } .insight-grid { display: grid; gap: 2rem; grid-template-columns: 1.45fr .85fr; } .insight-card { color: var(--color-charcoal); display: block; text-decoration: none; } .insight-card:nth-child(2), .insight-card:nth-child(3) { align-self: end; } .insight-card img { aspect-ratio: 1.3 / 1; display: block; filter: grayscale(20%); object-fit: cover; transition: filter .5s ease, transform .5s ease; width: 100%; } .insight-card--featured { grid-row: span 2; } .insight-card--featured img { aspect-ratio: 1.55 / 1; } .insight-card:hover img, .insight-card:focus-visible img { filter: grayscale(0); transform: scale(1.02); } .insight-date { color: var(--color-red); } .insight-date span { color: var(--color-muted); margin: 0 .4rem; } .insight-card h3 { font-size: clamp(1.25rem, 2vw, 1.9rem); line-height: 1.05; margin: .6rem 0 1.25rem; }
 
-/* SECTION 07 — FINAL CTA */
+/* SECTION 07 â€” FINAL CTA */
 .final-cta { background: var(--color-dark-teal); color: var(--color-white); overflow: hidden; padding: 200px 0; position: relative; } .final-cta-glow { background: radial-gradient(circle at 82% 88%, rgba(230,59,50,.2), transparent 32%); inset: 0; pointer-events: none; position: absolute; } .final-cta .section-shell { position: relative; z-index: 1; } .final-cta h2 { font-size: clamp(4rem, 10vw, 10rem); letter-spacing: -.07em; line-height: .9; margin: 6rem 0 8rem; } .final-cta h2 em { color: var(--color-red); font-style: normal; } .cta-bottom { align-items: end; border-top: 1px solid rgba(255,255,255,.18); display: flex; justify-content: space-between; padding-top: 1rem; } .cta-bottom p { color: rgba(255,255,255,.72); font-size: 18px; margin: 0; } .final-cta .button { background: var(--color-red); color: var(--color-white); } .final-cta .button:hover { background: var(--color-white); color: var(--color-dark-teal); }
 
 @media (max-width: 48rem) {
@@ -31,14 +31,3 @@
   .insights h2 { margin: 3.5rem 0; } .insight-grid { display: block; } .insight-card, .insight-card--featured { display: block; margin-bottom: 3rem; } .insight-card--featured img { aspect-ratio: 1.3 / 1; }
   .final-cta h2 { margin: 5rem 0; } .cta-bottom { align-items: flex-start; display: block; } .final-cta .button { margin-top: 1.5rem; }
 }
-
-.lifecycle { padding-block: clamp(4rem, 8vw, 8rem); background: var(--color-white); }
-.lifecycle h2 { font-size: clamp(2.8rem, 6vw, 6rem); line-height: 1; letter-spacing: -.05em; margin: 2rem 0; }
-.lifecycle h2 em { color: var(--color-teal); font-style: normal; }
-.lifecycle-intro { max-width: 44rem; line-height: 1.7; }
-.lifecycle-phases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); list-style: none; gap: 2rem; margin: 3rem 0 0; padding: 0; }
-.lifecycle-phases li { border-top: 2px solid var(--color-cyan); padding-top: 1rem; line-height: 1.4; }
-.lifecycle-phases li > span:first-child { display: block; font-size: .7rem; color: var(--color-teal); margin-bottom: .75rem; }
-.phase-arrow { padding-left: .5rem; color: var(--color-teal); }
-.lifecycle-phases li:last-child .phase-arrow { display: none; }
-@media (max-width: 48rem) { .lifecycle-phases { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }

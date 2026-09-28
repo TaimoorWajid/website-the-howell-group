@@ -1,6 +1,7 @@
 @use './styles/variables';
 @use './styles/typography';
 @use './styles/utilities';
+@use './styles/page-transitions';
 
 :root { color-scheme: light; }
 * { box-sizing: border-box; }

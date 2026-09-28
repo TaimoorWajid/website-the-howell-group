@@ -26,7 +26,10 @@ export class ProjectDetailPageComponent {
         { label: 'Location', value: project.location },
         { label: "Howell’s role", value: project.howellRole },
         { label: 'Project area', value: project.area },
-        { label: 'Completion', value: project.completion }
+        { label: 'Beds', value: project.bedCount },
+        { label: 'Jurisdiction', value: project.jurisdiction },
+        { label: 'Completion', value: project.completion },
+        ...(project.credits ?? [])
       ].filter(fact => fact.value?.trim()),
       overview: project.overview?.paragraphs.filter(paragraph => paragraph.trim()) ?? [],
       contribution: [

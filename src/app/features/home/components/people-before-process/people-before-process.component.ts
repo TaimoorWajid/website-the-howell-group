@@ -11,7 +11,7 @@ import { TEAM } from '../../../../core/data/company.data';
   templateUrl: './people-before-process.component.html', styleUrl: './people-before-process.component.scss'
 })
 export class PeopleBeforeProcessComponent implements OnDestroy {
-  protected readonly people = TEAM;
+  protected readonly people = TEAM.filter(person => person.role === 'Partner');
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly animations = inject(AnimationManagerService);
   private readonly zone = inject(NgZone);

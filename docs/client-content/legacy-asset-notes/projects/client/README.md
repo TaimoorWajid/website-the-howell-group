@@ -31,28 +31,31 @@ and stable slugs already used by the new listing.
 
 | New project slug | Legacy source page | Gallery source filenames (under /wp-content/uploads/) |
 | --- | --- | --- |
-| aliso-ridge-behavioral-hospital | https://thehowellgroup.co/aliso-ridge-behavioral-health/ | 2024/01/WS-Photos-P9.2.png, WS-Photos-P9.3.png, WS-Photos-P9.4.jpg |
-| anaheim-community-hospital | https://thehowellgroup.co/anaheim-community-hospital/ | 2024/01/WS-Photos-P8.1.png, WS-Photos-P8.2.png, WS-Photos-P8.3.png |
-| kpc-global-oc | https://thehowellgroup.co/kpc-global-hospital-orange-county/ | Existing verified listing cover, 2024/01/WS-Photos-P10.2.jpg, WS-Photos-P10.3.jpg |
-| western-university-medical-school | https://thehowellgroup.co/western-university-simulation-lab/ | 2024/01/WS-Photos-P12.1.jpg, WS-Photos-P12.2.jpg, WS-Photos-P12.3.jpg |
-| los-angeles-downtown-medical-center | https://thehowellgroup.co/los-angeles-downtown-medical-center/ | 2024/03/L1.jpg, L2.jpg, L3.jpg |
-| kpc-global-chapman | https://thehowellgroup.co/kpc-global-hospital-chapman/ | 2024/01/WS-Photos-P11.1.png, WS-Photos-P11.2.png, WS-Photos-P11.3.png |
+| aliso-ridge-behavioral-hospital | https://thehowellgroup.co/aliso-ridge-behavioral-health/ | 2024/01/WS-Photos-P9.2.png through WS-Photos-P9.9.png, then P9.1.png |
+| anaheim-community-hospital | https://thehowellgroup.co/anaheim-community-hospital/ | 2024/01/WS-Photos-P8.1.png through WS-Photos-P8.9.png |
+| kpc-global-oc | https://thehowellgroup.co/kpc-global-hospital-orange-county/ | 2024/01/WS-Photos-P10.1.png through P10.9.jpg |
+| western-university-medical-school | https://thehowellgroup.co/western-university-simulation-lab/ | 2024/01/WS-Photos-P12.1.jpg through P12.9.jpg |
+| los-angeles-downtown-medical-center | https://thehowellgroup.co/los-angeles-downtown-medical-center/ | 2024/03/L1.jpg through L9.jpg (L6 is rotated source) |
+| kpc-global-chapman | https://thehowellgroup.co/kpc-global-hospital-chapman/ | 2024/01/WS-Photos-P11.1.png through P11.3.png; 2024/05/Rectangle_99.jpg; P11.7.png through P11.9.png; 2024/03/Photos-Chapman-r1-cover.png; 2024/05/Rectangle_101.jpg |
 
-The detail galleries have three assigned images each. The original 158px KPC OC
-thumbnail was excluded; its already-verified listing cover is used instead.
+The detail galleries now use all nine images published on each live project page.
+Anaheim, Aliso Ridge, Western University, Los Angeles Downtown, and Chapman use
+all nine photos in the published order. KPC OC includes the original 158px P10.1
+thumbnail because it is one of the nine images published on that project's page;
+its higher-resolution confirmed listing cover remains the detail hero.
 All gallery copies retain the original image content and proportions, are
 orientation-corrected, and use WebP quality 85 at up to 1600px width without
 upscaling. Full images remain available in the modal regardless of card cropping.
 Some source images are small, especially Aliso, Anaheim and Chapman; higher
 resolution originals remain desirable. None are generated or temporary substitutes.
 
-Scope summaries paraphrase the client's published scope text. Areas are included
-only where the original figure is unambiguous. The LADMC area reads "+/-50,00"
 and is deliberately omitted. No location, Howell role, completion date or current
-project status was inferred. The Aliso, Western and Chapman contribution sections
-use their clearly stated historical project savings. KPC OC's inconsistent
-financial figure and LADMC's dated "unavailable until 2025" statement are omitted.
-Other contribution fields remain absent until approved copy is provided.
+Project facts and credits now reproduce the wording on the corresponding live
+project pages. The LADMC area remains marked unclear because the source says
+"+/-50,00". Location, Howell role, and completion are explicitly marked as not
+listed where absent. Savings and program values retain source-page wording,
+including figures that need client reconciliation; they are not independently
+verified as current company-attributable outcomes.
 
 ## September 2026 content reconciliation
 

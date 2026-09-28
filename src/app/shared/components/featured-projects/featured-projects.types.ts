@@ -5,9 +5,12 @@ export interface FeaturedProject {
   location?: string;
   category?: string;
   area?: string;
+  bedCount?: string;
+  jurisdiction?: string;
   year?: string;
   status?: string;
   value?: string;
+  outcome?: string;
   client?: string;
   description?: string;
   image: string;

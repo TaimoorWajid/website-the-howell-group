@@ -1,3 +1,4 @@
+import { ProjectJourneyComponent } from './components/project-journey/project-journey.component';
 import { PeopleBeforeProcessComponent } from './components/people-before-process/people-before-process.component';
 import { ServicesExperienceComponent } from './components/services-experience/services-experience.component';
 import { WhyHowellSectionComponent } from './components/why-howell-section/why-howell-section.component';
@@ -14,7 +15,7 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { ScrollRevealCard, ScrollRevealGridCardsComponent } from '../../shared/components/scroll-reveal-grid-cards/scroll-reveal-grid-cards.component';
 import { FeaturedProjectsComponent } from '../../shared/components/featured-projects/featured-projects.component';
 import { PORTFOLIO_PROJECTS } from '../../core/data/projects.data';
-import { COMPANY, PROJECT_PHASES } from '../../core/data/company.data';
+import { COMPANY } from '../../core/data/company.data';
 import { FeaturedProject } from '../../shared/components/featured-projects/featured-projects.types';
 import { AnimationManagerService } from '../../core/animations/animation-manager.service';
 
@@ -22,7 +23,7 @@ import { AnimationManagerService } from '../../core/animations/animation-manager
 
 @Component({
   selector: 'app-home-page',
-  imports: [PeopleBeforeProcessComponent, ServicesExperienceComponent, WhyHowellSectionComponent, HomeHeroComponent, RouterLink, RevealDirective, ScrollRevealGridCardsComponent, FeaturedProjectsComponent],
+  imports: [ProjectJourneyComponent, PeopleBeforeProcessComponent, ServicesExperienceComponent, WhyHowellSectionComponent, HomeHeroComponent, RouterLink, RevealDirective, ScrollRevealGridCardsComponent, FeaturedProjectsComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
@@ -34,9 +35,14 @@ export class HomePageComponent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly animations = inject(AnimationManagerService);
 
-  protected readonly phases = PROJECT_PHASES;
+
   protected readonly featuredProjects: readonly FeaturedProject[] = PORTFOLIO_PROJECTS.map(project => ({
     id: project.id, title: project.title, route: '/projects/' + project.slug,
+    area: project.area,
+    bedCount: project.bedCount,
+    jurisdiction: project.jurisdiction,
+    description: project.overview?.paragraphs.join(' '),
+    outcome: project.contribution?.outcome,
     image: project.images[0].src, imageAlt: project.images[0].alt
   }));
   protected readonly insights = signal<ReadonlyArray<Insight>>([]);

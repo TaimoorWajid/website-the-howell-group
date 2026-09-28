@@ -1,0 +1,33 @@
+<section #viewport class="journey" [class.journey--immersive]="enhanced()" aria-labelledby="journey-title">
+  <div class="journey__atmosphere" aria-hidden="true"></div>
+  <header class="journey__header">
+    <p class="eyebrow"><span></span> The path to patient ready</p>
+    <a routerLink="/our-approach">Explore our approach <span aria-hidden="true">↗</span></a>
+  </header>
+  <div class="journey__intro">
+    <h2 id="journey-title">Clarity through<br><em>every phase.</em></h2>
+    <p>From the first possibility<br>to the first patient.</p>
+  </div>
+  <div #canvas class="journey__canvas" aria-hidden="true"></div>
+  <div class="journey__drawing" aria-hidden="true">
+    <svg viewBox="0 0 900 520" fill="none"><g stroke="currentColor" stroke-width="1"><path d="M100 375 430 510 830 285 500 160Z M100 290 430 425 830 200 500 75Z M100 205 430 340 830 115 500  -10Z M100 375V205 M430 510V340 M830 285V115 M500 160V-10 M100 375 500 160 M430 510 500 160"/><path d="M182 239v170m83-136v170m82-137v170m162-181v170m80-215v170m80-215v170m80-215v170" opacity=".5"/></g></svg>
+  </div>
+  <ol class="journey__chapters" aria-label="The eight project phases">
+    @for (phase of phases; track phase.number; let i = $index) {
+      <li class="journey__chapter" [class.is-active]="active() === i" [attr.aria-hidden]="enhanced() && active() !== i ? 'true' : null">
+        <div class="journey__number" aria-hidden="true">{{ phase.number }}</div>
+        <div class="journey__copy"><p class="eyebrow">Phase {{ phase.number }} <span class="chapter-total">/ 08</span></p><h3>{{ phase.title }}</h3><p class="journey__description">{{ descriptions[i] }}</p></div>
+      </li>
+    }
+  </ol>
+  @if (enhanced()) {
+    <footer class="journey__footer">
+      <div class="journey__nav" role="group" aria-label="Go to project phase">
+        @for (phase of phases; track phase.number; let i = $index) {
+          <button type="button" (click)="goToPhase(i)" [class.is-active]="active() === i" [attr.aria-label]="phase.number + ': ' + phase.title" [attr.aria-current]="active() === i ? 'step' : null"><span>{{ phase.number }}</span><i></i></button>
+        }
+      </div>
+      <div class="journey__scroll"><span>Scroll to build <span aria-hidden="true">↓</span></span><button type="button" (click)="skip()">Skip journey ↗</button></div>
+    </footer>
+  }
+</section>

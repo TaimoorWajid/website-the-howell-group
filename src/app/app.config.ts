@@ -12,7 +12,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withInMemoryScrolling({ scrollPositionRestoration: 'top', anchorScrolling: 'enabled' }),
-      withViewTransitions()
+      withViewTransitions({
+        skipInitialTransition: true,
+        onViewTransitionCreated: ({ transition }) => {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) transition.skipTransition();
+        }
+      })
     ),
     provideClientHydration(withEventReplay())
   ]
