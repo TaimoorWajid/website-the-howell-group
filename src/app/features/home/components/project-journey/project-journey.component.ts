@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { PROJECT_PHASES } from '../../../../core/data/company.data';
 import { AnimationManagerService } from '../../../../core/animations/animation-manager.service';
+import { SmoothScrollService } from '../../../../core/services/smooth-scroll.service';
 import type { JourneyScene } from './journey-scene';
 
 @Component({
@@ -18,6 +19,7 @@ export class ProjectJourneyComponent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
   private readonly animations = inject(AnimationManagerService);
+  private readonly scroll = inject(SmoothScrollService);
   protected readonly enhanced = signal(false);
   protected readonly active = signal(0);
   protected readonly phases = PROJECT_PHASES;
@@ -42,7 +44,7 @@ export class ProjectJourneyComponent {
       let generation = 0;
       let observer: IntersectionObserver | undefined;
       const motion = matchMedia('(prefers-reduced-motion: reduce)');
-      const compact = matchMedia('(max-width: 767px), (max-height: 560px)');
+      const compact = matchMedia('(max-width: 767px), (max-height: 760px)');
       const reset = () => {
         generation++;
         observer?.disconnect();
@@ -50,6 +52,7 @@ export class ProjectJourneyComponent {
         this.tween?.kill(); this.tween = undefined;
         this.scene?.destroy(); this.scene = undefined;
         this.enhanced.set(false);
+        this.viewport.nativeElement.classList.remove('journey--immersive');
       };
       const setup = () => {
         reset();
@@ -69,7 +72,7 @@ export class ProjectJourneyComponent {
               });
               this.enhanced.set(true);
               // Set the class synchronously before ScrollTrigger measures the compact stage.
-              this.host.nativeElement.classList.add('is-enhanced');
+              this.viewport.nativeElement.classList.add('journey--immersive');
               this.animations.setup();
               this.state.progress = 0;
               this.tween = gsap.to(this.state, {
@@ -88,14 +91,14 @@ export class ProjectJourneyComponent {
               });
               this.animations.refresh();
             } catch {
-              reset(); this.host.nativeElement.classList.remove('is-enhanced');
+              reset();
               this.animations.refresh();
             }
           }).catch(() => { /* The complete phase list remains available if the scene cannot load. */ });
         }, { rootMargin: '1200px 0px' });
         observer.observe(this.host.nativeElement);
       };
-      const change = () => { this.host.nativeElement.classList.remove('is-enhanced'); setup(); };
+      const change = () => setup();
       motion.addEventListener('change', change);
       compact.addEventListener('change', change);
       setup();
@@ -110,10 +113,10 @@ export class ProjectJourneyComponent {
   protected goToPhase(index: number): void {
     if (!this.trigger) return;
     // A little inside each chapter avoids rounding across the previous boundary.
-    window.scrollTo({ top: this.trigger.start + (this.trigger.end - this.trigger.start) * ((index + .18) / 8), behavior: 'instant' });
+    this.scroll.restorePosition(this.trigger.start + (this.trigger.end - this.trigger.start) * ((index + .18) / 8));
   }
 
   protected skip(): void {
-    if (this.trigger) window.scrollTo({ top: this.trigger.end + window.innerHeight, behavior: 'instant' });
+    if (this.trigger) this.scroll.restorePosition(this.trigger.end + this.viewport.nativeElement.offsetHeight);
   }
 }

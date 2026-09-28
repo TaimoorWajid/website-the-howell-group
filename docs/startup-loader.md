@@ -1,12 +1,10 @@
 # Startup loader
 
-The initial document includes a centered client logo, gentle opacity pulse, two-pixel teal progress bar, readiness percentage, and a Continue to website button. The screen fades out once the initial route, window load, fonts, visible images, and the first frame of visible video are ready. It does not replay on client-side navigation.
+The loader is visible in the initial HTML before JavaScript starts, preventing a flash of page content. No-JavaScript visitors see the page without the overlay; a failed loader script also removes it.
 
-The percentage tracks completed readiness milestones and a fixed first-screen asset set, not transferred bytes. Offscreen lazy images and the entire background video are deliberately excluded. Failed media requests count as settled so fallback content can appear. Startup failure, manual skip, or an eight-second timeout clears the overlay without claiming complete loading.
+It is removed immediately once the initial Angular route is ready to paint and the native window load event has completed. There is no minimum duration, completion hold, or exit fade. Background video and lazy assets do not delay dismissal. Percentages describe readiness milestones, not transferred bytes.
 
-The overlay is hidden by default for no-JavaScript visitors. While active, app-root is inert; dismissing the overlay removes inert and restores content focus if the visitor used the continue button. Reduced motion disables the logo pulse and fade. No body overflow or section dimensions are changed, preserving scroll pin measurements.
+Manual skip, bootstrap failure, or an eight-second fallback timeout releases the page. While active, app-root is inert. Dismissal restores interaction and focus without changing page dimensions. The loader does not replay on SPA navigation.
 
 Implementation: src/index.html, public/startup-loader.js, src/main.ts.
-Validation: node --test scripts/startup-loader.test.cjs (four tests); npm run build.
-
-Cached reloads now keep the loader visible for at least 1.5 seconds (400 ms with reduced motion). Slow loads only keep the short completion hold. Manual skip and failure still dismiss immediately. The versioned script URL refreshes cached copies. Five loader tests pass.
+Focused checks: node --test scripts/startup-loader.test.cjs.

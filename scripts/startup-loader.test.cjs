@@ -28,7 +28,7 @@ function setup() {
   return {loader, root, track, skip, window, timers, advance: ms => { now += ms; }};
 }
 const flush = async () => { for(let i=0; i<8; i++) await Promise.resolve(); };
-test('completes only after application, assets, and window readiness', async () => {
+test('dismisses immediately after application and window readiness', async () => {
   const s = setup();
   assert.equal(s.loader.hidden, false); assert.ok('inert' in s.root.attrs);
   s.window.dispatchEvent(new Event('howell:app-ready')); await flush();
@@ -36,15 +36,16 @@ test('completes only after application, assets, and window readiness', async () 
   assert.equal(s.timers.some(t=>t.delay===180), false);
   s.window.dispatchEvent(new Event('load'));
   assert.equal(s.track.attrs['aria-valuenow'], '100');
-  assert.ok('inert' in s.root.attrs);
-  s.timers.find(t=>t.delay===1500).fn();
+  assert.equal(s.loader.removed, true);
   assert.equal('inert' in s.root.attrs, false);
 });
-test('slow loads do not add another full intro delay', async () => {
+test('window loading first dismisses immediately when the app is ready', async () => {
   const s = setup(); s.advance(2500);
-  s.window.dispatchEvent(new Event('howell:app-ready'));
-  s.window.dispatchEvent(new Event('load')); await flush();
-  assert.ok(s.timers.find(t=>t.delay===180));
+  s.window.dispatchEvent(new Event('load'));
+  assert.equal(s.loader.removed, false);
+  s.window.dispatchEvent(new Event('howell:app-ready')); await flush();
+  assert.equal(s.loader.removed, true);
+  assert.equal(s.timers.some(t=>t.delay===180), false);
   assert.equal(s.timers.some(t=>t.delay===1500), false);
 });
 test('a stalled boot releases the page without claiming 100 percent', () => {

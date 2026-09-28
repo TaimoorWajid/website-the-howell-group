@@ -23,11 +23,37 @@
 /* SECTION 06 â€” INSIGHTS / NEWS */
 .insights { background: var(--color-white); padding-bottom: clamp(8rem, 16vw, 16rem); padding-top: clamp(8rem, 12vw, 12rem); } .insights h2 { margin: 5rem 0; } .insight-grid { display: grid; gap: 2rem; grid-template-columns: 1.45fr .85fr; } .insight-card { color: var(--color-charcoal); display: block; text-decoration: none; } .insight-card:nth-child(2), .insight-card:nth-child(3) { align-self: end; } .insight-card img { aspect-ratio: 1.3 / 1; display: block; filter: grayscale(20%); object-fit: cover; transition: filter .5s ease, transform .5s ease; width: 100%; } .insight-card--featured { grid-row: span 2; } .insight-card--featured img { aspect-ratio: 1.55 / 1; } .insight-card:hover img, .insight-card:focus-visible img { filter: grayscale(0); transform: scale(1.02); } .insight-date { color: var(--color-red); } .insight-date span { color: var(--color-muted); margin: 0 .4rem; } .insight-card h3 { font-size: clamp(1.25rem, 2vw, 1.9rem); line-height: 1.05; margin: .6rem 0 1.25rem; }
 
+.home-faq { background-color: var(--color-off-white); color: var(--color-charcoal); padding: clamp(4rem, 7vw, 7rem) 0 clamp(2.5rem, 4vw, 4rem); }
+.home-faq__intro { display: grid; grid-template-columns: 1fr; align-items: start; gap: 2rem; margin-bottom: clamp(2rem, 4vw, 4rem); }
+.home-faq__intro h2 { font-size: clamp(3rem, 7vw, 6.5rem); line-height: .95; font-weight: 400; margin: 0; }
+.home-faq__intro h2 em { color: var(--color-red); font-style: normal; }
+.home-faq__list { max-width: 68rem; margin-left: auto; border-left: 1px solid var(--color-muted); padding-left: clamp(1rem, 3vw, 2rem); }
+.home-faq__item { border-top: 1px solid var(--color-line); }
+.home-faq__item:last-child { border-bottom: 1px solid var(--color-line); }
+.home-faq__item summary { display: flex; align-items: center; gap: .8rem; min-height: 64px; padding: 1rem 0; cursor: pointer; list-style: none; font-size: 1rem; }
+.home-faq__item summary::-webkit-details-marker { display: none; }
+.home-faq__item summary { transition: color .2s ease; }
+.home-faq__item summary:hover { color: var(--color-red); }
+.home-faq__number { color: var(--color-muted); font-size: .75rem; white-space: nowrap; }
+.home-faq__symbol { position: relative; width: 1.25rem; height: 1.25rem; margin-left: auto; flex: 0 0 1.25rem; }
+.home-faq__symbol::before, .home-faq__symbol::after { content: ''; position: absolute; inset: 50% auto auto 50%; width: .8rem; height: 1px; background: currentColor; transform: translate(-50%, -50%); }
+.home-faq__symbol::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform .2s ease; }
+.home-faq__item[open] .home-faq__symbol::after { transform: translate(-50%, -50%) rotate(0); }
+.home-faq__item > p { margin: 0 2rem 1.25rem 2.9rem; max-width: 52rem; color: var(--color-body); font-size: .95rem; line-height: 1.7; }
+.home-faq__item > p a { color: var(--color-charcoal); text-underline-offset: .2em; }
+.home-faq__item > p a:hover { color: var(--color-red); }
+.home-faq__item summary:focus-visible, .home-faq__item > p a:focus-visible { outline: 2px solid var(--color-teal); outline-offset: 4px; }
+
 /* SECTION 07 â€” FINAL CTA */
-.final-cta { background: var(--color-dark-teal); color: var(--color-white); overflow: hidden; padding: 200px 0; position: relative; } .final-cta-glow { background: radial-gradient(circle at 82% 88%, rgba(230,59,50,.2), transparent 32%); inset: 0; pointer-events: none; position: absolute; } .final-cta .section-shell { position: relative; z-index: 1; } .final-cta h2 { font-size: clamp(4rem, 10vw, 10rem); letter-spacing: -.07em; line-height: .9; margin: 6rem 0 8rem; } .final-cta h2 em { color: var(--color-red); font-style: normal; } .cta-bottom { align-items: end; border-top: 1px solid rgba(255,255,255,.18); display: flex; justify-content: space-between; padding-top: 1rem; } .cta-bottom p { color: rgba(255,255,255,.72); font-size: 18px; margin: 0; } .final-cta .button { background: var(--color-red); color: var(--color-white); } .final-cta .button:hover { background: var(--color-white); color: var(--color-dark-teal); }
+.final-cta { background-color: var(--color-off-white); color: var(--color-charcoal); overflow: hidden; padding: clamp(2.5rem, 4vw, 4rem) 0 clamp(4rem, 7vw, 7rem); position: relative; } .final-cta-glow { background: none; inset: 0; pointer-events: none; position: absolute; } .final-cta .section-shell { position: relative; z-index: 1; } .final-cta h2 { font-size: clamp(3.5rem, 8vw, 8rem); letter-spacing: -.07em; line-height: .9; margin: clamp(2.5rem, 5vw, 5rem) 0 clamp(3rem, 6vw, 6rem); } .final-cta h2 em { color: var(--color-red); font-style: normal; } .cta-bottom { align-items: end; border-top: 1px solid var(--color-line); display: flex; justify-content: space-between; padding-top: 1rem; } .cta-bottom p { color: var(--color-muted); font-size: 18px; margin: 0; } .final-cta .button { background: var(--color-red); color: var(--color-white); transition: background-color .2s, color .2s; } .final-cta .button span { display: inline-block; transition: transform .2s ease; } .final-cta .button:hover { background: var(--color-dark-teal); color: var(--color-white); } .final-cta .button:hover span { transform: translateX(4px); }
 
 @media (max-width: 48rem) {
   .projects-heading { display: block; margin-bottom: 3rem; } .projects-heading > p { margin-top: 2rem; } .project-card:nth-child(even) { margin-left: 0; width: 100%; } .project-media { aspect-ratio: 1.25 / 1; } .project-meta { display: block; } .project-details { padding-top: 1rem; }
   .insights h2 { margin: 3.5rem 0; } .insight-grid { display: block; } .insight-card, .insight-card--featured { display: block; margin-bottom: 3rem; } .insight-card--featured img { aspect-ratio: 1.3 / 1; }
-  .final-cta h2 { margin: 5rem 0; } .cta-bottom { align-items: flex-start; display: block; } .final-cta .button { margin-top: 1.5rem; }
+  .home-faq__intro { grid-template-columns: 1fr; gap: 1.5rem; }
+  .home-faq__item summary { align-items: flex-start; font-size: .95rem; }
+  .home-faq__number { padding-top: .15rem; }
+  .home-faq__item > p { margin-left: 0; }
+  .final-cta h2 { margin: 3rem 0; } .cta-bottom { align-items: flex-start; display: block; } .final-cta .button { margin-top: 1.5rem; }
 }
+@media (prefers-reduced-motion: reduce) { .home-faq__symbol::after, .home-faq__item summary, .final-cta .button, .final-cta .button span { transition: none; } }

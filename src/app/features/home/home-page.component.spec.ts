@@ -39,7 +39,8 @@ describe('HomePageComponent', () => {
       expect(alisoProject?.textContent).toContain(value);
     }
     expect(page.querySelector('app-services-experience')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-people-before-process');
-    expect(page.querySelector('app-people-before-process')?.nextElementSibling?.id || page.querySelector('app-people-before-process')?.nextElementSibling?.querySelector('h2')?.id).toBe('lifecycle-title');
+    expect(page.querySelector('app-people-before-process')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-project-journey');
+    expect(page.querySelectorAll('app-project-journey .journey__chapter').length).toBe(8);
     expect(page.querySelector('#cta-title')).toBeTruthy();
   });
 });

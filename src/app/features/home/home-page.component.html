@@ -16,15 +16,90 @@
 
   <!-- SECTION 06 â€” ABOUT / COMPANY -->
   <app-people-before-process />
-
+  <!-- SECTION 07 â€” PROJECT JOURNEY -->
   <app-project-journey />
 
-  <!-- SECTION 07 â€” INSIGHTS / NEWS -->
+  <!-- SECTION 08 â€” INSIGHTS / NEWS -->
   @if (insights().length) {
-  <section class="insights section-shell" aria-labelledby="insights-title"><div class="section-heading"><p class="section-label">05 â€” Thinking</p><a class="text-link" routerLink="/insights">All insights <span aria-hidden="true">&rarr;</span></a></div><h2 id="insights-title" appReveal>Ideas worth<br /><em>building on.</em></h2>@if (insightsLoading()) { <p class="data-status" role="status">Loading insights&hellip;</p> } @else { <div class="insight-grid">@for (insight of insights(); track insight.id; let i = $index) { <a class="insight-card" [class.insight-card--featured]="i === 0" [routerLink]="['/insights', insight.slug]" appReveal><img [src]="insight.image?.src" [alt]="insight.image?.alt ?? ''" loading="lazy" /><p class="insight-date">Journal <span aria-hidden="true">/</span> {{ insight.date ?? 'Coming soon' }}</p><h3>{{ insight.title }}</h3><span class="text-link">Read more <span aria-hidden="true">&rarr;</span></span></a> }</div> }</section>
+  <section class="insights section-shell" aria-labelledby="insights-title">
+    <div class="section-heading">
+      <p class="section-label">05 - Thinking</p><a class="text-link" routerLink="/insights">All insights <span
+          aria-hidden="true">&rarr;</span></a>
+    </div>
+    <h2 id="insights-title" appReveal>Ideas worth<br /><em>building on.</em></h2>@if (insightsLoading()) { <p
+      class="data-status" role="status">Loading insights&hellip;</p> } @else { <div class="insight-grid">@for (insight
+      of insights(); track insight.id; let i = $index) { <a class="insight-card"
+        [class.insight-card--featured]="i === 0" [routerLink]="['/insights', insight.slug]" appReveal><img
+          [src]="insight.image?.src" [alt]="insight.image?.alt ?? ''" loading="lazy" />
+        <p class="insight-date">Journal <span aria-hidden="true">/</span> {{ insight.date ?? 'Coming soon' }}</p>
+        <h3>{{ insight.title }}</h3><span class="text-link">Read more <span aria-hidden="true">&rarr;</span></span>
+      </a> }</div> }
+  </section>
 
   }
+  <!-- SECTION 09 — FAQ -->
+  <section class="home-faq" aria-labelledby="faq-title">
+    <div class="section-shell">
+      <header class="home-faq__intro">
+        <p class="section-label">Project guidance</p>
+        <h2 id="faq-title">Clear answers for<br /><em>complex work.</em></h2>
+      </header>
+      <div class="home-faq__list">
+        <details class="home-faq__item" name="home-faq">
+          <summary><span class="home-faq__number">01 /</span><span>What services does Howell provide?</span><span
+              class="home-faq__symbol" aria-hidden="true"></span></summary>
+          <p>Howell provides Program, Design, Construction and Contract Management. Financial Management is supported
+            through a capital financial advisor partnership.</p>
+        </details>
+        <details class="home-faq__item" name="home-faq">
+          <summary><span class="home-faq__number">02 /</span><span>When should we bring Howell into a
+              project?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
+          <p>Howell can contribute at any stage. Earlier involvement can create more opportunity to align the team,
+            clarify priorities and connect decisions across the project lifecycle.</p>
+        </details>
+        <details class="home-faq__item" name="home-faq">
+          <summary><span class="home-faq__number">03 /</span><span>What kinds of healthcare projects do you
+              support?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
+          <p>The work spans healthcare environments such as hospitals, behavioral health facilities, operating rooms and
+            medical simulation spaces. Project needs and scope vary by facility.</p>
+        </details>
+        <details class="home-faq__item" name="home-faq">
+          <summary><span class="home-faq__number">04 /</span><span>Where does Howell work?</span><span
+              class="home-faq__symbol" aria-hidden="true"></span></summary>
+          <p>Howell focuses on healthcare in Southern California and is flexible about supporting clients elsewhere.</p>
+        </details>
+        <details class="home-faq__item" name="home-faq">
+          <summary><span class="home-faq__number">05 /</span><span>How are owners and project teams
+              involved?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
+          <p>Howell coordinates with owners, users, designers and delivery partners, helping keep responsibilities,
+            communication and decisions connected to the owner’s priorities.</p>
+        </details>
+        <details class="home-faq__item" name="home-faq">
+          <summary><span class="home-faq__number">06 /</span><span>Does Howell act as the general
+              contractor?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
+          <p>Howell’s role is owner representation and project oversight. The specific responsibilities depend on the
+            agreed scope; the role should not be assumed to include performing construction.</p>
+        </details>
+        <details class="home-faq__item" name="home-faq">
+          <summary><span class="home-faq__number">07 /</span><span>How do we start a conversation?</span><span
+              class="home-faq__symbol" aria-hidden="true"></span></summary>
+          <p><a routerLink="/contact">Contact the Howell team</a> with your facility, project stage and priorities to
+            start discussing what support may fit.</p>
+        </details>
+      </div>
+    </div>
+  </section>
 
-  <!-- SECTION 08 â€” FINAL CTA -->
-  <section class="final-cta" aria-labelledby="cta-title"><div class="final-cta-glow" aria-hidden="true"></div><div class="section-shell"><p class="section-label">06 â€” Next</p><h2 id="cta-title" appReveal>Let&rsquo;s deliver<br /><em>your mission.</em></h2><div class="cta-bottom" appReveal><p>Tell us where your healthcare project stands and what you need next.</p><a class="button" routerLink="/contact">Start a conversation <span aria-hidden="true">&rarr;</span></a></div></div></section>
+  <!-- SECTION 10 — FINAL CTA -->
+  <section class="final-cta" aria-labelledby="cta-title">
+    <div class="final-cta-glow" aria-hidden="true"></div>
+    <div class="section-shell">
+      <p class="section-label">06 - Next</p>
+      <h2 id="cta-title" appReveal>Let&rsquo;s deliver<br /><em>your mission.</em></h2>
+      <div class="cta-bottom" appReveal>
+        <p>Tell us where your healthcare project stands and what you need next.</p><a class="button"
+          routerLink="/contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
 </div>
