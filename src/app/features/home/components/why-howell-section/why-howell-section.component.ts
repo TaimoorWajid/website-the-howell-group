@@ -31,20 +31,19 @@ export class WhyHowellSectionComponent implements OnDestroy {
           // Save the context before building so even partial setup can be reverted.
           this.context = context;
           this.timeline = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } })
-            .from('.why-image-mask', { clipPath: 'inset(0 100% 0 0)', duration: 1.2 }, 0)
-            .from('.why-image', { scale: 1.04, duration: 1.35 }, 0)
+            .from('.why-grid', { opacity: 0, scale: 1.08, duration: 1.2 }, 0)
             .from('.drawing-path', { strokeDashoffset: 1, duration: .95, stagger: .08 }, .08)
+            .from('.why-index', { opacity: 0, y: -8, duration: .4 }, .12)
             .from('.why-eyebrow', { opacity: 0, y: 8, duration: .4 }, .16)
             .from('.heading-mask > span', { yPercent: 105, opacity: .15, duration: .65, stagger: .1 }, .28)
             .from('.body-mask > span', { yPercent: 105, opacity: 0, duration: .5, stagger: .08 }, .58)
-            .from('.why-link', { opacity: 0, y: 8, duration: .4 }, .96)
+            .from('.standard-label, .standard-rule, .standard-list li, .standard-note', { opacity: 0, y: 12, duration: .45, stagger: .08 }, .58)
+            .from('.why-link', { opacity: 0, y: 8, duration: .4 }, 1.02)
             .from('.why-arrow', { x: -3, opacity: 0, duration: .3 }, 1.12);
           this.trigger = ScrollTrigger.create({ trigger: this.host.nativeElement, animation: this.timeline,
             start: 'top 76%', once: true, toggleActions: 'play none none none' });
         });
       } catch { this.revealImmediately(); }
-      // Image dimensions and the split grid reserve the final layout, so image
-      // loading needs no extra refresh of the following pinned section.
     });
   }
 

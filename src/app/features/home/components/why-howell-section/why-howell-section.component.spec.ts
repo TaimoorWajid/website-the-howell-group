@@ -37,17 +37,17 @@ describe('Why Howell section', () => {
   });
   afterEach(() => { fixture?.destroy(); window.scrollTo(0, 0); frame.style.cssText = originalStyle; });
 
-  it('renders the exact accessible copy, decorative photograph and one valid About link', async () => {
+  it('renders the accessible editorial copy, proof points and one valid About link', async () => {
     await create();
     expect(root.querySelectorAll('h2').length).toBe(1); expect(root.querySelector('h1')).toBeNull();
-    expect(root.querySelector('.why-eyebrow')?.textContent).toBe('WHY HOWELL');
+    expect(root.querySelector('.why-eyebrow')?.textContent).toContain('WHY HOWELL');
     expect(root.querySelector('h2')?.textContent).toBe("The owner's vision is the measure of every decision.");
-    expect(root.querySelector('.why-body')?.textContent).toBe('We bring experienced leadership to the table early\u2014building people-centric teams, asking better questions, and turning complexity into a clear path forward.');
+    expect(root.querySelector('.why-body')?.textContent).toContain('We can contribute at any stage of your project.');
     expect(root.querySelectorAll('a').length).toBe(1);
     expect(root.querySelector('a')?.getAttribute('href')).toBe('/about');
-    expect(root.querySelector('img')?.getAttribute('alt')).toBe('');
+    expect(root.querySelector('img')).toBeNull();
+    expect(root.querySelectorAll('.standard-list li').length).toBe(3);
     expect(root.querySelector('.why-drawing')?.getAttribute('aria-hidden')).toBe('true');
-    expect(root.querySelector('img')?.getAttribute('width')).toBe('1400');
     expect(root.textContent).not.toContain('?');
   });
 
@@ -57,15 +57,13 @@ describe('Why Howell section', () => {
       frame.style.width = `${width}px`; await tick(); await render();
       expect(window.innerWidth).toBe(width);
       expect(document.documentElement.scrollWidth).withContext(`${width}px overflow`).toBeLessThanOrEqual(width);
-      const image = root.querySelector('.why-image-mask')!.getBoundingClientRect();
       const copy = root.querySelector('.why-copy')!.getBoundingClientRect();
       const link = root.querySelector('a')!.getBoundingClientRect();
       expect(link.height).toBeGreaterThanOrEqual(44); expect(link.right).toBeLessThanOrEqual(width);
       if (width < 768) {
-        expect(image.top).toBeGreaterThanOrEqual(copy.bottom - 1);
-        expect(image.width / image.height).toBeCloseTo(4/3, 2);
+        expect(root.querySelector('.why-standard')!.getBoundingClientRect().top).toBeGreaterThanOrEqual(copy.bottom - 1);
       } else {
-        expect(image.left).toBe(0); expect(image.width / width).toBeCloseTo(.4, 2);
+        expect(root.querySelector('.why-standard')!.getBoundingClientRect().left).toBeGreaterThan(copy.left);
         expect(root.querySelector('section')!.getBoundingClientRect().height).toBeGreaterThanOrEqual(650);
         const lineHeight = parseFloat(getComputedStyle(root.querySelector('h2')!).lineHeight);
         for (const line of root.querySelectorAll('.heading-mask > span')) expect(line.getBoundingClientRect().height).withContext(`${width}px headline`).toBeLessThanOrEqual(lineHeight+1);
@@ -101,7 +99,7 @@ describe('Why Howell section', () => {
     reduced = true; motionQueries.forEach(media => media.dispatchEvent(new Event('change'))); await render();
     expect(ScrollTrigger.getAll().some(t => t.trigger === root)).toBeFalse();
     expect(root.querySelector<HTMLElement>('.why-link')!.style.opacity).toBe('');
-    expect(root.querySelector<HTMLElement>('.why-image-mask')!.style.clipPath).toBe('');
+    expect(root.querySelector<HTMLElement>('.why-grid')!.style.opacity).toBe('');
   });
 
   it('makes the CTA visible on keyboard focus and navigates through Angular', async () => {
@@ -118,6 +116,6 @@ describe('Why Howell section', () => {
     spyOn(TestBed.inject(AnimationManagerService), 'createContext').and.throwError('Animation unavailable');
     await create(false);
     expect(getComputedStyle(root.querySelector('.why-link')!).opacity).toBe('1');
-    expect(root.querySelector<HTMLElement>('.why-image-mask')!.style.clipPath).toBe('');
+    expect(root.querySelector<HTMLElement>('.why-grid')!.style.opacity).toBe('');
   });
 });
