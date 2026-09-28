@@ -1,4 +1,9 @@
 <section class="hero" aria-labelledby="hero-title">
+  <div class="hero-media" aria-hidden="true">
+    <img class="hero-poster" src="/images/hero/howell-hero-poster.jpg" alt="" fetchpriority="high" width="1280" height="720" />
+    <video #backgroundVideo class="hero-video" [class.is-ready]="videoReady()" muted loop playsinline preload="none" tabindex="-1"
+      (playing)="playing.set(true); videoReady.set(true)" (pause)="playing.set(false)" (error)="onVideoError()"></video>
+  </div>
   <div class="hero-copy">
     <p class="hero-eyebrow">OWNER REPRESENTATION · HEALTHCARE PROJECT DELIVERY</p>
     <h1 id="hero-title"><span class="heading-line"><span>We Deliver </span></span><span class="heading-line"><span>Your Mission</span></span></h1>
@@ -8,5 +13,9 @@
       <a class="hero-link hero-link--secondary" routerLink="/contact">START A PROJECT<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
     </div>
   </div>
-  <app-home-hero-three class="hero-architecture" />
+  @if (!videoFailed()) {
+    <button class="hero-playback" type="button" (click)="togglePlayback()" [attr.aria-label]="playing() ? 'Pause background video' : 'Play background video'">
+      <span aria-hidden="true">{{ playing() ? 'Ⅱ' : '▷' }}</span>{{ playing() ? 'PAUSE' : 'PLAY' }} VIDEO
+    </button>
+  }
 </section>

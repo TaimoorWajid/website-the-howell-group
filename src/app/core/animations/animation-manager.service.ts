@@ -23,5 +23,14 @@ export class AnimationManagerService {
     return gsap.context(animation, scope ?? this.document.body);
   }
 
-  refresh(): void { if (this.setup()) ScrollTrigger.refresh(); }
+  refresh(): void {
+    if (!this.setup()) return;
+    // Components can initialize out of document order. Upstream pins must be
+    // measured first so their spacing is included in every downstream trigger.
+    ScrollTrigger.sort((a: ScrollTrigger, b: ScrollTrigger) => {
+      if (!a.trigger || !b.trigger || a.trigger === b.trigger) return 0;
+      return a.trigger.compareDocumentPosition(b.trigger) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+    });
+    ScrollTrigger.refresh();
+  }
 }

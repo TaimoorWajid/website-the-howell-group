@@ -3,7 +3,7 @@ import { ServicesExperienceComponent } from './components/services-experience/se
 import { WhyHowellSectionComponent } from './components/why-howell-section/why-howell-section.component';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, DestroyRef, PLATFORM_ID, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, PLATFORM_ID, afterNextRender, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
@@ -16,6 +16,7 @@ import { FeaturedProjectsComponent } from '../../shared/components/featured-proj
 import { PORTFOLIO_PROJECTS } from '../../core/data/projects.data';
 import { COMPANY, PROJECT_PHASES } from '../../core/data/company.data';
 import { FeaturedProject } from '../../shared/components/featured-projects/featured-projects.types';
+import { AnimationManagerService } from '../../core/animations/animation-manager.service';
 
 
 
@@ -30,6 +31,8 @@ export class HomePageComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly insightsApi = inject(InsightApiService);
   private readonly seo = inject(SeoService);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly animations = inject(AnimationManagerService);
 
   protected readonly phases = PROJECT_PHASES;
   protected readonly featuredProjects: readonly FeaturedProject[] = PORTFOLIO_PROJECTS.map(project => ({
@@ -46,6 +49,23 @@ export class HomePageComponent {
   ];
 
   constructor() {
+    afterNextRender(() => {
+      // The card runway is expanded by a later Angular render. Pin coordinates
+      // measured before that render are stale even though the viewport did not resize.
+      let frame: number | undefined;
+      const observer = new ResizeObserver(() => {
+        if (frame !== undefined) cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          frame = undefined;
+          this.animations.refresh();
+        });
+      });
+      this.host.nativeElement.querySelectorAll('.home-page > *').forEach(section => observer.observe(section, { box: 'border-box' }));
+      this.destroyRef.onDestroy(() => {
+        observer.disconnect();
+        if (frame !== undefined) cancelAnimationFrame(frame);
+      });
+    });
     this.seo.update({ title: COMPANY.name + ' | ' + COMPANY.tagline, description: COMPANY.positioning + ' ' + COMPANY.market, canonicalPath: '/' });
     if (isPlatformBrowser(this.platformId)) this.loadContent();
     else { this.insightsLoading.set(false); }

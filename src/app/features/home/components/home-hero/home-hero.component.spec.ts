@@ -1,100 +1,86 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { HomeHeroComponent } from './home-hero.component';
-import { ThreeRendererService } from '../../../../core/three/three-renderer.service';
 
-describe('Owner-focused homepage hero', () => {
+describe('Homepage video hero', () => {
   let fixture: ComponentFixture<HomeHeroComponent>;
   let root: HTMLElement;
-  let frame: HTMLElement;
-  let frameStyle: string;
-  let reduced = true;
-  const renderer = { create: jasmine.createSpy('create').and.throwError('WebGL unavailable') };
-  const render = async (): Promise<void> => { fixture.detectChanges(); await fixture.whenStable(); fixture.detectChanges(); };
-  const resize = async (width: number): Promise<void> => {
-    frame.style.width = `${width}px`; frame.style.height = '900px';
-    await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
-    await render(); expect(window.innerWidth).toBe(width);
-  };
+  let reduced: boolean;
+  let motionListener: EventListener;
+  let play: jasmine.Spy;
+  let pause: jasmine.Spy;
+  const render = async () => { fixture.detectChanges(); await fixture.whenStable(); fixture.detectChanges(); };
+
   beforeEach(async () => {
-    reduced = true; renderer.create.calls.reset();
-    frame = window.frameElement as HTMLElement; frameStyle = frame.style.cssText;
+    reduced = true;
+    play = spyOn(HTMLMediaElement.prototype, 'play').and.returnValue(Promise.resolve());
+    pause = spyOn(HTMLMediaElement.prototype, 'pause');
+    spyOn(HTMLMediaElement.prototype, 'load');
     const match = window.matchMedia.bind(window);
     spyOn(window, 'matchMedia').and.callFake(query => {
-      const result = match(query);
-      if (query.includes('prefers-reduced-motion')) Object.defineProperty(result, 'matches', { get: () => reduced });
-      return result;
+      const media = match(query);
+      if (query.includes('prefers-reduced-motion')) {
+        Object.defineProperty(media, 'matches', { get: () => reduced });
+        spyOn(media, 'addEventListener').and.callFake((_type: string, listener: EventListenerOrEventListenerObject) => { motionListener = listener as EventListener; });
+      }
+      return media;
     });
-    await TestBed.configureTestingModule({ imports: [HomeHeroComponent], providers: [provideZonelessChangeDetection(), provideRouter([{ path: '**', children: [] }]), { provide: ThreeRendererService, useValue: renderer }] }).compileComponents();
-    fixture = TestBed.createComponent(HomeHeroComponent); root = fixture.nativeElement;
+    await TestBed.configureTestingModule({ imports: [HomeHeroComponent], providers: [provideZonelessChangeDetection(), provideRouter([])] }).compileComponents();
+    fixture = TestBed.createComponent(HomeHeroComponent);
+    root = fixture.nativeElement;
     await render();
   });
-  afterEach(() => { fixture.destroy(); frame.style.cssText = frameStyle; });
+  afterEach(() => fixture.destroy());
 
-  it('keeps the exact copy, one heading and both valid routes in the initial markup', () => {
+  it('preserves the approved headline and navigation targets', () => {
     expect(root.querySelectorAll('h1').length).toBe(1);
-    expect(root.querySelector('.hero-eyebrow')?.textContent).toBe('OWNER-FOCUSED PROJECT LEADERSHIP');
-    expect(root.querySelectorAll('.heading-line')[0].textContent).toBe('Clarity at every turn.');
-    expect(root.querySelectorAll('.heading-line')[1].textContent).toBe('Confidence at every stage.');
-    expect(root.querySelector('.hero-lede')?.textContent).toBe('The Howell Group aligns people, process and decisions to deliver complex projects with purpose\u2014from the first conversation through final closeout.');
+    expect(root.querySelector('h1')?.textContent).toBe('We Deliver Your Mission');
     expect(Array.from(root.querySelectorAll('a')).map(a => a.getAttribute('href'))).toEqual(['/projects', '/contact']);
-    expect(root.querySelector('img')?.getAttribute('src')).toBe('/images/hero/architectural-study.svg');
-    expect(root.querySelector('.architecture')?.getAttribute('aria-hidden')).toBe('true');
+    expect(root.querySelector('img')?.getAttribute('src')).toBe('/images/hero/howell-hero-poster.jpg');
   });
 
-  it('fits all eight requested widths with legible copy, two desktop lines and touch-sized links', async () => {
-    for (const width of [1600,1440,1280,1024,768,430,390,360]) {
-      await resize(width);
-      expect(document.documentElement.scrollWidth).withContext(`${width}px overflow`).toBeLessThanOrEqual(width);
-      const copy = root.querySelector('.hero-copy')!.getBoundingClientRect();
-      const visual = root.querySelector('.hero-architecture')!.getBoundingClientRect();
-      if (width <= 768) expect(visual.top).toBeGreaterThanOrEqual(copy.bottom - 1);
-      else {
-        const heading = root.querySelector('h1')!;
-        const lineHeight = parseFloat(getComputedStyle(heading).lineHeight);
-        for (const line of root.querySelectorAll('.heading-line > span')) expect(line.getBoundingClientRect().height).withContext(`${width}px heading line`).toBeLessThanOrEqual(lineHeight + 1);
-      }
-      for (const link of root.querySelectorAll('a')) {
-        expect(link.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
-        expect(link.getBoundingClientRect().right).toBeLessThanOrEqual(width);
-      }
-      expect(visual.height).toBeGreaterThan(200);
-    }
+  it('does not request or autoplay video for reduced-motion users', () => {
+    expect(root.querySelector('video')?.getAttribute('src')).toBeNull();
+    expect(play).not.toHaveBeenCalled();
+    expect(root.querySelector('.hero-media')?.getAttribute('aria-hidden')).toBe('true');
   });
 
-  it('leaves reduced-motion content immediately visible without initializing WebGL', async () => {
-    await new Promise(resolve => setTimeout(resolve, 60));
-    expect(renderer.create).not.toHaveBeenCalled();
-    expect(root.querySelector('canvas')).toBeNull();
-    expect(getComputedStyle(root.querySelector('.hero-lede')!).opacity).toBe('1');
-    expect(getComputedStyle(root.querySelector('.architecture-fallback')!).opacity).toBe('1');
+  it('allows explicit playback and pause with an accurate accessible label', async () => {
+    const video = root.querySelector('video')!;
+    root.querySelector<HTMLButtonElement>('button')!.click();
+    expect(play).toHaveBeenCalled();
+    expect(video.muted).toBeTrue();
+    expect(video.loop).toBeTrue();
+    expect(video.playsInline).toBeTrue();
+    video.dispatchEvent(new Event('playing')); await render();
+    expect(root.querySelector('button')?.getAttribute('aria-label')).toBe('Pause background video');
+    root.querySelector<HTMLButtonElement>('button')!.click();
+    expect(pause).toHaveBeenCalled();
+    video.dispatchEvent(new Event('pause')); await render();
+    expect(root.querySelector('button')?.getAttribute('aria-label')).toBe('Play background video');
   });
 
-  it('retains the fallback when WebGL initialization fails', async () => {
-    reduced = false;
-    await resize(430); await resize(1440);
-    await new Promise(resolve => setTimeout(resolve, 250)); await render();
-    expect(renderer.create).toHaveBeenCalled();
-    expect(root.querySelector('.is-ready')).toBeNull();
-    expect(getComputedStyle(root.querySelector('.architecture-fallback')!).opacity).toBe('1');
+  it('pauses when reduced motion is enabled during playback', () => {
+    reduced = false; motionListener(new Event('change'));
+    expect(play).toHaveBeenCalled();
+    pause.calls.reset(); reduced = true; motionListener(new Event('change'));
+    expect(pause).toHaveBeenCalled();
+  });
+
+  it('keeps the still image and both links when media fails', async () => {
+    root.querySelector('video')!.dispatchEvent(new Event('error')); await render();
+    expect(root.querySelector('.hero-video.is-ready')).toBeNull();
+    expect(root.querySelector('img')).not.toBeNull();
+    expect(root.querySelector('button')).toBeNull();
     expect(root.querySelectorAll('a').length).toBe(2);
   });
 
-  it('navigates through both CTA links and allows keyboard focus', async () => {
-    for (const link of root.querySelectorAll<HTMLAnchorElement>('a')) {
-      link.focus(); expect(document.activeElement).toBe(link);
-      link.click(); await render();
-      expect(TestBed.inject(Router).url).toBe(link.getAttribute('href')!);
-    }
-  });
-
-  it('cancels deferred scene initialization when the route destroys the hero', async () => {
-    fixture.destroy(); reduced = false;
-    fixture = TestBed.createComponent(HomeHeroComponent);
-    fixture.detectChanges();
+  it('releases the media source when leaving the page', () => {
+    root.querySelector<HTMLButtonElement>('button')!.click();
+    const video = root.querySelector('video')!;
     fixture.destroy();
-    await new Promise(resolve => setTimeout(resolve, 100));
-    expect(renderer.create).not.toHaveBeenCalled();
+    expect(video.getAttribute('src')).toBeNull();
+    expect(pause).toHaveBeenCalled();
   });
 });

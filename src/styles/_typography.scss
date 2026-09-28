@@ -1,3 +1,20 @@
+// Resolve the installed client font without redistributing desktop font files.
+// A licensed WOFF2 source can be added here when supplied for web delivery.
+@font-face {
+  font-family: 'Franklin Gothic Book';
+  src: local('Franklin Gothic Book'), local('FranklinGothic-Book');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Franklin Gothic Book';
+  src: local('Franklin Gothic Book Italic'), local('FranklinGothic-BookItalic');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
 body { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
+button, input, select, textarea { font-family: inherit; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.05; }
