@@ -1,10 +1,8 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { of } from 'rxjs';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { HomePageComponent } from './home-page.component';
-import { InsightApiService } from '../../core/api/insight-api.service';
 
 // Exercise the complete section ordering, rather than an isolated pinned card.
 describe('Homepage scroll geometry', () => {
@@ -21,7 +19,7 @@ describe('Homepage scroll geometry', () => {
     spyOn(HTMLMediaElement.prototype, 'play').and.returnValue(Promise.resolve());
     spyOn(HTMLMediaElement.prototype, 'pause');
     spyOn(HTMLMediaElement.prototype, 'load');
-    await TestBed.configureTestingModule({ imports: [HomePageComponent], providers: [provideZonelessChangeDetection(), provideRouter([]), { provide: InsightApiService, useValue: { getInsights: () => of([]) } }] }).compileComponents();
+    await TestBed.configureTestingModule({ imports: [HomePageComponent], providers: [provideZonelessChangeDetection(), provideRouter([])] }).compileComponents();
     const fixture = TestBed.createComponent(HomePageComponent);
     const settle = async () => {
       fixture.detectChanges(); await fixture.whenStable();

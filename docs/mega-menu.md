@@ -8,9 +8,8 @@ Edit `src/app/layout/header/mega-menu.data.ts` for menu content and item icons. 
 
 The desktop panel retains its layout, images, typography and colors, with consistent low-contrast column/item separators and accessible full-row links. Its height follows the actual header edge and scrolls internally on short screens.
 
-Projects, Services, About and Insights retain existing labels; Contact remains direct. Careers is inside About in both experiences. Industry/location menus remain deferred because there are no corresponding routes or verified company locations. Existing service links use their valid parent route until detail content is published. Existing foundation pages are unchanged.
+Projects, Services, Markets and About retain existing labels; Contact remains direct. Careers is inside About in both experiences. Industry/location menus remain deferred because there are no corresponding routes or verified company locations. Existing service links use their valid parent route until detail content is published. Existing foundation pages are unchanged.
 
-Insights lazily requests the existing InsightApiService. A published item's title, image, date and route supply the feature; otherwise the feature links to the Insights index without invented metadata. Mobile retains that feature destination as a text link.
 
 ## Mobile behavior
 

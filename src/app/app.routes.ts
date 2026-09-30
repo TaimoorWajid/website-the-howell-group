@@ -14,10 +14,11 @@ export const routes: Routes = [
   { path: 'services/:slug', loadComponent: () => import('./features/services/service-detail-page.component').then(module => module.ServiceDetailPageComponent), data: { footerInvitation: false, title: 'Service | The Howell Group' } },
   { path: 'our-approach', loadComponent: () => import('./features/approach/approach-page.component').then(module => module.ApproachPageComponent), data: { footerInvitation: false, title: 'Our Approach | The Howell Group' } },
   { path: 'about', loadComponent: () => import('./features/about/about-page.component').then(module => module.AboutPageComponent), data: { footerInvitation: false, title: 'About | The Howell Group' } },
-  { path: 'insights', component: FoundationPageComponent, data: { title: 'Insights | The Howell Group' } },
-  { path: 'insights/:slug', component: FoundationPageComponent, data: { title: 'Insight | The Howell Group' } },
-  { path: 'careers', component: FoundationPageComponent, data: { title: 'Careers | The Howell Group' } },
-  { path: 'careers/:slug', component: FoundationPageComponent, data: { title: 'Career | The Howell Group' } },
+  { path: 'careers', loadComponent: () => import('./features/careers/careers-page.component').then(m => m.CareersPageComponent), data: { title: 'Careers | The Howell Group', footerInvitation: false } },
+  { path: 'careers/jobs', loadComponent: () => import('./features/careers/careers-page.component').then(m => m.CareersPageComponent), data: { title: 'Open opportunities | The Howell Group', listing: true, footerInvitation: false } },
+  { path: 'careers/application/success', loadComponent: () => import('./features/careers/application-success.component').then(m => m.ApplicationSuccessComponent), data: { footerInvitation: false } },
+  { path: 'careers/:slug/apply', loadComponent: () => import('./features/careers/job-application.component').then(m => m.JobApplicationComponent), canDeactivate: [(component: { canLeave: () => boolean }) => component.canLeave()], data: { footerInvitation: false } },
+  { path: 'careers/:slug', loadComponent: () => import('./features/careers/job-detail.component').then(m => m.JobDetailComponent), data: { footerInvitation: false } },
   { path: 'contact', loadComponent: () => import('./features/contact/contact-page.component').then(module => module.ContactPageComponent), data: { footerInvitation: false, title: 'Contact | The Howell Group' } },
   { path: '**', component: FoundationPageComponent, data: { title: 'Page not found | The Howell Group', notFound: true } }
 ];

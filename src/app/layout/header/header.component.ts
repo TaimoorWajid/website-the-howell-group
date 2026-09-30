@@ -2,8 +2,6 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, OnDestroy, AfterViewInit, DestroyRef, ElementRef, PLATFORM_ID, ViewChild, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { catchError, of } from 'rxjs';
-import { InsightApiService } from '../../core/api/insight-api.service';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
 import { MEGA_MENUS } from './mega-menu.data';
 import { MegaMenuConfig } from './mega-menu.types';
@@ -20,7 +18,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   protected readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly insightsApi = inject(InsightApiService);
   @ViewChild(MegaMenuComponent) private panel?: MegaMenuComponent;
   @ViewChild(MobileNavigationComponent) private mobile?: MobileNavigationComponent;
   protected readonly menus = signal(MEGA_MENUS);
@@ -31,7 +28,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   private media?: MediaQueryList;
   private hoverCloseTimer?: ReturnType<typeof setTimeout>;
   private observer?: ResizeObserver;
-  private insightsLoaded = false;
   private readonly resize = (): void => {
     const hadMobileMenu = this.menuOpen();
     const hadDesktopMenu = !!this.active();
@@ -73,7 +69,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     this.panel?.cancelClose();
     this.closing.set(false);
     this.active.set(config);
-    if (config.id === 'insights') this.loadInsight();
   }
   protected hoverTrigger(config: MegaMenuConfig, event: PointerEvent): void {
     if (event.pointerType !== 'mouse' || this.media?.matches) return;
@@ -117,16 +112,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     this.closing.set(true);
     const id = this.active()?.id;
     this.panel?.close(() => { if (this.active()?.id === id && this.closing()) { this.active.set(null); this.closing.set(false); } });
-  }
-  protected loadInsight(): void {
-    if (this.insightsLoaded) return;
-    this.insightsLoaded = true;
-    this.insightsApi.getInsights().pipe(catchError(() => of([])), takeUntilDestroyed(this.destroyRef)).subscribe(items => {
-      const article = items.find(item => item.slug && item.title);
-      if (!article) return;
-      this.menus.update(menus => menus.map(menu => menu.id !== 'insights' ? menu : { ...menu, feature: { image: article.image?.src || menu.feature.image, alt: article.image?.alt || article.title, eyebrow: 'Featured insight', title: article.title, description: article.excerpt, date: article.date, route: `/insights/${encodeURIComponent(article.slug)}`, cta: 'Read article' } }));
-      if (this.active()?.id === 'insights') this.active.set(this.menus().find(menu => menu.id === 'insights')!);
-    });
   }
   ngOnDestroy(): void { this.cancelHoverClose(); this.media?.removeEventListener('change', this.resize); this.observer?.disconnect(); this.smoothScroll.destroy(); }
 }

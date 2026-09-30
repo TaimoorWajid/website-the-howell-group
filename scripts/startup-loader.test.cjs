@@ -3,6 +3,10 @@ const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
 const { runInNewContext } = require('node:vm');
 const source = readFileSync('public/startup-loader.js', 'utf8');
+const ts = require('typescript');
+const mainSource = ts.transpileModule(readFileSync('src/main.ts', 'utf8'), {
+  compilerOptions: { module: ts.ModuleKind.CommonJS }
+}).outputText;
 class Element extends EventTarget {
   attrs = {}; style = {}; hidden = true; removed = false;
   classList = { add: () => {} };
@@ -28,6 +32,33 @@ function setup() {
   return {loader, root, track, skip, window, timers, advance: ms => { now += ms; }};
 }
 const flush = async () => { for(let i=0; i<8; i++) await Promise.resolve(); };
+for (const navigated of [true, false]) {
+  test(`background tab dismisses without animation frames (navigated=${navigated})`, async () => {
+    const s = setup();
+    let onNavigation;
+    const router = { navigated, events: { pipe: () => ({ subscribe: fn => { onNavigation = fn; } }) } };
+    runInNewContext(mainSource, {
+      exports: {}, window: s.window, Event, console,
+      requestAnimationFrame: () => {}, // A hidden tab never runs this callback.
+      require: name => {
+        if (name === '@angular/platform-browser') return {
+          bootstrapApplication: () => Promise.resolve({ injector: { get: () => router } })
+        };
+        if (name === '@angular/router') return { Router: class {}, NavigationEnd: class {} };
+        if (name === 'rxjs') return { filter: () => {}, take: () => {} };
+        return {};
+      }
+    });
+    s.window.dispatchEvent(new Event('load'));
+    await flush();
+    if (!navigated) {
+      assert.equal(s.loader.removed, false);
+      onNavigation();
+    }
+    assert.equal(s.loader.removed, true);
+    assert.equal('inert' in s.root.attrs, false);
+  });
+}
 test('dismisses immediately after application and window readiness', async () => {
   const s = setup();
   assert.equal(s.loader.hidden, false); assert.ok('inert' in s.root.attrs);

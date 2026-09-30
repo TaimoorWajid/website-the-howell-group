@@ -18,7 +18,6 @@ export class MobileNavigationComponent implements OnDestroy {
   @Input({ required: true }) menus: readonly MegaMenuConfig[] = [];
   @ViewChild('dialog', { static: true }) private dialog!: ElementRef<HTMLDialogElement>;
   readonly openedChange = output<boolean>();
-  readonly insightsRequested = output<void>();
   protected readonly expanded = signal<string | null>(null);
   protected readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
@@ -62,7 +61,6 @@ export class MobileNavigationComponent implements OnDestroy {
 
   protected toggle(id: string): void {
     this.expanded.set(this.expanded() === id ? null : id);
-    if (id === 'insights') this.insightsRequested.emit();
   }
 
   protected cancel(event: Event): void { event.preventDefault(); this.close(); }

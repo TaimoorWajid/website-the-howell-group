@@ -1,6 +1,6 @@
 # People Before Process
 
-Replaces only the previous homepage About block, immediately after Services and before Insights. No adjacent spacing adjustments or changes to completed sections were necessary.
+Replaces only the previous homepage About block, immediately after Services and before Project Journey. No adjacent spacing adjustments or changes to completed sections were necessary.
 
 Files: `src/app/features/home/components/people-before-process/people-before-process.component.{ts,html,scss,spec.ts}`, homepage component TS/HTML/SCSS integration, and homepage structure test.
 
@@ -14,6 +14,6 @@ No verified founder or collaboration photograph exists among the repository's as
 
 ## Verification
 
-All 60 unit tests pass. Component tests cover exact copy and link, image dimensions, desktop/tablet/mobile widths (1600, 1440, 1280, 1024, 900, 768, 430, 390, 360), animation duration/mask, reduced-motion cancellation, focus reveal and teardown/revisit. The homepage test verifies placement between Services and Insights. Production SSR build and HTTP smoke checks verify visible server-rendered content, `/about`, and a successful local image response. The initial bundle remains above the existing 500 kB warning budget; the budget was not changed.
+All 60 unit tests pass. Component tests cover exact copy and link, image dimensions, desktop/tablet/mobile widths (1600, 1440, 1280, 1024, 900, 768, 430, 390, 360), animation duration/mask, reduced-motion cancellation, focus reveal and teardown/revisit. The homepage test verifies placement between Services and Project Journey. Production SSR build and HTTP smoke checks verify visible server-rendered content, `/about`, and a successful local image response. The initial bundle remains above the existing 500 kB warning budget; the budget was not changed.
 
 Manual visual browser and hydration review were not performed. Automated DOM/animation checks and SSR HTTP checks do not constitute visual acceptance. No new dependencies, commits or pushes.

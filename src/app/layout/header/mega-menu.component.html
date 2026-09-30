@@ -14,7 +14,7 @@
     }
     <a class="feature" [routerLink]="config.feature.route">
       <img [src]="config.feature.image" [alt]="config.feature.alt" width="640" height="720" loading="lazy" decoding="async" />
-      <div class="feature-copy"><p class="eyebrow">{{ config.feature.eyebrow }}</p>@if (config.feature.date) { <p class="feature-date">{{ config.feature.date }}</p> }<h3>{{ config.feature.title }}</h3>@if (config.feature.description) { <p>{{ config.feature.description }}</p> }<span class="feature-cta">{{ config.feature.cta }} <app-navigation-icon name="arrow" /></span></div>
+      <div class="feature-copy"><p class="eyebrow">{{ config.feature.eyebrow }}</p><h3>{{ config.feature.title }}</h3>@if (config.feature.description) { <p>{{ config.feature.description }}</p> }<span class="feature-cta">{{ config.feature.cta }} <app-navigation-icon name="arrow" /></span></div>
     </a>
   </div>
   <div class="menu-footer"><span>The Howell Group <span aria-hidden="true"> / </span> We Deliver Your Mission</span><a routerLink="/contact">Start your project <app-navigation-icon name="arrow" /></a></div>

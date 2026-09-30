@@ -3,7 +3,7 @@ import { MegaMenuConfig } from './mega-menu.types';
 import { MARKETS } from '../../core/data/markets.data';
 
 // Use established parent routes until real detail content is published. Sample
-// project locations, sectors and editorial articles are not company claims.
+// project locations and sectors are not company claims.
 export const MEGA_MENUS: readonly MegaMenuConfig[] = [
   { id: 'projects', label: 'Projects', path: '/projects', introduction: 'Considered places. Lasting purpose.', sections: [
     { title: 'Explore our work', items: [{ title: 'Projects', icon: 'grid', description: 'Explore our healthcare project portfolio.', route: '/projects' }] },
@@ -19,10 +19,6 @@ export const MEGA_MENUS: readonly MegaMenuConfig[] = [
   ], feature: { image: '/images/projects/project-04.jpg', alt: 'Illustrative interior', eyebrow: 'Our markets', title: 'Places where care happens.', route: '/markets', cta: 'Explore all markets' } },
   { id: 'about', label: 'About', path: '/about', introduction: COMPANY.tagline, sections: [
     { title: 'The Howell Group', items: [{ title: 'About us', icon: 'people', description: 'Our perspective on building what matters.', route: '/about' }, { title: 'Our approach', icon: 'compass', description: 'Explore the project lifecycle, from development to operation.', route: '/our-approach' }] },
-    { title: 'People & perspectives', items: [{ title: 'Careers', icon: 'briefcase', description: 'Explore your next chapter with Howell.', route: '/careers' }, { title: 'Insights', icon: 'journal', description: 'Ideas and perspectives from the group.', route: '/insights' }, { title: 'Get in touch', icon: 'mail', description: 'Start a conversation with our team.', route: '/contact' }] }
-  ], feature: { image: '/images/projects/project-01.jpg', alt: 'Contemporary architecture in natural light', eyebrow: 'The Howell Group', title: COMPANY.tagline, route: '/about', cta: 'Learn more' } },
-  { id: 'insights', label: 'Insights', path: '/insights', introduction: 'Ideas for the built environment.', sections: [
-    { title: 'Journal', items: [{ title: 'News & insights', icon: 'journal', description: 'Explore the latest perspectives from Howell.', route: '/insights' }] },
-    { title: 'Explore further', items: [{ title: 'Our projects', icon: 'grid', description: 'Discover the work behind the thinking.', route: '/projects' }, { title: 'Contact the team', icon: 'mail', description: 'Connect with us for enquiries.', route: '/contact' }] }
-  ], feature: { image: '/images/projects/project-04.jpg', alt: 'Daylight in a contemporary interior', eyebrow: 'Perspectives', title: 'Space for a different perspective.', route: '/insights', cta: 'Explore insights' } }
+    { title: 'Connect with Howell', items: [{ title: 'Careers', icon: 'briefcase', description: 'Explore your next chapter with Howell.', route: '/careers' }, { title: 'Get in touch', icon: 'mail', description: 'Start a conversation with our team.', route: '/contact' }] }
+  ], feature: { image: '/images/projects/project-01.jpg', alt: 'Contemporary architecture in natural light', eyebrow: 'The Howell Group', title: COMPANY.tagline, route: '/about', cta: 'Learn more' } }
 ];

@@ -10,7 +10,7 @@ export const FOOTER_LINKS = {
     { label: 'Our Approach', route: '/our-approach' },
     { label: 'Projects', route: '/projects' },
     { label: 'Markets', route: '/markets' },
-    { label: 'Insights', route: '/insights' },
+    { label: 'Careers', route: '/careers' },
     { label: 'Contact', route: '/contact' }
   ],
   services: SERVICES.map(service => ({

@@ -31,7 +31,7 @@ Sources: **B** = `^ 2026 Brochure.pdf`; **P** = `Brochure_current.pub`; **S** = 
 | General contact: info@thehowellgroup.co / 949-610-5111 | B/P p1; S/SP p14; H footer |
 | Provisional address: 1847 Providence Way, Corona, CA 92878 | Latest email wording as supplied in task; B/P p1. See conflict below |
 
-Implementation: `core/data/company.data.ts` uses existing `Service` and `TeamMember` CMS contracts plus typed company/phases. Homepage, navigation, footer and minimal service-index adapters share these records. Existing `core/data/projects.data.ts` remains the only portfolio collection. No new portfolio entries, invented titles, testimonials, client strips or company totals were added. The homepage uses this curated project collection for SSR and browser rendering instead of fictional samples or unreviewed API project metadata. Existing insights API remains; fabricated editorial fallbacks are withheld.
+Implementation: `core/data/company.data.ts` uses existing `Service` and `TeamMember` CMS contracts plus typed company/phases. Homepage, navigation, footer and minimal service-index adapters share these records. Existing `core/data/projects.data.ts` remains the only portfolio collection. No new portfolio entries, invented titles, testimonials, client strips or company totals were added. The homepage uses this curated project collection for SSR and browser rendering instead of fictional samples or unreviewed API project metadata.
 
 ## Conflicts / withheld claims
 

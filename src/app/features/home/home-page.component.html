@@ -19,25 +19,7 @@
   <!-- SECTION 07 â€” PROJECT JOURNEY -->
   <app-project-journey />
 
-  <!-- SECTION 08 â€” INSIGHTS / NEWS -->
-  @if (insights().length) {
-  <section class="insights section-shell" aria-labelledby="insights-title">
-    <div class="section-heading">
-      <p class="section-label">05 - Thinking</p><a class="text-link" routerLink="/insights">All insights <span
-          aria-hidden="true">&rarr;</span></a>
-    </div>
-    <h2 id="insights-title" appReveal>Ideas worth<br /><em>building on.</em></h2>@if (insightsLoading()) { <p
-      class="data-status" role="status">Loading insights&hellip;</p> } @else { <div class="insight-grid">@for (insight
-      of insights(); track insight.id; let i = $index) { <a class="insight-card"
-        [class.insight-card--featured]="i === 0" [routerLink]="['/insights', insight.slug]" appReveal><img
-          [src]="insight.image?.src" [alt]="insight.image?.alt ?? ''" loading="lazy" />
-        <p class="insight-date">Journal <span aria-hidden="true">/</span> {{ insight.date ?? 'Coming soon' }}</p>
-        <h3>{{ insight.title }}</h3><span class="text-link">Read more <span aria-hidden="true">&rarr;</span></span>
-      </a> }</div> }
-  </section>
-
-  }
-  <!-- SECTION 09 — FAQ -->
+  <!-- SECTION 08 — FAQ -->
   <section class="home-faq" aria-labelledby="faq-title">
     <div class="section-shell">
       <header class="home-faq__intro">
@@ -90,7 +72,7 @@
     </div>
   </section>
 
-  <!-- SECTION 10 — FINAL CTA -->
+  <!-- SECTION 09 — FINAL CTA -->
   <section class="final-cta" aria-labelledby="cta-title">
     <div class="final-cta-glow" aria-hidden="true"></div>
     <div class="section-shell">

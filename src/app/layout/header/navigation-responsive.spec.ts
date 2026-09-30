@@ -1,10 +1,8 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { of } from 'rxjs';
 import { HeaderComponent } from './header.component';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
-import { InsightApiService } from '../../core/api/insight-api.service';
 import { MEGA_MENUS } from './mega-menu.data';
 
 // Resize Karma's same-origin context frame to exercise real CSS/media queries,
@@ -40,7 +38,7 @@ describe('Navigation responsive interactions', () => {
       return media;
     });
     await TestBed.configureTestingModule({ imports: [HeaderComponent], providers: [provideZonelessChangeDetection(), provideRouter([{ path: '**', children: [] }]),
-      { provide: SmoothScrollService, useValue: scroll }, { provide: InsightApiService, useValue: { getInsights: () => of([]) } }] }).compileComponents();
+      { provide: SmoothScrollService, useValue: scroll }] }).compileComponents();
     fixture = TestBed.createComponent(HeaderComponent); root = fixture.nativeElement;
     await render();
     await resize(375);
@@ -89,7 +87,7 @@ describe('Navigation responsive interactions', () => {
       expect(destinations).toContain(menu.feature.route);
       expect(destinations).toContain(menu.path);
     }
-    await click('#mobile-trigger-insights');
+    await click(`#mobile-trigger-${MEGA_MENUS[MEGA_MENUS.length - 1].id}`);
     expect(root.querySelectorAll('.accordion:not([hidden])').length).toBe(0);
   });
 

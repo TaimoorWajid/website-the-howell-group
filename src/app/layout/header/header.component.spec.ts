@@ -1,10 +1,8 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { of } from 'rxjs';
 import { HeaderComponent } from './header.component';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
-import { InsightApiService } from '../../core/api/insight-api.service';
 import { MEGA_MENUS } from './mega-menu.data';
 
 describe('Header mega menu', () => {
@@ -18,7 +16,7 @@ describe('Header mega menu', () => {
       if (query.includes('prefers-reduced-motion')) Object.defineProperty(result, 'matches', { value: true });
       return result;
     });
-    await TestBed.configureTestingModule({ imports: [HeaderComponent], providers: [provideZonelessChangeDetection(), provideRouter([{ path: '**', children: [] }]), { provide: SmoothScrollService, useValue: scroll }, { provide: InsightApiService, useValue: { getInsights: () => of([]) } }] }).compileComponents();
+    await TestBed.configureTestingModule({ imports: [HeaderComponent], providers: [provideZonelessChangeDetection(), provideRouter([{ path: '**', children: [] }]), { provide: SmoothScrollService, useValue: scroll }] }).compileComponents();
     fixture = TestBed.createComponent(HeaderComponent);
     fixture.detectChanges();
     root = fixture.nativeElement;
@@ -94,12 +92,11 @@ describe('Header mega menu', () => {
     root.querySelector<HTMLButtonElement>('.menu-button')!.click(); fixture.detectChanges();
     expect(root.querySelector<HTMLDialogElement>('#primary-navigation')!.open).toBeFalse();
   });
-  it('uses published parent destinations and never exposes fictional article metadata', () => {
-    const valid = ['/projects', '/services', '/about', '/insights', '/contact', '/careers'];
-    for (const menu of MEGA_MENUS) for (const section of menu.sections) for (const item of section.items) expect(valid).toContain(item.route);
-    open('insights');
-    expect(root.querySelector('.feature-date')).toBeNull();
-    expect(root.querySelector('.feature')?.getAttribute('href')).toBe('/insights');
+  it('uses published destinations for every navigation category', () => {
+    const valid = ['/projects', '/services', '/about', '/our-approach', '/markets', '/contact', '/careers'];
+    for (const menu of MEGA_MENUS) for (const section of menu.sections) for (const item of section.items) expect(valid.some(path => item.route === path || item.route.startsWith(path + '/'))).withContext(item.route).toBeTrue();
+    open('about');
+    expect(root.querySelector('.feature')?.getAttribute('href')).toBe('/about');
   });
   it('does not mutate body sizing or scroll locking when opened', () => {
     const before = document.body.style.cssText;

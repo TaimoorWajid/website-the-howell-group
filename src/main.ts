@@ -7,7 +7,8 @@ import { filter, take } from 'rxjs';
 bootstrapApplication(App, appConfig)
   .then(app => {
     const router = app.injector.get(Router);
-    const ready = () => requestAnimationFrame(() => window.dispatchEvent(new Event('howell:app-ready')));
+    // Animation frames pause in background tabs; readiness must not wait for visibility.
+    const ready = () => window.dispatchEvent(new Event('howell:app-ready'));
     if (router.navigated) ready();
     else router.events.pipe(filter(event => event instanceof NavigationEnd), take(1)).subscribe(ready);
   })

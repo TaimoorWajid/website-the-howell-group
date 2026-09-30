@@ -3,13 +3,8 @@ import { PeopleBeforeProcessComponent } from './components/people-before-process
 import { ServicesExperienceComponent } from './components/services-experience/services-experience.component';
 import { WhyHowellSectionComponent } from './components/why-howell-section/why-howell-section.component';
 import { HomeHeroComponent } from './components/home-hero/home-hero.component';
-import { isPlatformBrowser } from '@angular/common';
-import { Component, DestroyRef, ElementRef, PLATFORM_ID, afterNextRender, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, ElementRef, afterNextRender, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { catchError, of } from 'rxjs';
-import { InsightApiService } from '../../core/api/insight-api.service';
-import { Insight } from '../../core/models/content.models';
 import { SeoService } from '../../core/services/seo.service';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { ScrollRevealCard, ScrollRevealGridCardsComponent } from '../../shared/components/scroll-reveal-grid-cards/scroll-reveal-grid-cards.component';
@@ -28,9 +23,7 @@ import { AnimationManagerService } from '../../core/animations/animation-manager
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
-  private readonly platformId = inject(PLATFORM_ID);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly insightsApi = inject(InsightApiService);
   private readonly seo = inject(SeoService);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly animations = inject(AnimationManagerService);
@@ -45,8 +38,6 @@ export class HomePageComponent {
     outcome: project.contribution?.outcome,
     image: project.images[0].src, imageAlt: project.images[0].alt
   }));
-  protected readonly insights = signal<ReadonlyArray<Insight>>([]);
-  protected readonly insightsLoading = signal(true);
   protected readonly scrollRevealCards: ReadonlyArray<ScrollRevealCard> = [
     { number: '01', title: 'Your mission', description: 'Define the need, scope and priorities before choosing a path forward.', image: '/images/why-howell/concrete-interior.webp', imageAlt: '' },
     { number: '02', title: 'One team', description: 'Align owners, designers and contractors around clear responsibilities and shared goals.', image: '/images/projects/project-02.jpg', imageAlt: '' },
@@ -73,11 +64,6 @@ export class HomePageComponent {
       });
     });
     this.seo.update({ title: COMPANY.name + ' | ' + COMPANY.tagline, description: COMPANY.positioning + ' ' + COMPANY.market, canonicalPath: '/' });
-    if (isPlatformBrowser(this.platformId)) this.loadContent();
-    else { this.insightsLoading.set(false); }
   }
 
-  private loadContent(): void {
-    this.insightsApi.getInsights().pipe(catchError(() => of([])), takeUntilDestroyed(this.destroyRef)).subscribe(insights => { this.insights.set(insights); this.insightsLoading.set(false); });
-  }
 }

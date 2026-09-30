@@ -6,10 +6,12 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { createCareersRouter } from './server/careers-api';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+app.use('/api/careers', createCareersRouter());
 const angularApp = new AngularNodeAppEngine({
   allowedHosts: ['localhost', '127.0.0.1', 'thehowellgroup.co', 'www.thehowellgroup.co']
 });

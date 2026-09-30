@@ -11,7 +11,6 @@ export const NAVIGATION_ICONS = {
   development: 'M3 21h18M5 21V11h6v10M11 21V3h8v18M14 7h2M14 11h2M14 15h2',
   conversation: 'M21 11a8 8 0 0 1-8 8H8l-5 3V11a9 9 0 0 1 18 0ZM7 9h10M7 13h7',
   briefcase: 'M3 7h18v14H3zM8 7V3h8v4M3 12l9 3 9-3M10 12h4',
-  journal: 'M4 3h16v18H4zM8 7h8M8 11h8M8 15h3M14 15h2M8 18h8',
   mail: 'M3 5h18v14H3zM3 5l9 8 9-8',
   compass: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM16 8l-2 6-6 2 2-6 6-2Z',
   plus: 'M12 5v14M5 12h14',

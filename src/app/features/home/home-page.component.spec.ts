@@ -4,7 +4,6 @@ import { provideRouter } from '@angular/router';
 import { routes } from '../../app.routes';
 import { HomePageComponent } from './home-page.component';
 import { of } from 'rxjs';
-import { InsightApiService } from '../../core/api/insight-api.service';
 import { ProjectApiService } from '../../core/api/project-api.service';
 
 describe('HomePageComponent', () => {
@@ -16,7 +15,6 @@ describe('HomePageComponent', () => {
       return media;
     });
     await TestBed.configureTestingModule({ imports: [HomePageComponent], providers: [provideZonelessChangeDetection(), provideRouter(routes),
-      { provide: InsightApiService, useValue: { getInsights: () => of([]) } },
       { provide: ProjectApiService, useValue: { getProjects: () => of([]) } }
     ] }).compileComponents();
   });
