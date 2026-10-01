@@ -11,7 +11,7 @@ import { BrandLogoComponent } from '../../shared/components/brand-logo.component
   selector: 'app-footer',
   imports: [RouterLink, BrandLogoComponent],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
   private readonly router = inject(Router);
@@ -19,20 +19,26 @@ export class FooterComponent {
   protected readonly year = new Date().getFullYear();
   protected readonly links = FOOTER_LINKS;
   protected readonly company = COMPANY;
-  protected readonly showInvitation = toSignal(this.router.events.pipe(
-    filter(event => event instanceof NavigationEnd),
-    startWith(null),
-    map(() => {
-      let route = this.router.routerState.snapshot.root;
-      let show = true;
-      while (route) {
-        if (route.data['footerInvitation'] !== undefined) show = route.data['footerInvitation'];
-        if (!route.firstChild) break;
-        route = route.firstChild;
-      }
-      return show;
-    })
-  ), { requireSync: true });
+  protected readonly showInvitation = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      startWith(null),
+      map(() => {
+        let route = this.router.routerState.snapshot.root;
+        let show = true;
+        while (route) {
+          if (route.data['footerInvitation'] !== undefined)
+            show = route.data['footerInvitation'];
+          if (!route.firstChild) break;
+          route = route.firstChild;
+        }
+        return show;
+      }),
+    ),
+    { requireSync: true },
+  );
 
-  protected backToTop(): void { this.scroll.backToTop(); }
+  protected backToTop(): void {
+    this.scroll.backToTop();
+  }
 }

@@ -6,7 +6,10 @@
   <app-why-howell-section />
 
   <!-- SECTION 03 â€” SCROLL REVEAL GRID CARDS -->
-  <app-scroll-reveal-grid-cards [cards]="scrollRevealCards" label="Your mission, carried through every decision" />
+  <app-scroll-reveal-grid-cards
+    [cards]="scrollRevealCards"
+    label="Your mission, carried through every decision"
+  />
 
   <!-- SECTION 04 â€” FEATURED PROJECTS -->
   <app-featured-projects [projects]="featuredProjects" />
@@ -28,45 +31,87 @@
       </header>
       <div class="home-faq__list">
         <details class="home-faq__item" name="home-faq">
-          <summary><span class="home-faq__number">01 /</span><span>What services does Howell provide?</span><span
-              class="home-faq__symbol" aria-hidden="true"></span></summary>
-          <p>Howell provides Program, Design, Construction and Contract Management. Financial Management is supported
-            through a capital financial advisor partnership.</p>
+          <summary>
+            <span class="home-faq__number">01 /</span
+            ><span>What services does Howell provide?</span
+            ><span class="home-faq__symbol" aria-hidden="true"></span>
+          </summary>
+          <p>
+            Howell provides Program, Design, Construction and Contract
+            Management. Financial Management is supported through a capital
+            financial advisor partnership.
+          </p>
         </details>
         <details class="home-faq__item" name="home-faq">
-          <summary><span class="home-faq__number">02 /</span><span>When should we bring Howell into a
-              project?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
-          <p>Howell can contribute at any stage. Earlier involvement can create more opportunity to align the team,
-            clarify priorities and connect decisions across the project lifecycle.</p>
+          <summary>
+            <span class="home-faq__number">02 /</span
+            ><span>When should we bring Howell into a project?</span
+            ><span class="home-faq__symbol" aria-hidden="true"></span>
+          </summary>
+          <p>
+            Howell can contribute at any stage. Earlier involvement can create
+            more opportunity to align the team, clarify priorities and connect
+            decisions across the project lifecycle.
+          </p>
         </details>
         <details class="home-faq__item" name="home-faq">
-          <summary><span class="home-faq__number">03 /</span><span>What kinds of healthcare projects do you
-              support?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
-          <p>The work spans healthcare environments such as hospitals, behavioral health facilities, operating rooms and
-            medical simulation spaces. Project needs and scope vary by facility.</p>
+          <summary>
+            <span class="home-faq__number">03 /</span
+            ><span>What kinds of healthcare projects do you support?</span
+            ><span class="home-faq__symbol" aria-hidden="true"></span>
+          </summary>
+          <p>
+            The work spans healthcare environments such as hospitals, behavioral
+            health facilities, operating rooms and medical simulation spaces.
+            Project needs and scope vary by facility.
+          </p>
         </details>
         <details class="home-faq__item" name="home-faq">
-          <summary><span class="home-faq__number">04 /</span><span>Where does Howell work?</span><span
-              class="home-faq__symbol" aria-hidden="true"></span></summary>
-          <p>Howell focuses on healthcare in Southern California and is flexible about supporting clients elsewhere.</p>
+          <summary>
+            <span class="home-faq__number">04 /</span
+            ><span>Where does Howell work?</span
+            ><span class="home-faq__symbol" aria-hidden="true"></span>
+          </summary>
+          <p>
+            Howell focuses on healthcare in Southern California and is flexible
+            about supporting clients elsewhere.
+          </p>
         </details>
         <details class="home-faq__item" name="home-faq">
-          <summary><span class="home-faq__number">05 /</span><span>How are owners and project teams
-              involved?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
-          <p>Howell coordinates with owners, users, designers and delivery partners, helping keep responsibilities,
-            communication and decisions connected to the owner’s priorities.</p>
+          <summary>
+            <span class="home-faq__number">05 /</span
+            ><span>How are owners and project teams involved?</span
+            ><span class="home-faq__symbol" aria-hidden="true"></span>
+          </summary>
+          <p>
+            Howell coordinates with owners, users, designers and delivery
+            partners, helping keep responsibilities, communication and decisions
+            connected to the owner’s priorities.
+          </p>
         </details>
         <details class="home-faq__item" name="home-faq">
-          <summary><span class="home-faq__number">06 /</span><span>Does Howell act as the general
-              contractor?</span><span class="home-faq__symbol" aria-hidden="true"></span></summary>
-          <p>Howell’s role is owner representation and project oversight. The specific responsibilities depend on the
-            agreed scope; the role should not be assumed to include performing construction.</p>
+          <summary>
+            <span class="home-faq__number">06 /</span
+            ><span>Does Howell act as the general contractor?</span
+            ><span class="home-faq__symbol" aria-hidden="true"></span>
+          </summary>
+          <p>
+            Howell’s role is owner representation and project oversight. The
+            specific responsibilities depend on the agreed scope; the role
+            should not be assumed to include performing construction.
+          </p>
         </details>
         <details class="home-faq__item" name="home-faq">
-          <summary><span class="home-faq__number">07 /</span><span>How do we start a conversation?</span><span
-              class="home-faq__symbol" aria-hidden="true"></span></summary>
-          <p><a routerLink="/contact">Contact the Howell team</a> with your facility, project stage and priorities to
-            start discussing what support may fit.</p>
+          <summary>
+            <span class="home-faq__number">07 /</span
+            ><span>How do we start a conversation?</span
+            ><span class="home-faq__symbol" aria-hidden="true"></span>
+          </summary>
+          <p>
+            <a routerLink="/contact">Contact the Howell team</a> with your
+            facility, project stage and priorities to start discussing what
+            support may fit.
+          </p>
         </details>
       </div>
     </div>
@@ -77,10 +122,16 @@
     <div class="final-cta-glow" aria-hidden="true"></div>
     <div class="section-shell">
       <p class="section-label">06 - Next</p>
-      <h2 id="cta-title" appReveal>Let&rsquo;s deliver<br /><em>your mission.</em></h2>
+      <h2 id="cta-title" appReveal>
+        Let&rsquo;s deliver<br /><em>your mission.</em>
+      </h2>
       <div class="cta-bottom" appReveal>
-        <p>Tell us where your healthcare project stands and what you need next.</p><a class="button"
-          routerLink="/contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+        <p>
+          Tell us where your healthcare project stands and what you need next.
+        </p>
+        <a class="button" routerLink="/contact"
+          >Start a conversation <span aria-hidden="true">&rarr;</span></a
+        >
       </div>
     </div>
   </section>

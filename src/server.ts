@@ -13,7 +13,12 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 const app = express();
 app.use('/api/careers', createCareersRouter());
 const angularApp = new AngularNodeAppEngine({
-  allowedHosts: ['localhost', '127.0.0.1', 'thehowellgroup.co', 'www.thehowellgroup.co']
+  allowedHosts: [
+    'localhost',
+    '127.0.0.1',
+    'thehowellgroup.co',
+    'www.thehowellgroup.co',
+  ],
 });
 
 /**

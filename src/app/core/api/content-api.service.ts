@@ -7,7 +7,18 @@ import { APP_CONFIG } from '../config/app-config';
 export class ContentApiService {
   private readonly http = inject(HttpClient);
 
-  protected collection<T>(resource: string): Observable<T[]> { return this.http.get<T[]>(`${APP_CONFIG.apiUrl}/${resource}`); }
-  protected item<T>(resource: string, slug: string): Observable<T> { return this.http.get<T>(`${APP_CONFIG.apiUrl}/${resource}/${encodeURIComponent(slug)}`); }
-  protected create<TBody, TResult>(resource: string, body: TBody): Observable<TResult> { return this.http.post<TResult>(`${APP_CONFIG.apiUrl}/${resource}`, body); }
+  protected collection<T>(resource: string): Observable<T[]> {
+    return this.http.get<T[]>(`${APP_CONFIG.apiUrl}/${resource}`);
+  }
+  protected item<T>(resource: string, slug: string): Observable<T> {
+    return this.http.get<T>(
+      `${APP_CONFIG.apiUrl}/${resource}/${encodeURIComponent(slug)}`,
+    );
+  }
+  protected create<TBody, TResult>(
+    resource: string,
+    body: TBody,
+  ): Observable<TResult> {
+    return this.http.post<TResult>(`${APP_CONFIG.apiUrl}/${resource}`, body);
+  }
 }

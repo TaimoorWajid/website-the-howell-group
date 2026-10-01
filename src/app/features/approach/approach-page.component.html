@@ -1,44 +1,92 @@
 ﻿<section class="hero section-shell" aria-labelledby="approach-title">
   <p class="eyebrow">OUR APPROACH</p>
   <h1 id="approach-title">Your mission guides every phase.</h1>
-  <p class="hero-intro">We bring people, decisions and delivery together around your objectives. We can contribute at any stage, with earlier involvement creating greater opportunity to shape the outcome.</p>
+  <p class="hero-intro">
+    We bring people, decisions and delivery together around your objectives. We
+    can contribute at any stage, with earlier involvement creating greater
+    opportunity to shape the outcome.
+  </p>
 </section>
-<section class="framework-intro section-shell" aria-labelledby="framework-title">
+<section
+  class="framework-intro section-shell"
+  aria-labelledby="framework-title"
+>
   <h2 id="framework-title">One mission.<br />A coordinated process.</h2>
-  <p>Our framework connects eight phases and eleven supporting steps. The scope of each engagement, applicable approvals and licensing requirements depend on the project, its location and its intended use.</p>
+  <p>
+    Our framework connects eight phases and eleven supporting steps. The scope
+    of each engagement, applicable approvals and licensing requirements depend
+    on the project, its location and its intended use.
+  </p>
 </section>
 <div class="process section-shell">
   <nav class="phase-index" aria-label="Project lifecycle phases">
     <p class="eyebrow">EXPLORE THE PHASES</p>
     <ol class="phase-links">
       @for (phase of phases; track phase.id; let i = $index) {
-        <li><a [href]="'/our-approach#' + phase.id" (click)="goToPhase($event, phase.id)" [class.is-active]="active() === i" [attr.aria-current]="active() === i ? 'step' : null"><span class="index-number">{{ phase.number }}</span><span>{{ phase.title }}</span></a></li>
+        <li>
+          <a
+            [href]="'/our-approach#' + phase.id"
+            (click)="goToPhase($event, phase.id)"
+            [class.is-active]="active() === i"
+            [attr.aria-current]="active() === i ? 'step' : null"
+            ><span class="index-number">{{ phase.number }}</span
+            ><span>{{ phase.title }}</span></a
+          >
+        </li>
       }
     </ol>
   </nav>
   <div class="phase-content">
     @for (phase of phases; track phase.id) {
-      <section class="phase" [id]="phase.id" [attr.aria-labelledby]="phase.id + '-title'">
+      <section
+        class="phase"
+        [id]="phase.id"
+        [attr.aria-labelledby]="phase.id + '-title'"
+      >
         <p class="eyebrow phase-number">PHASE {{ phase.number }}</p>
         <h2 [id]="phase.id + '-title'" tabindex="-1">{{ phase.title }}</h2>
         <p class="phase-intro">{{ phase.introduction }}</p>
-        <ol class="steps" [attr.start]="phase.steps[0].number" aria-label="Supporting steps">
+        <ol
+          class="steps"
+          [attr.start]="phase.steps[0].number"
+          aria-label="Supporting steps"
+        >
           @for (step of phase.steps; track step.number) {
-            <li [value]="step.number"><span class="step-label">Step {{ step.number }}</span><p>{{ step.text }}</p></li>
+            <li [value]="step.number">
+              <span class="step-label">Step {{ step.number }}</span>
+              <p>{{ step.text }}</p>
+            </li>
           }
         </ol>
         <h3>Activities &amp; project information</h3>
-        <ul class="activities">@for (activity of phase.activities; track activity) { <li>{{ activity }}</li> }</ul>
-        <nav class="service-links" [attr.aria-label]="phase.title + ' services'">
-          @for (service of phase.relatedServices; track service.id) { <a [routerLink]="['/services', service.slug]">{{ service.title }} <span aria-hidden="true">↗</span></a> }
+        <ul class="activities">
+          @for (activity of phase.activities; track activity) {
+            <li>{{ activity }}</li>
+          }
+        </ul>
+        <nav
+          class="service-links"
+          [attr.aria-label]="phase.title + ' services'"
+        >
+          @for (service of phase.relatedServices; track service.id) {
+            <a [routerLink]="['/services', service.slug]"
+              >{{ service.title }} <span aria-hidden="true">↗</span></a
+            >
+          }
         </nav>
       </section>
     }
   </div>
 </div>
-<section class="closing" aria-labelledby="approach-closing-title"><div class="section-shell">
-  <p class="eyebrow">LET’S MOVE FORWARD</p>
-  <h2 id="approach-closing-title">Wherever your project stands, let’s move it forward.</h2>
-  <p>Tell us where you are in the process and what you need to achieve.</p>
-  <a class="button" routerLink="/contact" fragment="project-inquiry">Discuss your project <span aria-hidden="true">↗</span></a>
-</div></section>
+<section class="closing" aria-labelledby="approach-closing-title">
+  <div class="section-shell">
+    <p class="eyebrow">LET’S MOVE FORWARD</p>
+    <h2 id="approach-closing-title">
+      Wherever your project stands, let’s move it forward.
+    </h2>
+    <p>Tell us where you are in the process and what you need to achieve.</p>
+    <a class="button" routerLink="/contact" fragment="project-inquiry"
+      >Discuss your project <span aria-hidden="true">↗</span></a
+    >
+  </div>
+</section>

@@ -9,14 +9,20 @@ import { ProjectApiService } from '../../core/api/project-api.service';
 describe('HomePageComponent', () => {
   beforeEach(async () => {
     const match = window.matchMedia.bind(window);
-    spyOn(window, 'matchMedia').and.callFake(query => {
+    spyOn(window, 'matchMedia').and.callFake((query) => {
       const media = match(query);
-      if (query.includes('prefers-reduced-motion')) Object.defineProperty(media, 'matches', { value: true });
+      if (query.includes('prefers-reduced-motion'))
+        Object.defineProperty(media, 'matches', { value: true });
       return media;
     });
-    await TestBed.configureTestingModule({ imports: [HomePageComponent], providers: [provideZonelessChangeDetection(), provideRouter(routes),
-      { provide: ProjectApiService, useValue: { getProjects: () => of([]) } }
-    ] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [HomePageComponent],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter(routes),
+        { provide: ProjectApiService, useValue: { getProjects: () => of([]) } },
+      ],
+    }).compileComponents();
   });
 
   it('renders the homepage section structure', () => {
@@ -25,20 +31,45 @@ describe('HomePageComponent', () => {
     const page = fixture.nativeElement as HTMLElement;
     expect(page.querySelector('#hero-title')).toBeTruthy();
     expect(page.querySelector('#why-howell-title')).toBeTruthy();
-    expect(page.querySelector('app-home-hero')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-why-howell-section');
-    expect(page.querySelector('app-why-howell-section')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-scroll-reveal-grid-cards');
+    expect(
+      page
+        .querySelector('app-home-hero')
+        ?.nextElementSibling?.tagName.toLowerCase(),
+    ).toBe('app-why-howell-section');
+    expect(
+      page
+        .querySelector('app-why-howell-section')
+        ?.nextElementSibling?.tagName.toLowerCase(),
+    ).toBe('app-scroll-reveal-grid-cards');
     expect(page.querySelectorAll('h1').length).toBe(1);
     expect(page.querySelector('app-featured-projects h2')).toBeTruthy();
     expect(page.querySelector('app-scroll-reveal-grid-cards')).toBeTruthy();
     expect(page.querySelector('#services-title')).toBeTruthy();
     const alisoProject = page.querySelector('app-featured-projects article');
-    expect(alisoProject?.textContent).toContain('Aliso Ridge Behavioral Hospital');
-    for (const value of ['119 beds', '80,000 sq ft', 'HCAI (OSHPD) 1', '$6.6M savings on a $43.5M project.']) {
+    expect(alisoProject?.textContent).toContain(
+      'Aliso Ridge Behavioral Hospital',
+    );
+    for (const value of [
+      '119 beds',
+      '80,000 sq ft',
+      'HCAI (OSHPD) 1',
+      '$6.6M savings on a $43.5M project.',
+    ]) {
       expect(alisoProject?.textContent).toContain(value);
     }
-    expect(page.querySelector('app-services-experience')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-people-before-process');
-    expect(page.querySelector('app-people-before-process')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-project-journey');
-    expect(page.querySelectorAll('app-project-journey .journey__chapter').length).toBe(8);
+    expect(
+      page
+        .querySelector('app-services-experience')
+        ?.nextElementSibling?.tagName.toLowerCase(),
+    ).toBe('app-people-before-process');
+    expect(
+      page
+        .querySelector('app-people-before-process')
+        ?.nextElementSibling?.tagName.toLowerCase(),
+    ).toBe('app-project-journey');
+    expect(
+      page.querySelectorAll('app-project-journey .journey__chapter').length,
+    ).toBe(8);
     expect(page.querySelector('#cta-title')).toBeTruthy();
   });
 });

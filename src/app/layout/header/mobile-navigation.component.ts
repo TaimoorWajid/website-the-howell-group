@@ -1,5 +1,15 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Input, OnDestroy, PLATFORM_ID, ViewChild, inject, output, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  PLATFORM_ID,
+  ViewChild,
+  inject,
+  output,
+  signal,
+} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import gsap from 'gsap';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
@@ -10,13 +20,19 @@ import { BrandLogoComponent } from '../../shared/components/brand-logo.component
 
 @Component({
   selector: 'app-mobile-navigation',
-  imports: [RouterLink, RouterLinkActive, NavigationIconComponent, BrandLogoComponent],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    NavigationIconComponent,
+    BrandLogoComponent,
+  ],
   templateUrl: './mobile-navigation.component.html',
-  styleUrl: './mobile-navigation.component.scss'
+  styleUrl: './mobile-navigation.component.scss',
 })
 export class MobileNavigationComponent implements OnDestroy {
   @Input({ required: true }) menus: readonly MegaMenuConfig[] = [];
-  @ViewChild('dialog', { static: true }) private dialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('dialog', { static: true })
+  private dialog!: ElementRef<HTMLDialogElement>;
   readonly openedChange = output<boolean>();
   protected readonly expanded = signal<string | null>(null);
   protected readonly router = inject(Router);
@@ -29,7 +45,11 @@ export class MobileNavigationComponent implements OnDestroy {
   private closing = false;
 
   open(): void {
-    if (!isPlatformBrowser(this.platformId) || !window.matchMedia('(width < 768px)').matches) return;
+    if (
+      !isPlatformBrowser(this.platformId) ||
+      !window.matchMedia('(width < 768px)').matches
+    )
+      return;
     const dialog = this.dialog.nativeElement;
     if (dialog.open) return;
     this.opener = this.document.activeElement as HTMLElement | null;
@@ -39,9 +59,16 @@ export class MobileNavigationComponent implements OnDestroy {
     dialog.showModal();
     dialog.scrollTop = 0;
     this.openedChange.emit(true);
-    this.tween = gsap.fromTo(dialog, { opacity: 0, y: 10 }, {
-      opacity: 1, y: 0, duration: prefersReducedMotion() ? 0 : .28, ease: 'power2.out'
-    });
+    this.tween = gsap.fromTo(
+      dialog,
+      { opacity: 0, y: 10 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: prefersReducedMotion() ? 0 : 0.28,
+        ease: 'power2.out',
+      },
+    );
   }
 
   close(restoreFocus = true, immediate = false): void {
@@ -53,27 +80,48 @@ export class MobileNavigationComponent implements OnDestroy {
     const finish = (): void => {
       dialog.close();
       this.cleanup();
-      if (restoreFocus && this.opener?.isConnected) this.opener.focus({ preventScroll: true });
+      if (restoreFocus && this.opener?.isConnected)
+        this.opener.focus({ preventScroll: true });
     };
     if (immediate || prefersReducedMotion()) finish();
-    else this.tween = gsap.to(dialog, { opacity: 0, y: 8, duration: .18, ease: 'power2.in', onComplete: finish });
+    else
+      this.tween = gsap.to(dialog, {
+        opacity: 0,
+        y: 8,
+        duration: 0.18,
+        ease: 'power2.in',
+        onComplete: finish,
+      });
   }
 
   protected toggle(id: string): void {
     this.expanded.set(this.expanded() === id ? null : id);
   }
 
-  protected cancel(event: Event): void { event.preventDefault(); this.close(); }
-  protected followLink(): void { this.close(true, true); }
+  protected cancel(event: Event): void {
+    event.preventDefault();
+    this.close();
+  }
+  protected followLink(): void {
+    this.close(true, true);
+  }
 
   protected containTab(event: KeyboardEvent): void {
     if (event.key !== 'Tab') return;
-    const targets = Array.from(this.dialog.nativeElement.querySelectorAll<HTMLElement>('a[href], button'))
-      .filter(element => element.getClientRects().length > 0);
+    const targets = Array.from(
+      this.dialog.nativeElement.querySelectorAll<HTMLElement>(
+        'a[href], button',
+      ),
+    ).filter((element) => element.getClientRects().length > 0);
     const first = targets[0];
     const last = targets[targets.length - 1];
-    if (event.shiftKey && this.document.activeElement === first) { event.preventDefault(); last?.focus(); }
-    else if (!event.shiftKey && this.document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    if (event.shiftKey && this.document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && this.document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
   }
 
   protected cleanup(): void {
@@ -90,15 +138,24 @@ export class MobileNavigationComponent implements OnDestroy {
   private lockScroll(): void {
     const body = this.document.body;
     const html = this.document.documentElement;
-    const properties = [[body, 'overflow'], [body, 'padding-right'], [html, 'overflow']] as const;
-    const saved = properties.map(([element, property]) => ({ element, property,
-      value: element.style.getPropertyValue(property), priority: element.style.getPropertyPriority(property) }));
+    const properties = [
+      [body, 'overflow'],
+      [body, 'padding-right'],
+      [html, 'overflow'],
+    ] as const;
+    const saved = properties.map(([element, property]) => ({
+      element,
+      property,
+      value: element.style.getPropertyValue(property),
+      priority: element.style.getPropertyPriority(property),
+    }));
     const scrollbar = window.innerWidth - html.clientWidth;
     const padding = parseFloat(window.getComputedStyle(body).paddingRight) || 0;
     this.smoothScroll.stop();
     body.style.setProperty('overflow', 'hidden');
     html.style.setProperty('overflow', 'hidden');
-    if (scrollbar > 0) body.style.setProperty('padding-right', `${padding + scrollbar}px`);
+    if (scrollbar > 0)
+      body.style.setProperty('padding-right', `${padding + scrollbar}px`);
     this.restoreScroll = () => {
       for (const { element, property, value, priority } of saved) {
         if (value) element.style.setProperty(property, value, priority);

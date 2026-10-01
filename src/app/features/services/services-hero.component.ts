@@ -1,10 +1,21 @@
 import { DOCUMENT } from '@angular/common';
-import { afterNextRender, Component, ElementRef, inject, OnDestroy } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
 import { prefersReducedMotion } from '../../core/animations/animation.util';
 
-@Component({ selector: 'app-services-hero', imports: [RouterLink], templateUrl: './services-hero.component.html', styleUrl: './services-hero.component.scss' })
+@Component({
+  selector: 'app-services-hero',
+  imports: [RouterLink],
+  templateUrl: './services-hero.component.html',
+  styleUrl: './services-hero.component.scss',
+})
 export class ServicesHeroComponent implements OnDestroy {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly document = inject(DOCUMENT);
@@ -12,19 +23,38 @@ export class ServicesHeroComponent implements OnDestroy {
   private headerObserver?: ResizeObserver;
   constructor() {
     afterNextRender(() => {
-      const header = this.document.querySelector<HTMLElement>('app-header .site-header');
+      const header = this.document.querySelector<HTMLElement>(
+        'app-header .site-header',
+      );
       if (!header) return;
-      const measure = () => this.host.nativeElement.style.setProperty('--hero-header-height', header.getBoundingClientRect().height + 'px');
-      measure(); this.headerObserver = new ResizeObserver(measure); this.headerObserver.observe(header);
+      const measure = () =>
+        this.host.nativeElement.style.setProperty(
+          '--hero-header-height',
+          header.getBoundingClientRect().height + 'px',
+        );
+      measure();
+      this.headerObserver = new ResizeObserver(measure);
+      this.headerObserver.observe(header);
     });
   }
   explore(event: MouseEvent): void {
-    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
-    const target = this.document.getElementById('service-story'); if (!target) return;
+    if (
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.button !== 0
+    )
+      return;
+    const target = this.document.getElementById('service-story');
+    if (!target) return;
     event.preventDefault();
-    if (prefersReducedMotion()) target.scrollIntoView({ behavior: 'instant' }); else this.scrolling.scrollTo('#service-story');
+    if (prefersReducedMotion()) target.scrollIntoView({ behavior: 'instant' });
+    else this.scrolling.scrollTo('#service-story');
     target.querySelector<HTMLElement>('a')?.focus({ preventScroll: true });
     history.replaceState(history.state, '', '/services#service-story');
   }
-  ngOnDestroy(): void { this.headerObserver?.disconnect(); }
+  ngOnDestroy(): void {
+    this.headerObserver?.disconnect();
+  }
 }

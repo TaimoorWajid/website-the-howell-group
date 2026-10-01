@@ -18,7 +18,10 @@ export class AnimationManagerService {
     return true;
   }
 
-  createContext(scope: Element | null, animation: (context: gsap.Context) => void): gsap.Context | null {
+  createContext(
+    scope: Element | null,
+    animation: (context: gsap.Context) => void,
+  ): gsap.Context | null {
     if (!this.setup()) return null;
     return gsap.context(animation, scope ?? this.document.body);
   }
@@ -29,7 +32,10 @@ export class AnimationManagerService {
     // measured first so their spacing is included in every downstream trigger.
     ScrollTrigger.sort((a: ScrollTrigger, b: ScrollTrigger) => {
       if (!a.trigger || !b.trigger || a.trigger === b.trigger) return 0;
-      return a.trigger.compareDocumentPosition(b.trigger) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+      return a.trigger.compareDocumentPosition(b.trigger) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+        ? -1
+        : 1;
     });
     ScrollTrigger.refresh();
   }

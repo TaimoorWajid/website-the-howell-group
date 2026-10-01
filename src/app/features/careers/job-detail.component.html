@@ -1,10 +1,113 @@
-<div class="section-shell detail-shell"><a class="back-link" routerLink="/careers/jobs">← All opportunities</a>
-@if (loading()) { <div class="empty-state" role="status"><h1>Opening your next chapter…</h1></div> }
-@else if (failed()) { <div class="empty-state" role="alert"><h1>We couldn’t load this role.</h1><p>Please try again in a moment.</p><button class="button dark" (click)="retry()">Try again ↗</button></div> }
-@else if (job(); as job) {
-  @if (preview()) { <p class="preview-note"><span>PREVIEW ROLE</span> An illustrative opportunity, not a confirmed vacancy.</p> }
-  <header class="detail-heading"><p class="eyebrow">{{ job.department }}</p><h1>{{ job.title }}<span class="accent">.</span></h1><div class="role-meta"><span>{{ job.location }}</span><span>{{ job.workplace }}</span><span>{{ job.employmentType }}</span><span>{{ job.id }}</span></div></header>
-  <div class="detail-grid"><div class="role-content"><section><p class="eyebrow">THE OPPORTUNITY</p><h2>Make an impact.<br><em>From the very beginning.</em></h2><p class="lead">{{ job.summary }}</p></section><section><h2>What you’ll do</h2><ul>@for (item of job.responsibilities; track item) { <li>{{ item }}</li> }</ul></section><section><h2>What you’ll bring</h2><ul>@for (item of job.qualifications; track item) { <li>{{ item }}</li> }</ul></section><section class="role-perspective"><p class="eyebrow">THE HOWELL PERSPECTIVE</p><h2>People first.<br>Purpose always.</h2><p>Our work brings people, priorities and possibilities together. Explore the people and thinking behind The Howell Group.</p><a class="text-link" routerLink="/about">More about Howell ↗</a></section></div>
-  <aside class="apply-card"><span class="index">YOUR NEXT CHAPTER</span><h2>Bring your<br><em>perspective.</em></h2><dl><div><dt>Team</dt><dd>{{ job.department }}</dd></div><div><dt>Location</dt><dd>{{ job.location }}</dd></div><div><dt>Work arrangement</dt><dd>{{ job.workplace }} · {{ job.employmentType }}</dd></div>@if (job.salary) { <div><dt>Compensation</dt><dd>{{ job.salary }}</dd></div> }@if (job.closingDate) { <div><dt>Apply by</dt><dd>{{ job.closingDate | date:'longDate':'UTC' }}</dd></div> }</dl><a class="button primary" [routerLink]="['/careers', job.slug, 'apply']">Apply now <span aria-hidden="true">↗</span></a><p class="fine-print">Have your resume ready.<br>No account needed.</p><a class="text-link" routerLink="/careers/jobs">Explore other opportunities</a></aside></div>
-} @else { <div class="empty-state"><p class="eyebrow">A DIFFERENT NEXT STEP</p><h1>This opportunity<br>is no longer available.</h1><p>The link may have changed or the position may have closed.</p><a class="button dark" routerLink="/careers/jobs">Explore current opportunities ↗</a></div> }
+<div class="section-shell detail-shell">
+  <a class="back-link" routerLink="/careers/jobs">← All opportunities</a>
+  @if (loading()) {
+    <div class="empty-state" role="status">
+      <h1>Opening your next chapter…</h1>
+    </div>
+  } @else if (failed()) {
+    <div class="empty-state" role="alert">
+      <h1>We couldn’t load this role.</h1>
+      <p>Please try again in a moment.</p>
+      <button class="button dark" (click)="retry()">Try again ↗</button>
+    </div>
+  } @else if (job(); as job) {
+    @if (preview()) {
+      <p class="preview-note">
+        <span>PREVIEW ROLE</span> An illustrative opportunity, not a confirmed
+        vacancy.
+      </p>
+    }
+    <header class="detail-heading">
+      <p class="eyebrow">{{ job.department }}</p>
+      <h1>{{ job.title }}<span class="accent">.</span></h1>
+      <div class="role-meta">
+        <span>{{ job.location }}</span
+        ><span>{{ job.workplace }}</span
+        ><span>{{ job.employmentType }}</span
+        ><span>{{ job.id }}</span>
+      </div>
+    </header>
+    <div class="detail-grid">
+      <div class="role-content">
+        <section>
+          <p class="eyebrow">THE OPPORTUNITY</p>
+          <h2>Make an impact.<br /><em>From the very beginning.</em></h2>
+          <p class="lead">{{ job.summary }}</p>
+        </section>
+        <section>
+          <h2>What you’ll do</h2>
+          <ul>
+            @for (item of job.responsibilities; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </section>
+        <section>
+          <h2>What you’ll bring</h2>
+          <ul>
+            @for (item of job.qualifications; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </section>
+        <section class="role-perspective">
+          <p class="eyebrow">THE HOWELL PERSPECTIVE</p>
+          <h2>People first.<br />Purpose always.</h2>
+          <p>
+            Our work brings people, priorities and possibilities together.
+            Explore the people and thinking behind The Howell Group.
+          </p>
+          <a class="text-link" routerLink="/about">More about Howell ↗</a>
+        </section>
+      </div>
+      <aside class="apply-card">
+        <span class="index">YOUR NEXT CHAPTER</span>
+        <h2>Bring your<br /><em>perspective.</em></h2>
+        <dl>
+          <div>
+            <dt>Team</dt>
+            <dd>{{ job.department }}</dd>
+          </div>
+          <div>
+            <dt>Location</dt>
+            <dd>{{ job.location }}</dd>
+          </div>
+          <div>
+            <dt>Work arrangement</dt>
+            <dd>{{ job.workplace }} · {{ job.employmentType }}</dd>
+          </div>
+          @if (job.salary) {
+            <div>
+              <dt>Compensation</dt>
+              <dd>{{ job.salary }}</dd>
+            </div>
+          }
+          @if (job.closingDate) {
+            <div>
+              <dt>Apply by</dt>
+              <dd>{{ job.closingDate | date: "longDate" : "UTC" }}</dd>
+            </div>
+          }
+        </dl>
+        <a class="button primary" [routerLink]="['/careers', job.slug, 'apply']"
+          >Apply now <span aria-hidden="true">↗</span></a
+        >
+        <p class="fine-print">
+          Have your resume ready.<br />No account needed.
+        </p>
+        <a class="text-link" routerLink="/careers/jobs"
+          >Explore other opportunities</a
+        >
+      </aside>
+    </div>
+  } @else {
+    <div class="empty-state">
+      <p class="eyebrow">A DIFFERENT NEXT STEP</p>
+      <h1>This opportunity<br />is no longer available.</h1>
+      <p>The link may have changed or the position may have closed.</p>
+      <a class="button dark" routerLink="/careers/jobs"
+        >Explore current opportunities ↗</a
+      >
+    </div>
+  }
 </div>

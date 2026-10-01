@@ -1,9 +1,29 @@
 // Franklin Gothic Book font source, retained for future use:
 // @import url('https://fonts.cdnfonts.com/css/franklin-gothic');
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap");
 
-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
-button, input, select, textarea { font-family: inherit; }
-h1, h2, h3, p { margin-top: 0; }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.05; }
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+}

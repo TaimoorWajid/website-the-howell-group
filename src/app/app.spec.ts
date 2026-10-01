@@ -8,7 +8,7 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideZonelessChangeDetection(), provideRouter(routes)]
+      providers: [provideZonelessChangeDetection(), provideRouter(routes)],
     }).compileComponents();
   });
 
@@ -22,6 +22,8 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.brand')?.textContent).toContain('The Howell Group');
+    expect(compiled.querySelector('.brand')?.textContent).toContain(
+      'The Howell Group',
+    );
   });
 });

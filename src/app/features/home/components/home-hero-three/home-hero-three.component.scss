@@ -1,7 +1,35 @@
-:host { display: block; position: relative; }
-.architecture { position: absolute; inset: 0; }
-.architecture-fallback { position: absolute; display: block; inset: 0; height: 100%; width: 100%; object-fit: contain; transition: opacity .35s ease; }
-.architecture-stage { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; }
-.is-ready .architecture-stage { opacity: 1; }
-.is-ready .architecture-fallback { opacity: 0; }
-@media (prefers-reduced-motion: reduce) { .architecture-fallback, .architecture-stage { transition: none; } }
+:host {
+  display: block;
+  position: relative;
+}
+.architecture {
+  position: absolute;
+  inset: 0;
+}
+.architecture-fallback {
+  position: absolute;
+  display: block;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  transition: opacity 0.35s ease;
+}
+.architecture-stage {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.is-ready .architecture-stage {
+  opacity: 1;
+}
+.is-ready .architecture-fallback {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .architecture-fallback,
+  .architecture-stage {
+    transition: none;
+  }
+}

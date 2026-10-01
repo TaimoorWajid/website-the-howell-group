@@ -1,18 +1,50 @@
-@use '../../../styles/hero';
+@use "../../../styles/hero";
 
 // Original homepage building study with the shared homepage hero typography and controls.
-.hero { background: #092f31; }
-.hero-media { left: 39%; width: 61%; }
-.hero-poster { object-fit: contain; object-position: center; }
-.hero-media::after { background: linear-gradient(90deg, #092f31, #092f3100 25%); }
-.hero-copy { max-width: 54%; }
+.hero {
+  background: #092f31;
+}
+.hero-media {
+  left: 39%;
+  width: 61%;
+}
+.hero-poster {
+  object-fit: contain;
+  object-position: center;
+}
+.hero-media::after {
+  background: linear-gradient(90deg, #092f31, #092f3100 25%);
+}
+.hero-copy {
+  max-width: 54%;
+}
 @media (max-width: 63.999rem) {
-  .hero-copy { max-width: 66%; }
-  .hero-media { left: 42%; width: 65%; }
+  .hero-copy {
+    max-width: 66%;
+  }
+  .hero-media {
+    left: 42%;
+    width: 65%;
+  }
 }
 @media (max-width: 48rem) {
-  .hero { flex-direction: column; align-items: stretch; min-height: 0; }
-  .hero-copy { max-width: none; padding-bottom: 2rem; }
-  .hero-media { position: relative; inset: auto; order: 1; width: 100%; height: clamp(20rem, 85vw, 34rem); }
-  .hero-media::after { background: linear-gradient(#092f31, #092f3100 25%); }
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+  }
+  .hero-copy {
+    max-width: none;
+    padding-bottom: 2rem;
+  }
+  .hero-media {
+    position: relative;
+    inset: auto;
+    order: 1;
+    width: 100%;
+    height: clamp(20rem, 85vw, 34rem);
+  }
+  .hero-media::after {
+    background: linear-gradient(#092f31, #092f3100 25%);
+  }
 }

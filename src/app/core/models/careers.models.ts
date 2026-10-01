@@ -12,8 +12,14 @@ export interface Job {
   salary?: string;
   closingDate?: string;
 }
-export interface CareersCatalog { mode: 'preview' | 'live'; jobs: Job[]; }
-export interface ResumeUpload { name: string; data: string; }
+export interface CareersCatalog {
+  mode: 'preview' | 'live';
+  jobs: Job[];
+}
+export interface ResumeUpload {
+  name: string;
+  data: string;
+}
 export interface JobApplication {
   requestId: string;
   jobId: string;
@@ -28,5 +34,10 @@ export interface JobApplication {
   website: string;
   resume: ResumeUpload;
 }
-export interface ApplicationReceipt { reference: string; jobTitle: string; submittedAt: string; mode: 'preview' | 'live'; }
+export interface ApplicationReceipt {
+  reference: string;
+  jobTitle: string;
+  submittedAt: string;
+  mode: 'preview' | 'live';
+}
 export const MAX_RESUME_BYTES = 5 * 1024 * 1024;

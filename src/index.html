@@ -1,42 +1,150 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Howell Group | Premium Construction &amp; Development</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <style>
-    #site-loader[hidden] { display: none; }
-    #site-loader { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; background: #f3f4f0; color: #0b3d3d; font-family: 'Franklin Gothic Book', Arial, sans-serif; touch-action: none; }
-    .loader-content { width: min(72vw, 320px); text-align: center; }
-    .loader-logo { display: block; width: 100%; height: auto; animation: loader-breathe 1.8s ease-in-out infinite; }
-    .loader-tagline { margin: 24px 0 42px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
-    .loader-track { height: 2px; background: #0b3d3d20; overflow: hidden; }
-    .loader-fill { height: 100%; background: #0b7890; transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
-    .loader-meta { display: flex; justify-content: space-between; margin-top: 12px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
-    .loader-percent { font-variant-numeric: tabular-nums; }
-    .loader-skip { margin-top: 32px; padding: 12px; border: 0; background: transparent; color: #66716f; font: inherit; font-size: 11px; cursor: pointer; text-underline-offset: 4px; }
-    .loader-skip:hover { text-decoration: underline; }
-    .loader-skip:focus-visible { outline: 2px solid #0b7890; outline-offset: 3px; }
-    @keyframes loader-breathe { 0%, 100% { opacity: 1; } 50% { opacity: .58; } }
-    @media (prefers-reduced-motion: reduce) { #site-loader, .loader-fill { transition: none; } .loader-logo { animation: none; } }
-  </style>
-</head>
-<body>
-  <noscript><style>#site-loader { display: none; }</style></noscript>
-  <div id="site-loader" role="dialog" aria-modal="true" aria-label="Loading The Howell Group">
-    <div class="loader-content">
-      <img class="loader-logo" src="/images/brand/howell-group-logo-client.png" width="1200" height="273" alt="The Howell Group" fetchpriority="high" />
-      <p class="loader-tagline">We Deliver Your Mission</p>
-      <div class="loader-track" role="progressbar" aria-label="Page readiness" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="loader-fill"></div></div>
-      <div class="loader-meta"><span>Preparing your experience</span><span class="loader-percent" aria-hidden="true">0%</span></div>
-      <button class="loader-skip" type="button">Continue to website</button>
+  <head>
+    <meta charset="utf-8" />
+    <title>Howell Group | Premium Construction &amp; Development</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <style>
+      #site-loader[hidden] {
+        display: none;
+      }
+      #site-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: grid;
+        place-items: center;
+        background: #f3f4f0;
+        color: #0b3d3d;
+        font-family: "Franklin Gothic Book", Arial, sans-serif;
+        touch-action: none;
+      }
+      .loader-content {
+        width: min(72vw, 320px);
+        text-align: center;
+      }
+      .loader-logo {
+        display: block;
+        width: 100%;
+        height: auto;
+        animation: loader-breathe 1.8s ease-in-out infinite;
+      }
+      .loader-tagline {
+        margin: 24px 0 42px;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .loader-track {
+        height: 2px;
+        background: #0b3d3d20;
+        overflow: hidden;
+      }
+      .loader-fill {
+        height: 100%;
+        background: #0b7890;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+      .loader-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .loader-percent {
+        font-variant-numeric: tabular-nums;
+      }
+      .loader-skip {
+        margin-top: 32px;
+        padding: 12px;
+        border: 0;
+        background: transparent;
+        color: #66716f;
+        font: inherit;
+        font-size: 11px;
+        cursor: pointer;
+        text-underline-offset: 4px;
+      }
+      .loader-skip:hover {
+        text-decoration: underline;
+      }
+      .loader-skip:focus-visible {
+        outline: 2px solid #0b7890;
+        outline-offset: 3px;
+      }
+      @keyframes loader-breathe {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.58;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #site-loader,
+        .loader-fill {
+          transition: none;
+        }
+        .loader-logo {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript
+      ><style>
+        #site-loader {
+          display: none;
+        }
+      </style></noscript
+    >
+    <div
+      id="site-loader"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Loading The Howell Group"
+    >
+      <div class="loader-content">
+        <img
+          class="loader-logo"
+          src="/images/brand/howell-group-logo-client.png"
+          width="1200"
+          height="273"
+          alt="The Howell Group"
+          fetchpriority="high"
+        />
+        <p class="loader-tagline">We Deliver Your Mission</p>
+        <div
+          class="loader-track"
+          role="progressbar"
+          aria-label="Page readiness"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <div class="loader-fill"></div>
+        </div>
+        <div class="loader-meta">
+          <span>Preparing your experience</span
+          ><span class="loader-percent" aria-hidden="true">0%</span>
+        </div>
+        <button class="loader-skip" type="button">Continue to website</button>
+      </div>
     </div>
-  </div>
-  <app-root></app-root>
-  <script src="/startup-loader.js?v=3" onerror="document.getElementById('site-loader')?.remove()"></script>
-</body>
+    <app-root></app-root>
+    <script
+      src="/startup-loader.js?v=3"
+      onerror="document.getElementById('site-loader')?.remove()"
+    ></script>
+  </body>
 </html>

@@ -1,6 +1,66 @@
 <section class="success-shell section-shell">
-@if (receipt(); as receipt) {
-  <div class="success-symbol" aria-hidden="true">✓</div><p class="eyebrow">{{ receipt.mode === 'preview' ? 'PREVIEW COMPLETE' : 'APPLICATION RECEIVED' }}</p><h1>A first step.<br><em>A new possibility.</em></h1><p class="success-intro">{{ receipt.mode === 'preview' ? 'Your test application has been saved successfully.' : 'Thank you for introducing yourself. Your application has been received.' }}</p><div class="receipt"><div><span>YOUR OPPORTUNITY</span><strong>{{ receipt.jobTitle }}</strong></div><div><span>APPLICATION REFERENCE</span><strong>{{ receipt.reference }}</strong></div><div><span>SUBMITTED</span><strong>{{ receipt.submittedAt | date:'mediumDate' }}</strong></div></div>
-  <div class="next-step"><span>WHAT HAPPENS NEXT</span>@if (receipt.mode === 'preview') { <p>This was a test of the application experience. It has not been sent to a hiring team, and no email confirmation has been sent.</p> } @else { <p>Your application is ready for the team to review. If your experience aligns with the role, the team can contact you using the details you provided.</p> }<p>Keep your reference for any future conversation about this application.</p></div><div class="success-actions"><a class="button dark" routerLink="/careers/jobs">Explore more opportunities ↗</a><a class="text-link" routerLink="/about">Get to know Howell ↗</a></div>
-} @else if (ready()) { <p class="eyebrow">YOUR NEXT CHAPTER</p><h1>Every possibility<br><em>starts somewhere.</em></h1><p class="success-intro">There’s no application confirmation in this tab yet. Explore a role and submit an application to get started.</p><a class="button dark" routerLink="/careers/jobs">Explore opportunities ↗</a> } @else { <p role="status">Loading your confirmation…</p> }
+  @if (receipt(); as receipt) {
+    <div class="success-symbol" aria-hidden="true">✓</div>
+    <p class="eyebrow">
+      {{
+        receipt.mode === "preview" ? "PREVIEW COMPLETE" : "APPLICATION RECEIVED"
+      }}
+    </p>
+    <h1>A first step.<br /><em>A new possibility.</em></h1>
+    <p class="success-intro">
+      {{
+        receipt.mode === "preview"
+          ? "Your test application has been saved successfully."
+          : "Thank you for introducing yourself. Your application has been received."
+      }}
+    </p>
+    <div class="receipt">
+      <div>
+        <span>YOUR OPPORTUNITY</span><strong>{{ receipt.jobTitle }}</strong>
+      </div>
+      <div>
+        <span>APPLICATION REFERENCE</span
+        ><strong>{{ receipt.reference }}</strong>
+      </div>
+      <div>
+        <span>SUBMITTED</span
+        ><strong>{{ receipt.submittedAt | date: "mediumDate" }}</strong>
+      </div>
+    </div>
+    <div class="next-step">
+      <span>WHAT HAPPENS NEXT</span>
+      @if (receipt.mode === "preview") {
+        <p>
+          This was a test of the application experience. It has not been sent to
+          a hiring team, and no email confirmation has been sent.
+        </p>
+      } @else {
+        <p>
+          Your application is ready for the team to review. If your experience
+          aligns with the role, the team can contact you using the details you
+          provided.
+        </p>
+      }
+      <p>
+        Keep your reference for any future conversation about this application.
+      </p>
+    </div>
+    <div class="success-actions">
+      <a class="button dark" routerLink="/careers/jobs"
+        >Explore more opportunities ↗</a
+      ><a class="text-link" routerLink="/about">Get to know Howell ↗</a>
+    </div>
+  } @else if (ready()) {
+    <p class="eyebrow">YOUR NEXT CHAPTER</p>
+    <h1>Every possibility<br /><em>starts somewhere.</em></h1>
+    <p class="success-intro">
+      There’s no application confirmation in this tab yet. Explore a role and
+      submit an application to get started.
+    </p>
+    <a class="button dark" routerLink="/careers/jobs"
+      >Explore opportunities ↗</a
+    >
+  } @else {
+    <p role="status">Loading your confirmation…</p>
+  }
 </section>

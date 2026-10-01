@@ -8,15 +8,28 @@ import { MEGA_MENUS } from './mega-menu.data';
 describe('Header mega menu', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let root: HTMLElement;
-  const scroll = { initialize: jasmine.createSpy(), destroy: jasmine.createSpy(), stop: jasmine.createSpy(), start: jasmine.createSpy() };
+  const scroll = {
+    initialize: jasmine.createSpy(),
+    destroy: jasmine.createSpy(),
+    stop: jasmine.createSpy(),
+    start: jasmine.createSpy(),
+  };
   beforeEach(async () => {
     const original = window.matchMedia.bind(window);
-    spyOn(window, 'matchMedia').and.callFake(query => {
+    spyOn(window, 'matchMedia').and.callFake((query) => {
       const result = original(query);
-      if (query.includes('prefers-reduced-motion')) Object.defineProperty(result, 'matches', { value: true });
+      if (query.includes('prefers-reduced-motion'))
+        Object.defineProperty(result, 'matches', { value: true });
       return result;
     });
-    await TestBed.configureTestingModule({ imports: [HeaderComponent], providers: [provideZonelessChangeDetection(), provideRouter([{ path: '**', children: [] }]), { provide: SmoothScrollService, useValue: scroll }] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [HeaderComponent],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter([{ path: '**', children: [] }]),
+        { provide: SmoothScrollService, useValue: scroll },
+      ],
+    }).compileComponents();
     fixture = TestBed.createComponent(HeaderComponent);
     fixture.detectChanges();
     root = fixture.nativeElement;
@@ -24,77 +37,159 @@ describe('Header mega menu', () => {
   afterEach(() => fixture.destroy());
   function open(id: string): HTMLButtonElement {
     const trigger = root.querySelector<HTMLButtonElement>(`#trigger-${id}`)!;
-    trigger.click(); fixture.detectChanges(); return trigger;
+    trigger.click();
+    fixture.detectChanges();
+    return trigger;
   }
   it('opens only on label hover, bridges the gap, and closes after leaving', async () => {
     const button = root.querySelector<HTMLButtonElement>('#trigger-services')!;
     const label = button.querySelector<HTMLElement>('.menu-label')!;
-    const pointer = (element: Element, type: string) => element.dispatchEvent(new PointerEvent(type, { pointerType: 'mouse' }));
-    pointer(button, 'pointerenter'); fixture.detectChanges();
+    const pointer = (element: Element, type: string) =>
+      element.dispatchEvent(new PointerEvent(type, { pointerType: 'mouse' }));
+    pointer(button, 'pointerenter');
+    fixture.detectChanges();
     expect(root.querySelector('app-mega-menu')).toBeNull();
-    pointer(label, 'pointerenter'); fixture.detectChanges();
+    pointer(label, 'pointerenter');
+    fixture.detectChanges();
     expect(button.getAttribute('aria-expanded')).toBe('true');
-    button.dispatchEvent(new PointerEvent('click', { pointerType: 'mouse', detail: 1, bubbles: true }));
+    button.dispatchEvent(
+      new PointerEvent('click', {
+        pointerType: 'mouse',
+        detail: 1,
+        bubbles: true,
+      }),
+    );
     fixture.detectChanges();
     expect(button.getAttribute('aria-expanded')).toBe('true');
     pointer(label, 'pointerleave');
     pointer(root.querySelector('#mega-services')!, 'pointerenter');
-    await new Promise(resolve => setTimeout(resolve, 230)); fixture.detectChanges();
+    await new Promise((resolve) => setTimeout(resolve, 230));
+    fixture.detectChanges();
     expect(button.getAttribute('aria-expanded')).toBe('true');
     pointer(root.querySelector('#mega-services')!, 'pointerleave');
-    await new Promise(resolve => setTimeout(resolve, 230)); fixture.detectChanges();
+    await new Promise((resolve) => setTimeout(resolve, 230));
+    fixture.detectChanges();
     expect(root.querySelector('app-mega-menu')).toBeNull();
   });
   it('ignores touch hover and preserves tap toggling', () => {
     const button = root.querySelector<HTMLButtonElement>('#trigger-services')!;
-    button.querySelector('.menu-label')!.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'touch' }));
-    fixture.detectChanges(); expect(root.querySelector('app-mega-menu')).toBeNull();
-    const tap = () => { button.dispatchEvent(new PointerEvent('click', { pointerType: 'touch', detail: 1, bubbles: true })); fixture.detectChanges(); };
-    tap(); expect(button.getAttribute('aria-expanded')).toBe('true');
-    tap(); expect(button.getAttribute('aria-expanded')).toBe('false');
+    button
+      .querySelector('.menu-label')!
+      .dispatchEvent(
+        new PointerEvent('pointerenter', { pointerType: 'touch' }),
+      );
+    fixture.detectChanges();
+    expect(root.querySelector('app-mega-menu')).toBeNull();
+    const tap = () => {
+      button.dispatchEvent(
+        new PointerEvent('click', {
+          pointerType: 'touch',
+          detail: 1,
+          bubbles: true,
+        }),
+      );
+      fixture.detectChanges();
+    };
+    tap();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+    tap();
+    expect(button.getAttribute('aria-expanded')).toBe('false');
   });
   it('opens each category with one panel and valid disclosure relationships', () => {
     for (const menu of MEGA_MENUS) {
       const trigger = open(menu.id);
       expect(root.querySelectorAll('app-mega-menu').length).toBe(1);
       expect(trigger.getAttribute('aria-expanded')).toBe('true');
-      expect(root.querySelector('#' + trigger.getAttribute('aria-controls'))?.hasAttribute('hidden')).toBeFalse();
-      expect(root.querySelector('app-mega-menu h2')?.textContent).toContain(menu.introduction);
+      expect(
+        root
+          .querySelector('#' + trigger.getAttribute('aria-controls'))
+          ?.hasAttribute('hidden'),
+      ).toBeFalse();
+      expect(root.querySelector('app-mega-menu h2')?.textContent).toContain(
+        menu.introduction,
+      );
     }
   });
   it('toggles closed and removes links from keyboard navigation', () => {
-    open('services'); open('services');
+    open('services');
+    open('services');
     expect(root.querySelector('app-mega-menu')).toBeNull();
-    expect(root.querySelector('#trigger-services')?.getAttribute('aria-expanded')).toBe('false');
+    expect(
+      root.querySelector('#trigger-services')?.getAttribute('aria-expanded'),
+    ).toBe('false');
   });
   it('moves Tab into the panel and restores focus with Escape', () => {
-    const trigger = open('about'); trigger.focus();
-    trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }));
-    expect(root.querySelector('app-mega-menu')?.contains(document.activeElement)).toBeTrue();
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); fixture.detectChanges();
+    const trigger = open('about');
+    trigger.focus();
+    trigger.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Tab',
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    expect(
+      root.querySelector('app-mega-menu')?.contains(document.activeElement),
+    ).toBeTrue();
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
+    fixture.detectChanges();
     expect(root.querySelector('app-mega-menu')).toBeNull();
     expect(document.activeElement).toBe(trigger);
   });
   it('ignores internal clicks and closes on outside clicks', () => {
     open('projects');
-    root.querySelector('app-mega-menu h2')!.dispatchEvent(new MouseEvent('click', { bubbles: true })); fixture.detectChanges();
+    root
+      .querySelector('app-mega-menu h2')!
+      .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    fixture.detectChanges();
     expect(root.querySelector('app-mega-menu')).not.toBeNull();
-    document.body.click(); fixture.detectChanges();
+    document.body.click();
+    fixture.detectChanges();
     expect(root.querySelector('app-mega-menu')).toBeNull();
   });
   it('closes after SPA navigation and highlights the parent category', async () => {
     open('services');
-    await TestBed.inject(Router).navigateByUrl('/services/construction'); fixture.detectChanges(); await fixture.whenStable(); fixture.detectChanges();
+    await TestBed.inject(Router).navigateByUrl('/services/construction');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
     expect(root.querySelector('app-mega-menu')).toBeNull();
-    expect(root.querySelector('#trigger-services')?.parentElement?.classList.contains('route-active')).toBeTrue();
+    expect(
+      root
+        .querySelector('#trigger-services')
+        ?.parentElement?.classList.contains('route-active'),
+    ).toBeTrue();
   });
   it('does not open the mobile dialog at desktop widths', () => {
-    root.querySelector<HTMLButtonElement>('.menu-button')!.click(); fixture.detectChanges();
-    expect(root.querySelector<HTMLDialogElement>('#primary-navigation')!.open).toBeFalse();
+    root.querySelector<HTMLButtonElement>('.menu-button')!.click();
+    fixture.detectChanges();
+    expect(
+      root.querySelector<HTMLDialogElement>('#primary-navigation')!.open,
+    ).toBeFalse();
   });
   it('uses published destinations for every navigation category', () => {
-    const valid = ['/projects', '/services', '/about', '/our-approach', '/markets', '/contact', '/careers'];
-    for (const menu of MEGA_MENUS) for (const section of menu.sections) for (const item of section.items) expect(valid.some(path => item.route === path || item.route.startsWith(path + '/'))).withContext(item.route).toBeTrue();
+    const valid = [
+      '/projects',
+      '/services',
+      '/about',
+      '/our-approach',
+      '/markets',
+      '/contact',
+      '/careers',
+    ];
+    for (const menu of MEGA_MENUS)
+      for (const section of menu.sections)
+        for (const item of section.items)
+          expect(
+            valid.some(
+              (path) =>
+                item.route === path || item.route.startsWith(path + '/'),
+            ),
+          )
+            .withContext(item.route)
+            .toBeTrue();
     open('about');
     expect(root.querySelector('.feature')?.getAttribute('href')).toBe('/about');
   });
@@ -102,13 +197,21 @@ describe('Header mega menu', () => {
     const before = document.body.style.cssText;
     open('services');
     expect(document.body.style.cssText).toBe(before);
-    expect(root.querySelector('.mega-shell:not([hidden])')?.hasAttribute('data-lenis-prevent')).toBeTrue();
+    expect(
+      root
+        .querySelector('.mega-shell:not([hidden])')
+        ?.hasAttribute('data-lenis-prevent'),
+    ).toBeTrue();
   });
   it('renders SVG directional icons and distinct context icons without placeholder glyphs', () => {
     open('projects');
     expect(root.textContent).not.toContain('?');
-    const paths = Array.from(root.querySelectorAll('app-mega-menu .item-icon path')).map(path => path.getAttribute('d'));
+    const paths = Array.from(
+      root.querySelectorAll('app-mega-menu .item-icon path'),
+    ).map((path) => path.getAttribute('d'));
     expect(new Set(paths).size).toBe(3);
-    expect(root.querySelectorAll('app-mega-menu .item-arrow svg').length).toBe(3);
+    expect(root.querySelectorAll('app-mega-menu .item-arrow svg').length).toBe(
+      3,
+    );
   });
 });

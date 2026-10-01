@@ -1,4 +1,8 @@
-@use '../../../styles/hero';
+@use "../../../styles/hero";
 
-.hero-copy { max-width: 75rem; }
-.hero-poster { object-position: 65% center; }
+.hero-copy {
+  max-width: 75rem;
+}
+.hero-poster {
+  object-position: 65% center;
+}

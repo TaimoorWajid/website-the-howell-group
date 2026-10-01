@@ -11,9 +11,10 @@ export const FOOTER_LINKS = {
     { label: 'Projects', route: '/projects' },
     { label: 'Markets', route: '/markets' },
     { label: 'Careers', route: '/careers' },
-    { label: 'Contact', route: '/contact' }
+    { label: 'Contact', route: '/contact' },
   ],
-  services: SERVICES.map(service => ({
-    label: service.title, route: '/services/' + service.slug
-  }))
+  services: SERVICES.map((service) => ({
+    label: service.title,
+    route: '/services/' + service.slug,
+  })),
 } as const;

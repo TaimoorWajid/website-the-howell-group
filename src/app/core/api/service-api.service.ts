@@ -5,6 +5,10 @@ import { Service } from '../models/content.models';
 
 @Injectable({ providedIn: 'root' })
 export class ServiceApiService extends ContentApiService {
-  getServices(): Observable<Service[]> { return this.collection<Service>('services'); }
-  getService(slug: string): Observable<Service> { return this.item<Service>('services', slug); }
+  getServices(): Observable<Service[]> {
+    return this.collection<Service>('services');
+  }
+  getService(slug: string): Observable<Service> {
+    return this.item<Service>('services', slug);
+  }
 }

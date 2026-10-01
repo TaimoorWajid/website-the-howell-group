@@ -1,3 +1,20 @@
 // Franklin Gothic Book tokens, retained for future use:
 // :root { --font-display: 'Franklin Gothic', Arial, sans-serif; --font-body: 'Franklin Gothic', Arial, sans-serif; }
-:root { --color-white: #ffffff; --color-off-white: #f3f4f0; --color-surface: #f7f7f5; --color-charcoal: #18201f; --color-body: #2a2a2a; --color-cyan: #41b8d0; --color-teal: #0b7890; --color-dark-teal: #0b3d3d; --color-darkest-teal: #061f1f; --color-red: #d51f26; --color-muted: #66716f; --color-line: rgba(24, 32, 31, .16); --font-display: 'Instrument Sans', Arial, sans-serif; --font-body: 'Instrument Sans', Arial, sans-serif; --content-max-width: 90rem; --page-gutter: clamp(1.25rem, 4vw, 5rem); }
+:root {
+  --color-white: #ffffff;
+  --color-off-white: #f3f4f0;
+  --color-surface: #f7f7f5;
+  --color-charcoal: #18201f;
+  --color-body: #2a2a2a;
+  --color-cyan: #41b8d0;
+  --color-teal: #0b7890;
+  --color-dark-teal: #0b3d3d;
+  --color-darkest-teal: #061f1f;
+  --color-red: #d51f26;
+  --color-muted: #66716f;
+  --color-line: rgba(24, 32, 31, 0.16);
+  --font-display: "Instrument Sans", Arial, sans-serif;
+  --font-body: "Instrument Sans", Arial, sans-serif;
+  --content-max-width: 90rem;
+  --page-gutter: clamp(1.25rem, 4vw, 5rem);
+}

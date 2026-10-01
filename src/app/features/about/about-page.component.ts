@@ -1,4 +1,13 @@
-import { afterNextRender, Component, computed, ElementRef, inject, NgZone, OnDestroy, signal } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  NgZone,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import gsap from 'gsap';
 import { AnimationManagerService } from '../../core/animations/animation-manager.service';
@@ -8,13 +17,20 @@ import { SeoService } from '../../core/services/seo.service';
 import { PerspectiveAlignmentComponent } from './perspective-alignment.component';
 import { ABOUT_TEAM, ABOUT_VALUES } from './about.data';
 
-@Component({ selector: 'app-about-page', imports: [RouterLink, PerspectiveAlignmentComponent], templateUrl: './about-page.component.html', styleUrl: './about-page.component.scss' })
+@Component({
+  selector: 'app-about-page',
+  imports: [RouterLink, PerspectiveAlignmentComponent],
+  templateUrl: './about-page.component.html',
+  styleUrl: './about-page.component.scss',
+})
 export class AboutPageComponent implements OnDestroy {
   readonly values = ABOUT_VALUES;
   readonly people = ABOUT_TEAM;
   readonly selectedValue = signal(2);
   readonly hoveredValue = signal<number | null>(null);
-  readonly displayedValue = computed(() => this.hoveredValue() ?? this.selectedValue());
+  readonly displayedValue = computed(
+    () => this.hoveredValue() ?? this.selectedValue(),
+  );
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly animations = inject(AnimationManagerService);
   private readonly scrolling = inject(SmoothScrollService);
@@ -22,44 +38,207 @@ export class AboutPageComponent implements OnDestroy {
   private media?: gsap.MatchMedia;
 
   constructor() {
-    inject(SeoService).update({ title: 'About | We Deliver Your Mission | The Howell Group', description: "Meet The Howell Group: owner representation and people-centric teams focused on healthcare in Southern California, with flexibility to support clients elsewhere.", canonicalPath: '/about', breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }, { name: 'The Howell Group', path: '/about#about-howell' }] });
-    afterNextRender(() => this.zone.runOutsideAngular(() => {
-      this.animations.setup(); this.media = gsap.matchMedia();
-      this.media.add({ motion: '(prefers-reduced-motion: no-preference)', desktop: '(min-width: 48rem)' }, context => {
-        if (!context.conditions!['motion']) return;
-        const root = this.host.nativeElement;
-        const palette = getComputedStyle(root);
-        const select = (selector: string): Element | null => root.querySelector(selector);
-        const hero = select('.about-hero');
-        try {
-          gsap.timeline({ defaults: { ease: 'power3.out' } })
-            .from(select('.hero-eyebrow'), { opacity: 0, y: 8, duration: .5 }, 0)
-            .from(root.querySelectorAll('.hero-line > span'), { yPercent: 110, duration: .9, stagger: .12 }, .12)
-            .from(root.querySelectorAll('.hero-body, .discover-link'), { opacity: 0, y: 10, duration: .6, stagger: .1 }, .5);
-          gsap.to(select('.hero-image-mask'), { clipPath: 'inset(5% 4% 7% 4%)', ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .5 } });
-          gsap.fromTo(select('.hero-photo'), { scale: 1.045 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .5 } });
-          root.querySelectorAll('.purpose-phrase').forEach(phrase => gsap.fromTo(phrase, { color: palette.getPropertyValue('--color-muted').trim() }, { color: palette.getPropertyValue('--color-teal').trim(), ease: 'none', scrollTrigger: { trigger: phrase, start: 'top 78%', end: 'top 42%', scrub: .3 } }));
-          gsap.timeline({ scrollTrigger: { trigger: select('.team'), start: 'top 78%', once: true } })
-            .from(select('.portrait--marc'), { clipPath: 'inset(0 100% 0 0)', y: 12, duration: 1, ease: 'power3.out' }, 0)
-            .from(select('.portrait--eric'), { clipPath: 'inset(0 0 0 100%)', y: 12, duration: 1, ease: 'power3.out' }, .15)
-            .from(select('.portrait--brett'), { clipPath: 'inset(0 100% 0 0)', y: 12, duration: 1, ease: 'power3.out' }, .3);
-          gsap.from(root.querySelectorAll('.essay-mask'), { clipPath: 'inset(100% 0 0 0)', duration: 1, stagger: .13, ease: 'power3.out', scrollTrigger: { trigger: select('.photo-essay'), start: 'top 80%', once: true } });
-          gsap.to(select('.together-word'), { color: 'rgba(182,216,207,.16)', duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: select('.about-closing'), start: 'top 85%', once: true } });
-          if (context.conditions!['desktop']) {
-            gsap.fromTo(select('.purpose-image'), { y: 14 }, { y: -14, ease: 'none', scrollTrigger: { trigger: select('.purpose'), start: 'top bottom', end: 'bottom top', scrub: .5 } });
-            root.querySelectorAll('.essay-image').forEach((image, index) => gsap.fromTo(image, { yPercent: 2 + index }, { yPercent: -2 - index, ease: 'none', scrollTrigger: { trigger: select('.photo-essay'), start: 'top bottom', end: 'bottom top', scrub: .5 } }));
-          }
-        } catch {
-          // A failed enhancement must never leave semantic copy hidden.
-          context.revert();
-        }
-      });
-    }));
+    inject(SeoService).update({
+      title: 'About | We Deliver Your Mission | The Howell Group',
+      description:
+        'Meet The Howell Group: owner representation and people-centric teams focused on healthcare in Southern California, with flexibility to support clients elsewhere.',
+      canonicalPath: '/about',
+      breadcrumbs: [
+        { name: 'Home', path: '/' },
+        { name: 'About', path: '/about' },
+        { name: 'The Howell Group', path: '/about#about-howell' },
+      ],
+    });
+    afterNextRender(() =>
+      this.zone.runOutsideAngular(() => {
+        this.animations.setup();
+        this.media = gsap.matchMedia();
+        this.media.add(
+          {
+            motion: '(prefers-reduced-motion: no-preference)',
+            desktop: '(min-width: 48rem)',
+          },
+          (context) => {
+            if (!context.conditions!['motion']) return;
+            const root = this.host.nativeElement;
+            const palette = getComputedStyle(root);
+            const select = (selector: string): Element | null =>
+              root.querySelector(selector);
+            const hero = select('.about-hero');
+            try {
+              gsap
+                .timeline({ defaults: { ease: 'power3.out' } })
+                .from(
+                  select('.hero-eyebrow'),
+                  { opacity: 0, y: 8, duration: 0.5 },
+                  0,
+                )
+                .from(
+                  root.querySelectorAll('.hero-line > span'),
+                  { yPercent: 110, duration: 0.9, stagger: 0.12 },
+                  0.12,
+                )
+                .from(
+                  root.querySelectorAll('.hero-body, .discover-link'),
+                  { opacity: 0, y: 10, duration: 0.6, stagger: 0.1 },
+                  0.5,
+                );
+              gsap.to(select('.hero-image-mask'), {
+                clipPath: 'inset(5% 4% 7% 4%)',
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: hero,
+                  start: 'top top',
+                  end: 'bottom top',
+                  scrub: 0.5,
+                },
+              });
+              gsap.fromTo(
+                select('.hero-photo'),
+                { scale: 1.045 },
+                {
+                  scale: 1,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: hero,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 0.5,
+                  },
+                },
+              );
+              root
+                .querySelectorAll('.purpose-phrase')
+                .forEach((phrase) =>
+                  gsap.fromTo(
+                    phrase,
+                    { color: palette.getPropertyValue('--color-muted').trim() },
+                    {
+                      color: palette.getPropertyValue('--color-teal').trim(),
+                      ease: 'none',
+                      scrollTrigger: {
+                        trigger: phrase,
+                        start: 'top 78%',
+                        end: 'top 42%',
+                        scrub: 0.3,
+                      },
+                    },
+                  ),
+                );
+              gsap
+                .timeline({
+                  scrollTrigger: {
+                    trigger: select('.team'),
+                    start: 'top 78%',
+                    once: true,
+                  },
+                })
+                .from(
+                  select('.portrait--marc'),
+                  {
+                    clipPath: 'inset(0 100% 0 0)',
+                    y: 12,
+                    duration: 1,
+                    ease: 'power3.out',
+                  },
+                  0,
+                )
+                .from(
+                  select('.portrait--eric'),
+                  {
+                    clipPath: 'inset(0 0 0 100%)',
+                    y: 12,
+                    duration: 1,
+                    ease: 'power3.out',
+                  },
+                  0.15,
+                )
+                .from(
+                  select('.portrait--brett'),
+                  {
+                    clipPath: 'inset(0 100% 0 0)',
+                    y: 12,
+                    duration: 1,
+                    ease: 'power3.out',
+                  },
+                  0.3,
+                );
+              gsap.from(root.querySelectorAll('.essay-mask'), {
+                clipPath: 'inset(100% 0 0 0)',
+                duration: 1,
+                stagger: 0.13,
+                ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: select('.photo-essay'),
+                  start: 'top 80%',
+                  once: true,
+                },
+              });
+              gsap.to(select('.together-word'), {
+                color: 'rgba(182,216,207,.16)',
+                duration: 1.4,
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: select('.about-closing'),
+                  start: 'top 85%',
+                  once: true,
+                },
+              });
+              if (context.conditions!['desktop']) {
+                gsap.fromTo(
+                  select('.purpose-image'),
+                  { y: 14 },
+                  {
+                    y: -14,
+                    ease: 'none',
+                    scrollTrigger: {
+                      trigger: select('.purpose'),
+                      start: 'top bottom',
+                      end: 'bottom top',
+                      scrub: 0.5,
+                    },
+                  },
+                );
+                root
+                  .querySelectorAll('.essay-image')
+                  .forEach((image, index) =>
+                    gsap.fromTo(
+                      image,
+                      { yPercent: 2 + index },
+                      {
+                        yPercent: -2 - index,
+                        ease: 'none',
+                        scrollTrigger: {
+                          trigger: select('.photo-essay'),
+                          start: 'top bottom',
+                          end: 'bottom top',
+                          scrub: 0.5,
+                        },
+                      },
+                    ),
+                  );
+              }
+            } catch {
+              // A failed enhancement must never leave semantic copy hidden.
+              context.revert();
+            }
+          },
+        );
+      }),
+    );
   }
 
   discover(event: MouseEvent): void {
-    if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey || event.button !== 0) return;
-    const target = this.host.nativeElement.querySelector<HTMLElement>('#about-purpose');
+    if (
+      event.ctrlKey ||
+      event.metaKey ||
+      event.altKey ||
+      event.shiftKey ||
+      event.button !== 0
+    )
+      return;
+    const target =
+      this.host.nativeElement.querySelector<HTMLElement>('#about-purpose');
     if (!target) return;
     event.preventDefault();
     if (prefersReducedMotion()) target.scrollIntoView({ behavior: 'instant' });
@@ -68,7 +247,14 @@ export class AboutPageComponent implements OnDestroy {
     history.replaceState(history.state, '', '#about-purpose');
   }
 
-  selectValue(index: number): void { this.selectedValue.set(index); this.hoveredValue.set(null); }
-  previewValue(event: PointerEvent, index: number): void { if (event.pointerType === 'mouse') this.hoveredValue.set(index); }
-  ngOnDestroy(): void { this.media?.revert(); }
+  selectValue(index: number): void {
+    this.selectedValue.set(index);
+    this.hoveredValue.set(null);
+  }
+  previewValue(event: PointerEvent, index: number): void {
+    if (event.pointerType === 'mouse') this.hoveredValue.set(index);
+  }
+  ngOnDestroy(): void {
+    this.media?.revert();
+  }
 }

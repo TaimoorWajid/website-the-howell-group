@@ -1,7 +1,20 @@
-import { Component, ElementRef, Injector, OnDestroy, ViewChild, afterNextRender, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Injector,
+  OnDestroy,
+  ViewChild,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 import type { HeroSceneController } from './hero-scene.controller';
 
-@Component({ selector: 'app-home-hero-three', templateUrl: './home-hero-three.component.html', styleUrl: './home-hero-three.component.scss' })
+@Component({
+  selector: 'app-home-hero-three',
+  templateUrl: './home-hero-three.component.html',
+  styleUrl: './home-hero-three.component.scss',
+})
 export class HomeHeroThreeComponent implements OnDestroy {
   @ViewChild('stage', { static: true }) private stage!: ElementRef<HTMLElement>;
   private readonly injector = inject(Injector);
@@ -12,7 +25,10 @@ export class HomeHeroThreeComponent implements OnDestroy {
   private frame: number | null = null;
   private generation = 0;
   private destroyed = false;
-  private readonly modeChanged = (): void => { this.reset(); this.schedule(); };
+  private readonly modeChanged = (): void => {
+    this.reset();
+    this.schedule();
+  };
 
   constructor() {
     afterNextRender(() => {
@@ -26,20 +42,39 @@ export class HomeHeroThreeComponent implements OnDestroy {
   private schedule(): void {
     // SSR, mobile, reduced motion and data-saving devices retain the same composed
     // SVG. No WebGL bundle is requested until after essential content has painted.
-    const capability = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
-    if (this.destroyed || this.motion?.matches || this.mobile?.matches || capability.connection?.saveData || (capability.deviceMemory !== undefined && capability.deviceMemory <= 2)) return;
+    const capability = navigator as Navigator & {
+      deviceMemory?: number;
+      connection?: { saveData?: boolean };
+    };
+    if (
+      this.destroyed ||
+      this.motion?.matches ||
+      this.mobile?.matches ||
+      capability.connection?.saveData ||
+      (capability.deviceMemory !== undefined && capability.deviceMemory <= 2)
+    )
+      return;
     const generation = this.generation;
     const started = performance.now();
     this.frame = requestAnimationFrame(() => {
       this.frame = requestAnimationFrame(() => {
         this.frame = null;
-        void import('./hero-scene.controller').then(({ HeroSceneController }) => {
-          if (this.destroyed || generation !== this.generation) return;
-          try {
-            this.controller = new HeroSceneController(this.stage.nativeElement, this.injector, ready => this.ready.set(ready));
-            this.controller.initialize(performance.now() - started < 800);
-          } catch { this.controller?.destroy(); this.ready.set(false); }
-        }).catch(() => this.ready.set(false));
+        void import('./hero-scene.controller')
+          .then(({ HeroSceneController }) => {
+            if (this.destroyed || generation !== this.generation) return;
+            try {
+              this.controller = new HeroSceneController(
+                this.stage.nativeElement,
+                this.injector,
+                (ready) => this.ready.set(ready),
+              );
+              this.controller.initialize(performance.now() - started < 800);
+            } catch {
+              this.controller?.destroy();
+              this.ready.set(false);
+            }
+          })
+          .catch(() => this.ready.set(false));
       });
     });
   }
@@ -47,7 +82,8 @@ export class HomeHeroThreeComponent implements OnDestroy {
     this.generation++;
     if (this.frame !== null) cancelAnimationFrame(this.frame);
     this.frame = null;
-    this.controller?.destroy(); this.controller = undefined;
+    this.controller?.destroy();
+    this.controller = undefined;
     this.ready.set(false);
   }
   ngOnDestroy(): void {

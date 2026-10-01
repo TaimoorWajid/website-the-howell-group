@@ -1,11 +1,35 @@
-<section class="people-section" aria-labelledby="about-title" (focusin)="revealImmediately()">
+<section
+  class="people-section"
+  aria-labelledby="about-title"
+  (focusin)="revealImmediately()"
+>
   <div class="people-copy">
     <div class="people-content">
       <p class="people-eyebrow">PEOPLE BEFORE PROCESS</p>
-      <h2 id="about-title"><span class="heading-mask"><span>Great projects are built by </span></span><span class="heading-mask"><span>teams that see the whole picture.</span></span></h2>
-      <p class="people-body">Our people bring experience in owner representation, design and construction oversight. We build coordinated teams around your priorities, with clear responsibilities and a shared mission.</p>
+      <h2 id="about-title">
+        <span class="heading-mask"
+          ><span>Great projects are built by </span></span
+        ><span class="heading-mask"
+          ><span>teams that see the whole picture.</span></span
+        >
+      </h2>
+      <p class="people-body">
+        Our people bring experience in owner representation, design and
+        construction oversight. We build coordinated teams around your
+        priorities, with clear responsibilities and a shared mission.
+      </p>
       <div class="people-actions">
-        <a class="people-link" routerLink="/about">MEET HOWELL<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="people-link" routerLink="/about"
+          >MEET HOWELL<svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M4 12h15m-6-6 6 6-6 6" /></svg
+        ></a>
       </div>
     </div>
   </div>
@@ -13,8 +37,24 @@
     <div class="people-portraits">
       @for (person of people; track person.id) {
         <figure>
-          @if (person.image; as portrait) { <img class="people-image" [src]="portrait.src" [alt]="portrait.alt" [attr.width]="portrait.width" [attr.height]="portrait.height" loading="lazy" decoding="async" /> }
-          <figcaption><strong>{{ person.name }}</strong>@if (person.role) { <span>{{ person.role }}</span> }<p>{{ person.bio }}</p></figcaption>
+          @if (person.image; as portrait) {
+            <img
+              class="people-image"
+              [src]="portrait.src"
+              [alt]="portrait.alt"
+              [attr.width]="portrait.width"
+              [attr.height]="portrait.height"
+              loading="lazy"
+              decoding="async"
+            />
+          }
+          <figcaption>
+            <strong>{{ person.name }}</strong>
+            @if (person.role) {
+              <span>{{ person.role }}</span>
+            }
+            <p>{{ person.bio }}</p>
+          </figcaption>
         </figure>
       }
     </div>

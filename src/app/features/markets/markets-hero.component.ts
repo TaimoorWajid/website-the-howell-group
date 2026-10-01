@@ -1,5 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, OnDestroy, afterNextRender, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  afterNextRender,
+  inject,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { prefersReducedMotion } from '../../core/animations/animation.util';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
@@ -8,7 +14,7 @@ import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
   selector: 'app-markets-hero',
   imports: [RouterLink],
   templateUrl: './markets-hero.component.html',
-  styleUrl: './markets-hero.component.scss'
+  styleUrl: './markets-hero.component.scss',
 })
 export class MarketsHeroComponent implements OnDestroy {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -18,9 +24,15 @@ export class MarketsHeroComponent implements OnDestroy {
 
   constructor() {
     afterNextRender(() => {
-      const header = this.document.querySelector<HTMLElement>('app-header .site-header');
+      const header = this.document.querySelector<HTMLElement>(
+        'app-header .site-header',
+      );
       if (!header) return;
-      const measure = () => this.host.nativeElement.style.setProperty('--hero-header-height', header.getBoundingClientRect().height + 'px');
+      const measure = () =>
+        this.host.nativeElement.style.setProperty(
+          '--hero-header-height',
+          header.getBoundingClientRect().height + 'px',
+        );
       measure();
       this.headerObserver = new ResizeObserver(measure);
       this.headerObserver.observe(header);
@@ -28,7 +40,14 @@ export class MarketsHeroComponent implements OnDestroy {
   }
 
   explore(event: MouseEvent): void {
-    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.button !== 0
+    )
+      return;
     const target = this.document.getElementById('market-explorer');
     if (!target) return;
     event.preventDefault();
@@ -38,5 +57,7 @@ export class MarketsHeroComponent implements OnDestroy {
     history.replaceState(history.state, '', '/markets#market-explorer');
   }
 
-  ngOnDestroy(): void { this.headerObserver?.disconnect(); }
+  ngOnDestroy(): void {
+    this.headerObserver?.disconnect();
+  }
 }

@@ -15,15 +15,18 @@ export class ProjectsListingState {
     const document = inject(DOCUMENT);
     const destroyRef = inject(DestroyRef);
     if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
-    router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe(event => {
+    router.events.pipe(takeUntilDestroyed(destroyRef)).subscribe((event) => {
       if (!(event instanceof NavigationStart)) return;
       const from = router.url.split(/[?#]/)[0];
       const to = event.url.split(/[?#]/)[0];
       if (/^\/projects\/?$/.test(from)) {
-        this.position = /^\/projects\/[^/]+\/?$/.test(to) ? document.defaultView?.scrollY ?? 0 : null;
+        this.position = /^\/projects\/[^/]+\/?$/.test(to)
+          ? (document.defaultView?.scrollY ?? 0)
+          : null;
       }
       if (/^\/projects\/?$/.test(to)) {
-        this.restoreRequested = /^\/projects\/[^/]+\/?$/.test(from) && this.position !== null;
+        this.restoreRequested =
+          /^\/projects\/[^/]+\/?$/.test(from) && this.position !== null;
         if (!this.restoreRequested) this.query = '';
       }
     });

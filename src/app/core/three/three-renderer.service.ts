@@ -6,9 +6,16 @@ import * as THREE from 'three';
 export class ThreeRendererService {
   private readonly platformId = inject(PLATFORM_ID);
 
-  create(container: HTMLElement, pixelRatioCap = 2): THREE.WebGLRenderer | null {
+  create(
+    container: HTMLElement,
+    pixelRatioCap = 2,
+  ): THREE.WebGLRenderer | null {
     if (!isPlatformBrowser(this.platformId)) return null;
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, pixelRatioCap));
     renderer.setSize(container.clientWidth, container.clientHeight, false);
     container.appendChild(renderer.domElement);

@@ -1,56 +1,162 @@
 ﻿@for (detail of details(); track detail.service.slug) {
   <section class="services-hero detail-hero" aria-labelledby="service-title">
-    <div class="hero-architecture" aria-hidden="true"><img [src]="detail.image" alt="" decoding="async" /></div>
+    <div class="hero-architecture" aria-hidden="true">
+      <img [src]="detail.image" alt="" decoding="async" />
+    </div>
     <div class="hero-copy">
-      <nav class="breadcrumbs" aria-label="Breadcrumb"><a routerLink="/">Home</a><span aria-hidden="true">/</span><a routerLink="/services">Services</a><span aria-hidden="true">/</span><span aria-current="page">{{ detail.service.title }}</span></nav>
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a><span aria-hidden="true">/</span
+        ><a routerLink="/services">Services</a><span aria-hidden="true">/</span
+        ><span aria-current="page">{{ detail.service.title }}</span>
+      </nav>
       <p class="eyebrow">{{ detail.service.title }}</p>
       <h1 id="service-title">{{ detail.service.heading }}</h1>
       <p class="hero-body">{{ detail.service.introduction }}</p>
-      <a class="explore-button" routerLink="/contact">Discuss {{ detail.service.title }} <span aria-hidden="true">↗</span></a>
+      <a class="explore-button" routerLink="/contact"
+        >Discuss {{ detail.service.title }} <span aria-hidden="true">↗</span></a
+      >
     </div>
   </section>
 
-  <section class="detail-coverage section-shell" aria-labelledby="coverage-title">
-    <div class="detail-heading"><p class="eyebrow">WHAT THE SERVICE COVERS</p><h2 id="coverage-title">{{ detail.service.title }}<br />in practice.</h2></div>
-    <div class="coverage-list">@for (item of detail.service.coverage; track item.title; let index = $index) {
-      <article><span class="coverage-number" aria-hidden="true">0{{ index + 1 }}</span><div><h3>{{ item.title }}</h3><p>{{ item.body }}</p></div></article>
-    }</div>
+  <section
+    class="detail-coverage section-shell"
+    aria-labelledby="coverage-title"
+  >
+    <div class="detail-heading">
+      <p class="eyebrow">WHAT THE SERVICE COVERS</p>
+      <h2 id="coverage-title">{{ detail.service.title }}<br />in practice.</h2>
+    </div>
+    <div class="coverage-list">
+      @for (
+        item of detail.service.coverage;
+        track item.title;
+        let index = $index
+      ) {
+        <article>
+          <span class="coverage-number" aria-hidden="true"
+            >0{{ index + 1 }}</span
+          >
+          <div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.body }}</p>
+          </div>
+        </article>
+      }
+    </div>
   </section>
 
-  <section class="owner-support" aria-labelledby="owner-title"><div class="section-shell support-grid">
-    <h2 id="owner-title" class="detail-heading">Supporting the owner<br />and the team.</h2><p>{{ detail.service.ownerSupport }}</p>
-  </div></section>
+  <section class="owner-support" aria-labelledby="owner-title">
+    <div class="section-shell support-grid">
+      <h2 id="owner-title" class="detail-heading">
+        Supporting the owner<br />and the team.
+      </h2>
+      <p>{{ detail.service.ownerSupport }}</p>
+    </div>
+  </section>
 
-  <section class="detail-lifecycle section-shell" aria-labelledby="lifecycle-title">
-    <div class="detail-heading"><p class="eyebrow">THE PROJECT LIFECYCLE</p><h2 id="lifecycle-title">The right involvement.<br />At the right stage.</h2></div>
+  <section
+    class="detail-lifecycle section-shell"
+    aria-labelledby="lifecycle-title"
+  >
+    <div class="detail-heading">
+      <p class="eyebrow">THE PROJECT LIFECYCLE</p>
+      <h2 id="lifecycle-title">
+        The right involvement.<br />At the right stage.
+      </h2>
+    </div>
     <p class="body">{{ detail.service.lifecycleSummary }}</p>
-    <p class="body">Howell can contribute at any stage. Earlier involvement provides greater opportunity to influence the outcome.</p>
-    <ol class="phase-list">@for (phase of detail.phases; track phase.number) {
-      <li [class.has-note]="phase.note"><span class="phase-number">{{ phase.number }}</span><h3>{{ phase.title }}</h3>@if (phase.note) { <p>{{ phase.note }}</p> }</li>
-    }</ol>
+    <p class="body">
+      Howell can contribute at any stage. Earlier involvement provides greater
+      opportunity to influence the outcome.
+    </p>
+    <ol class="phase-list">
+      @for (phase of detail.phases; track phase.number) {
+        <li [class.has-note]="phase.note">
+          <span class="phase-number">{{ phase.number }}</span>
+          <h3>{{ phase.title }}</h3>
+          @if (phase.note) {
+            <p>{{ phase.note }}</p>
+          }
+        </li>
+      }
+    </ol>
   </section>
 
   @if (detail.experience.length) {
-    <section class="detail-experience section-shell" aria-labelledby="experience-title">
-      <p class="eyebrow">INDIVIDUAL PROFESSIONAL EXPERIENCE</p><h2 id="experience-title" class="detail-heading">Relevant team experience.</h2>
+    <section
+      class="detail-experience section-shell"
+      aria-labelledby="experience-title"
+    >
+      <p class="eyebrow">INDIVIDUAL PROFESSIONAL EXPERIENCE</p>
+      <h2 id="experience-title" class="detail-heading">
+        Relevant team experience.
+      </h2>
       @for (item of detail.experience; track item.project.slug) {
         <article class="experience-row">
-          <img [src]="item.project.images[0].src" [alt]="item.project.images[0].alt" [width]="item.project.images[0].width" [height]="item.project.images[0].height" loading="lazy" decoding="async" />
-          <div><h3>{{ item.project.title }}</h3><p>{{ item.attribution }}</p><a class="detail-link" [routerLink]="['/projects', item.project.slug]">Explore {{ item.project.title }} <span aria-hidden="true">↗</span></a></div>
+          <img
+            [src]="item.project.images[0].src"
+            [alt]="item.project.images[0].alt"
+            [width]="item.project.images[0].width"
+            [height]="item.project.images[0].height"
+            loading="lazy"
+            decoding="async"
+          />
+          <div>
+            <h3>{{ item.project.title }}</h3>
+            <p>{{ item.attribution }}</p>
+            <a
+              class="detail-link"
+              [routerLink]="['/projects', item.project.slug]"
+              >Explore {{ item.project.title }}
+              <span aria-hidden="true">↗</span></a
+            >
+          </div>
         </article>
       }
     </section>
   }
 
   <nav class="related-services section-shell" aria-labelledby="related-title">
-    <p class="eyebrow">CONNECTED SERVICES</p><h2 id="related-title">Bring the disciplines together.</h2>
-    <div class="related-grid">@for (service of detail.related; track service.id) {
-      <a [routerLink]="['/services', service.slug]"><h3>{{ service.title }} <span aria-hidden="true">↗</span></h3><p>{{ service.description }}</p></a>
-    }</div>
-    <a class="detail-link" routerLink="/services">Explore all five services <span aria-hidden="true">↗</span></a>
+    <p class="eyebrow">CONNECTED SERVICES</p>
+    <h2 id="related-title">Bring the disciplines together.</h2>
+    <div class="related-grid">
+      @for (service of detail.related; track service.id) {
+        <a [routerLink]="['/services', service.slug]"
+          ><h3>{{ service.title }} <span aria-hidden="true">↗</span></h3>
+          <p>{{ service.description }}</p></a
+        >
+      }
+    </div>
+    <a class="detail-link" routerLink="/services"
+      >Explore all five services <span aria-hidden="true">↗</span></a
+    >
   </nav>
 
-  <section class="closing" aria-labelledby="closing-title"><img src="/images/services/program-management.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="" /><div class="closing-copy section-shell"><p class="eyebrow">LET'S MOVE FORWARD</p><h2 id="closing-title">{{ detail.service.invitation.heading }}</h2><p class="body">{{ detail.service.invitation.body }}</p><a class="red-button" routerLink="/contact">Discuss {{ detail.service.title }} <span aria-hidden="true">↗</span></a></div></section>
+  <section class="closing" aria-labelledby="closing-title">
+    <img
+      src="/images/services/program-management.webp"
+      width="1536"
+      height="1024"
+      loading="lazy"
+      decoding="async"
+      alt=""
+    />
+    <div class="closing-copy section-shell">
+      <p class="eyebrow">LET'S MOVE FORWARD</p>
+      <h2 id="closing-title">{{ detail.service.invitation.heading }}</h2>
+      <p class="body">{{ detail.service.invitation.body }}</p>
+      <a class="red-button" routerLink="/contact"
+        >Discuss {{ detail.service.title }} <span aria-hidden="true">↗</span></a
+      >
+    </div>
+  </section>
 } @empty {
-  <section class="service-not-found section-shell"><p class="eyebrow">SERVICES</p><h1>Service not found.</h1><p>Explore our five services to find the support your project needs.</p><a class="red-button" routerLink="/services">View services <span aria-hidden="true">↗</span></a></section>
+  <section class="service-not-found section-shell">
+    <p class="eyebrow">SERVICES</p>
+    <h1>Service not found.</h1>
+    <p>Explore our five services to find the support your project needs.</p>
+    <a class="red-button" routerLink="/services"
+      >View services <span aria-hidden="true">↗</span></a
+    >
+  </section>
 }
