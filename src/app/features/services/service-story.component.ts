@@ -81,7 +81,7 @@ export class ServiceStoryComponent implements OnDestroy {
     if (prefersReducedMotion()) window.scrollTo({ top: y, behavior: 'instant' });
     else this.scroll.scrollTo(y);
     target.querySelector<HTMLElement>('h3')?.focus({ preventScroll: true });
-    history.replaceState(history.state, '', `#${id}`);
+    history.replaceState(history.state, '', `/services#${id}`);
   }
   ngOnDestroy(): void { this.imageTween?.kill(); this.media?.revert(); this.resize?.disconnect(); }
 }

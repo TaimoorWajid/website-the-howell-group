@@ -1,5 +1,13 @@
 # Services landing page
 
+## Current visual update
+
+The Services hero now reuses the original homepage `/images/hero/architectural-study.svg` as requested. It shares typography, text spacing, button styling and responsive rules with the homepage through `src/styles/_hero.scss`; the Services layout retains room for the architectural image. The former Services portal scene is no longer initialized by the hero.
+
+Five optimized service-specific WebP photographs replace generic images in the service story, capability cards and detail-page heroes. The mission and closing sections also use this new set. These are generated editorial service scenes, not employee portraits or project evidence. See [image prompts and asset provenance](services-image-prompts.md).
+
+The original implementation notes below describe the earlier scene and remain as historical context.
+
 The existing `/services` placeholder is replaced with a lazy-loaded page. Homepage files, global header/menu/mobile navigation, footer, and `/services/:slug` remain unchanged. No dependencies, new scrolling engine, or duplicate Three.js foundation were introduced.
 
 ## Files

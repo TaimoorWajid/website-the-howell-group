@@ -2,7 +2,7 @@ import { SERVICES } from '../../core/data/company.data';
 export interface ServiceChapter { id: string; number: string; name: string; title: string; body: string; link: string; route: string; image: string; }
 // Presentation adapters for the shared, source-backed service records.
 const SERVICE_TITLES = ['Start with the whole picture.', 'Keep the vision connected.', 'Turn decisions into delivery.', 'Align the agreement with the mission.', 'Connect the project with financial solutions.'];
-const SERVICE_IMAGES = ['/images/projects/project-01.jpg', '/images/projects/project-02.jpg', '/images/why-howell/concrete-interior.webp', '/images/projects/project-04.jpg', '/images/why-howell/concrete-interior.webp'];
+const SERVICE_IMAGES = ['program-management', 'design-management', 'construction-management', 'contract-management', 'financial-management'].map(name => `/images/services/${name}.webp`);
 export const SERVICE_CHAPTERS: readonly ServiceChapter[] = SERVICES.map((service, index) => ({
   id: service.slug, number: String(index + 1).padStart(2, '0'), name: service.title,
   title: SERVICE_TITLES[index], body: service.description ?? '',

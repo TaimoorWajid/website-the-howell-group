@@ -33,7 +33,7 @@ describe('HomePageComponent', () => {
     expect(page.querySelector('#services-title')).toBeTruthy();
     const alisoProject = page.querySelector('app-featured-projects article');
     expect(alisoProject?.textContent).toContain('Aliso Ridge Behavioral Hospital');
-    for (const value of ['119 beds', '80,000 sq ft', 'HCAI (OSHPD) 1', 'Savings of $6.6 million on a $43.5 million project']) {
+    for (const value of ['119 beds', '80,000 sq ft', 'HCAI (OSHPD) 1', '$6.6M savings on a $43.5M project.']) {
       expect(alisoProject?.textContent).toContain(value);
     }
     expect(page.querySelector('app-services-experience')?.nextElementSibling?.tagName.toLowerCase()).toBe('app-people-before-process');

@@ -8,10 +8,10 @@ export const ABOUT_PERSPECTIVES = [
 ] as const;
 
 export const ABOUT_VALUES = [
-  { number: '01', title: 'Integrity', body: 'Be open and honest. Respect every person and every role.', image: '/images/why-howell/concrete-interior.webp' },
-  { number: '02', title: 'Intent', body: 'Understand the client’s mission and keep it at the center of decisions.', image: '/images/projects/project-02.jpg' },
-  { number: '03', title: 'Capabilities', body: 'Bring the right people together and define their responsibilities.', image: '/images/projects/project-01.jpg' },
-  { number: '04', title: 'Results', body: 'Work together toward the project’s agreed scope and goals.', image: '/images/projects/project-04.jpg' }
+  { number: '01', title: 'Integrity', body: 'Be open and honest. Respect every person and every role.', image: '/images/projects/client/anaheim-community-hospital-gallery-1.webp', width: 682, height: 455 },
+  { number: '02', title: 'Intent', body: 'Understand the client’s mission and keep it at the center of decisions.', image: '/images/projects/client/western-university-medical-school-gallery-8.webp', width: 1600, height: 1200 },
+  { number: '03', title: 'Capabilities', body: 'Bring the right people together and define their responsibilities.', image: '/images/projects/client/kpc-global-oc-gallery-2.webp', width: 1600, height: 1067 },
+  { number: '04', title: 'Results', body: 'Work together toward the project’s agreed scope and goals.', image: '/images/projects/client/kpc-global-chapman-gallery-2.webp', width: 1166, height: 778 }
 ] as const;
 
 // About-specific biography copy; identities, titles and portraits come from shared TEAM.

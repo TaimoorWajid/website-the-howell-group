@@ -1,0 +1,23 @@
+:host { display: block; }
+.services-hero { position: relative; overflow: hidden; min-height: clamp(38rem,78svh,55rem); display: flex; align-items: center; background: var(--color-darkest-teal); color: var(--color-white); }
+.hero-copy { position: relative; z-index: 1; width: 57%; padding: 5rem 1rem 5rem max(var(--page-gutter),calc((100vw - var(--content-max-width))/2 + var(--page-gutter))); }
+.eyebrow { font-size: .65rem; letter-spacing: .12em; margin: 0 0 2.4rem; }
+h1 { font-family: var(--font-display); font-size: clamp(3rem,5.7vw,6rem); line-height: .99; letter-spacing: -.05em; font-weight: 400; margin: 0 0 1.5rem; }
+.hero-body { font-size: clamp(1rem,1.35vw,1.3rem); line-height: 1.5; max-width: 31rem; margin: 0 0 2rem; }
+.hero-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.explore-button { background: var(--color-off-white); color: var(--color-darkest-teal); padding: 1rem 1.2rem; text-decoration: none; font-size: .7rem; min-height: 48px; display: inline-flex; gap: 1rem; align-items: center; }
+.contact-link { color: white; font-size: .65rem; letter-spacing: .06em; text-underline-offset: 6px; padding-block: 1rem; }
+.contact-link span { display: inline-block; margin-left: .5rem; }
+.hero-architecture { position: absolute; inset: 0 0 0 40%; background: var(--color-dark-teal); }
+.hero-architecture::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg,var(--color-darkest-teal),transparent 35%); pointer-events: none; }
+.hero-architecture img,.portal-canvas { position: absolute; width: 100%; height: 100%; inset: 0; object-fit: cover; }
+.hero-architecture img { transition: opacity .4s; }.hero-architecture img.ready { opacity: 0; }
+@media (max-width: 63.999rem) { .hero-copy { width: 66%; } h1 { font-size: clamp(3rem,6vw,5rem); } }
+@media (max-width: 47.999rem) {
+  .services-hero { display: flex; flex-direction: column; min-height: 0; }
+  .hero-copy { width: 100%; padding: 3.5rem var(--page-gutter) 2.5rem; order: -1; }
+  h1 { font-size: clamp(2.8rem,10vw,4.4rem); }
+  .hero-architecture { position: relative; inset: auto; width: 100%; aspect-ratio: 4/3; }
+  .hero-architecture::after { background: linear-gradient(var(--color-darkest-teal),transparent 35%); }
+}
+@media (prefers-reduced-motion: reduce) { .hero-architecture img { transition: none; } }

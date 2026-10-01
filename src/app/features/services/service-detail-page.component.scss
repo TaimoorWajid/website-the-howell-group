@@ -1,5 +1,5 @@
-﻿@use './services-page.component';
-@use './services-hero.component';
+@use './services-page.component';
+@use './service-detail-hero';
 
 .breadcrumbs { display: flex; flex-wrap: wrap; gap: .5rem .8rem; align-items: center; margin-bottom: 2rem; font-size: .7rem; line-height: 1.6; }
 .breadcrumbs a { color: inherit; min-height: 44px; display: inline-flex; align-items: center; text-underline-offset: .3em; }

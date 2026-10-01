@@ -4,7 +4,6 @@ import { provideRouter } from '@angular/router';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { ServicesPageComponent } from './services-page.component';
 import { SERVICE_CHAPTERS, SERVICE_CAPABILITIES, ENGAGEMENT_STAGES } from './services.data';
-import { ThreeRendererService } from '../../core/three/three-renderer.service';
 import { SmoothScrollService } from '../../core/services/smooth-scroll.service';
 import { routes } from '../../app.routes';
 
@@ -20,25 +19,26 @@ describe('Services landing page',()=>{
   const create=async()=>{fixture=TestBed.createComponent(ServicesPageComponent);root=fixture.nativeElement;fixture.detectChanges();await fixture.whenStable();await tick();fixture.detectChanges();};
   beforeEach(async()=>{
     frame=window.frameElement as HTMLElement;frameStyle=frame.style.cssText;frame.style.width='1440px';frame.style.height='900px';
-    reduced=true;queries=[];scroll.scrollTo.calls.reset();
+    reduced=true;queries=[];scroll.scrollTo.calls.reset();spyOn(history,'replaceState');
     const match=window.matchMedia.bind(window);
     spyOn(window,'matchMedia').and.callFake(query=>{
       const media=match(query);
       if(query.includes('prefers-reduced-motion')) { Object.defineProperty(media,'matches',{get:()=>query.includes('no-preference')?!reduced:reduced});queries.push(media); }
       return media;
     });
-    await TestBed.configureTestingModule({imports:[ServicesPageComponent],providers:[provideZonelessChangeDetection(),provideRouter(routes),{provide:ThreeRendererService,useValue:{create:()=>null}},{provide:SmoothScrollService,useValue:scroll}]}).compileComponents();
+    await TestBed.configureTestingModule({imports:[ServicesPageComponent],providers:[provideZonelessChangeDetection(),provideRouter(routes),{provide:SmoothScrollService,useValue:scroll}]}).compileComponents();
   });
   afterEach(()=>{fixture?.destroy();window.scrollTo(0,0);frame.style.cssText=frameStyle;history.replaceState(history.state,'',location.pathname);});
   it('renders the complete copy, contact destinations and no duplicate global shell',async()=>{
     await create();expect(root.querySelectorAll('h1').length).toBe(1);
-    expect(root.querySelector('h1')?.textContent).toBe('Complex projects.Clear direction.');
+    expect(root.querySelector('h1')?.textContent).toBe('Your mission.Our expertise.');
     for(const chapter of SERVICE_CHAPTERS){expect(root.textContent).toContain(chapter.title);expect(root.textContent).toContain(chapter.body);}
     for(const item of [...SERVICE_CAPABILITIES,...ENGAGEMENT_STAGES]){expect(root.textContent).toContain(item.title);expect(root.textContent).toContain(item.body);}
-    expect(root.querySelectorAll('.chapter-link').length).toBe(4);
-    root.querySelectorAll('.chapter-link,.red-button,.contact-link').forEach(link=>expect(link.getAttribute('href')).toBe('/contact'));
+    expect(root.querySelectorAll('.chapter-link').length).toBe(SERVICE_CHAPTERS.length);
+    root.querySelectorAll('.red-button,.hero-link--secondary').forEach(link=>expect(link.getAttribute('href')).toBe('/contact'));
+    root.querySelectorAll('.chapter-link').forEach((link,index)=>expect(link.getAttribute('href')).toBe(SERVICE_CHAPTERS[index].route));
     expect(root.querySelector('app-header')).toBeNull();expect(root.querySelector('app-footer')).toBeNull();
-    expect(routes.find(route=>route.path==='services')?.loadComponent).toBeDefined();expect(routes.find(route=>route.path==='services/:slug')?.component).toBeDefined();
+    expect(routes.find(route=>route.path==='services')?.loadComponent).toBeDefined();expect(routes.find(route=>route.path==='services/:slug')?.loadComponent).toBeDefined();
     expect(document.title).toBe('Services | The Howell Group');
   });
   it('fits requested desktop and mobile widths with paired images and usable anchors',async()=>{
@@ -47,13 +47,13 @@ describe('Services landing page',()=>{
       frame.style.width=`${width}px`;await tick();
       expect(document.documentElement.scrollWidth).withContext(`${width}px overflow`).toBeLessThanOrEqual(width);
       root.querySelectorAll('.service-nav a,.red-button,.accordion button').forEach(link=>expect(link.getBoundingClientRect().height).toBeGreaterThanOrEqual(44));
-      expect(root.querySelectorAll('.mobile-image').length).toBe(4);
+      expect(root.querySelectorAll('.mobile-image').length).toBe(SERVICE_CHAPTERS.length);
       if(width<768){expect(getComputedStyle(root.querySelector('.service-nav')!).position).toBe('relative');expect(getComputedStyle(root.querySelector('.story-frame')!).display).toBe('none');expect(getComputedStyle(root.querySelector('.capabilities-grid')!).gridTemplateColumns.split(' ').length).toBe(1);}
     }
   });
   it('exposes the poster without camera animation with reduced motion',async()=>{
     await create();expect(root.querySelector('canvas')).toBeNull();
-    expect(root.querySelector('.hero-architecture img')?.getAttribute('src')).toBe('/images/services/portal-poster.svg');
+    expect(root.querySelector('.hero-media img')?.getAttribute('src')).toBe('/images/hero/architectural-study.svg');
     expect(ScrollTrigger.getAll().filter(trigger=>root.contains(trigger.trigger!)).every(trigger=>!trigger.vars.pin)).toBeTrue();
     expect(ScrollTrigger.getAll().some(trigger=>trigger.trigger===root.querySelector('app-services-hero'))).toBeFalse();
     root.querySelectorAll('.capability').forEach(card=>expect(card.hasAttribute('tabindex')).toBeFalse());
@@ -70,13 +70,13 @@ describe('Services landing page',()=>{
   });
   it('uses native reduced-motion anchors and transfers focus without hiding the destination',async()=>{
     await create();const native=spyOn(window,'scrollTo');
-    root.querySelector<HTMLAnchorElement>('.service-nav a[href="#design-management"]')!.click();
+    root.querySelector<HTMLAnchorElement>('.service-nav a[href="/services#design-management"]')!.click();
     expect(native).toHaveBeenCalled();expect(document.activeElement).toBe(root.querySelector('#design-management h3'));
-    expect(scroll.scrollTo).not.toHaveBeenCalled();
+    expect(scroll.scrollTo).not.toHaveBeenCalled();expect(history.replaceState).toHaveBeenCalledWith(history.state,'','/services#design-management');
   });
   it('uses the existing scrolling service and reverses chapter image state',async()=>{
     reduced=false;await create();
-    root.querySelector<HTMLAnchorElement>('.service-nav a[href="#construction-management"]')!.click();expect(scroll.scrollTo).toHaveBeenCalled();
+    root.querySelector<HTMLAnchorElement>('.service-nav a[href="/services#construction-management"]')!.click();expect(scroll.scrollTo).toHaveBeenCalled();
     const story=root.querySelector('app-service-story')!;
     const trigger=ScrollTrigger.getAll().find(candidate=>candidate.trigger===story)!;
     expect(trigger).toBeDefined();
@@ -103,6 +103,6 @@ describe('Services landing page',()=>{
     expect(Math.abs(parseFloat(card.style.getPropertyValue('--tilt-y')))).toBeLessThanOrEqual(2);
     card.dispatchEvent(new PointerEvent('pointerleave'));expect(card.classList.contains('pointer-active')).toBeFalse();
     card.dispatchEvent(new PointerEvent('pointermove',{pointerType:'touch',clientX:rect.right,clientY:rect.bottom}));expect(card.classList.contains('pointer-active')).toBeFalse();
-    expect(card.querySelector('a,button')).toBeNull();
+    expect(card.querySelector('a')?.getAttribute('href')).toBe(SERVICE_CAPABILITIES[0].route);
   });
 });

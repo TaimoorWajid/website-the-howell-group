@@ -1,13 +1,13 @@
-﻿import { Component, ElementRef, NgZone, OnDestroy, afterNextRender, computed, inject, signal } from '@angular/core';
+import { Component, ElementRef, NgZone, OnDestroy, afterNextRender, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MARKETS } from '../../core/data/markets.data';
 import { SeoService } from '../../core/services/seo.service';
 import { ProjectRevealDirective } from '../projects/project-reveal.directive';
-import { MarketsMassingComponent } from './markets-massing.component';
+import { MarketsHeroComponent } from './markets-hero.component';
 
 @Component({
   selector: 'app-markets-page',
-  imports: [RouterLink, ProjectRevealDirective, MarketsMassingComponent],
+  imports: [RouterLink, ProjectRevealDirective, MarketsHeroComponent],
   templateUrl: './markets-page.component.html',
   styleUrl: './markets-page.component.scss'
 })
@@ -20,9 +20,9 @@ export class MarketsPageComponent implements OnDestroy {
   private readonly focused = signal<number | null>(null);
   protected readonly active = computed(() => this.focused() ?? this.hovered() ?? this.scrolled());
   protected readonly perspectives = [
-    { title: 'People', copy: 'What do patients, residents and care teams need?', path: 'M45 140V65L105 30l60 35v75l-60 25Zm0-75 60 35 60-35M105 100v65M70 150V95l35-20 35 20v55M70 95l35 20 35-20M105 115v50' },
-    { title: 'Place', copy: 'How does the setting support daily care?', path: 'M25 145V90L95 35v110Zm50 0V90l70-45v100Zm50 0V95l65-35v85ZM15 155h190M25 90l70 55M75 90l70 55M125 95l65 50' },
-    { title: 'Purpose', copy: 'What does the client need the project to achieve?', path: 'M35 150V85l45-20 45 20v65M80 65v100M35 85l45 20 45-20M100 145V30l35-15 35 15v115M135 15v145M100 30l35 15 35-15M155 150V90l30-15 30 15v60M185 75v90M155 90l30 15 30-15M20 165h210' }
+    { title: 'People', copy: 'What do patients, residents and care teams need?', image: '/images/markets/skilled-nursing.webp', alt: 'Accessible resident lounge in a skilled nursing care environment' },
+    { title: 'Place', copy: 'How does the setting support daily care?', image: '/images/projects/client/aliso-ridge-behavioral-hospital-gallery-2.webp', alt: 'Shared care space opening onto a landscaped courtyard at Aliso Ridge Behavioral Hospital' },
+    { title: 'Purpose', copy: 'What does the client need the project to achieve?', image: '/images/services/design-management.webp', alt: 'Project team reviewing healthcare design plans and materials' }
   ];
   private cleanup?: () => void;
 

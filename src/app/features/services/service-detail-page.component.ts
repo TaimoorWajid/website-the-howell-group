@@ -23,7 +23,7 @@ export class ServiceDetailPageComponent {
     const service = this.selected();
     if (!service) return [];
     return [{ service,
-      image: SERVICE_CHAPTERS.find(chapter => chapter.id === service.slug)?.image ?? '/images/services/portal-poster.svg',
+      image: SERVICE_CHAPTERS.find(chapter => chapter.id === service.slug)?.image ?? '/images/services/program-management.webp',
       phases: PROJECT_PHASES.map(phase => ({ ...phase, note: service.phaseNotes.find(note => note.number === phase.number)?.body })),
       related: SERVICES.filter(other => service.relatedServices.includes(other.slug)),
       experience: (service.teamExperience ?? []).flatMap(item => {

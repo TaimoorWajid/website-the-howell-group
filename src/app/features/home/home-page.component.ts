@@ -39,10 +39,10 @@ export class HomePageComponent {
     image: project.images[0].src, imageAlt: project.images[0].alt
   }));
   protected readonly scrollRevealCards: ReadonlyArray<ScrollRevealCard> = [
-    { number: '01', title: 'Your mission', description: 'Define the need, scope and priorities before choosing a path forward.', image: '/images/why-howell/concrete-interior.webp', imageAlt: '' },
-    { number: '02', title: 'One team', description: 'Align owners, designers and contractors around clear responsibilities and shared goals.', image: '/images/projects/project-02.jpg', imageAlt: '' },
-    { number: '03', title: 'Clear decisions', description: 'Connect scope, schedule and cost with the information owners need to make decisions.', image: '/images/projects/project-03.jpg', imageAlt: '' },
-    { number: '04', title: 'Patient ready', description: 'Plan for close out, operational training and licensing from the beginning.', image: '/images/projects/project-04.jpg', imageAlt: '' }
+    { number: '01', title: 'Your mission', description: 'Define the need, scope and priorities before choosing a path forward.', image: '/images/services/program-management.webp', imageAlt: 'Project planners reviewing a campus model and plans' },
+    { number: '02', title: 'One team', description: 'Align owners, designers and contractors around clear responsibilities and shared goals.', image: '/images/services/construction-management.webp', imageAlt: 'Construction team members coordinating site work using a tablet' },
+    { number: '03', title: 'Clear decisions', description: 'Connect scope, schedule and cost with the information owners need to make decisions.', image: '/images/services/financial-management.webp', imageAlt: 'Advisors reviewing project plans, budgets and financial information' },
+    { number: '04', title: 'Patient ready', description: 'Plan for close out, operational training and licensing from the beginning.', image: '/images/markets/outpatient-exam-room.webp', imageAlt: 'Completed examination room with clinical equipment and a staff workstation' }
   ];
 
   constructor() {
