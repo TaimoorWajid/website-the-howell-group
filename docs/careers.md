@@ -14,7 +14,7 @@ Existing About navigation and the footer link to Careers. Missing/expired roles 
 
 **Preview by default.** Four illustrative roles live in `src/app/core/data/careers-preview.data.ts`; they are not approved vacancies. Preview pages are marked noindex and identify test roles/forms clearly. Preview submissions are saved in the gitignored `.data/careers-preview` directory. No email or external ATS submission is performed. Do not enter real applicant information during preview.
 
-Run `npm run build`, then `npm run serve:ssr:the-howell-group`, and visit `http://localhost:4000/careers`. The Express server owns `/api/careers` and `/api/careers/applications`; a static-only host will not support submissions. The local development server can also run with `npm start`.
+Run `npm run build`, then `npm start`, and visit `http://localhost:4000/careers`. The Express server owns `/api/careers` and `/api/careers/applications`; a static-only host will not support submissions. The local development server runs with `npm run start:dev`.
 
 ## Enabling real vacancies
 

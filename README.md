@@ -6,10 +6,10 @@ The Howell Group is an Angular 21 standalone, zoneless, SSR/hybrid frontend for 
 
 ```bash
 npm install
-npm start
+npm run start:dev
 ```
 
-Build and test with `npm run build` and `npm test -- --watch=false`. The SSR production server can be started with `npm run serve:ssr:the-howell-group` after a build.
+Build and test with `npm run build` and `npm test -- --watch=false`. After a build, start the SSR production server with `npm start` (or `npm run serve:ssr:the-howell-group`).
 
 ## Architecture
 
