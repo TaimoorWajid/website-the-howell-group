@@ -1,0 +1,188 @@
+﻿slide1
+Creating Solutions for our healthcare clients
+Utilizing Case Histories and Proven Processes
+slide2
+Facility owners and operator challenges
+How to provide care to an aging population
+Department of Public Health recommends 250 staffed acute care patient beds per 100,000.  CA average 224
+Treatment Advocacy Group recommends 50 psychiatric care beds per 100,000.  CA average 19
+Access to emergency care and primary care physicians
+CA ranks as one of the lowest nationally regarding number of emergency departments per capita (6.7 / 1M)  And one of the highest regarding emergency department wait times (5 hrs.) CA v. (1.5 hrs.) US
+Number of primary care physicians; (84 / 100,000) CA v. (86 / 100,000) US
+How to adapt to ever-changing demographics for each specific location
+Population density, growth, age, race, sex, and household income
+Health outcomes based on patient discharge data (Examples
+)
+Cancer mortality, cervical cancer incidence, colon & rectum cancer incidence, diabetes prevalence, heart disease mortality, lung disease mortality, motor vehicle crash death, obesity (adult), overweight (adult), pedestrian motor vehicle death, poor dental health, poor general health, disabilities, premature death, stroke mortality, suicide…
+slide3
+Healthcare insurance breakdown (reimbursements)
+Employer					(45%) CA		(48%) US
+Private					(06%) CA		(05%) US
+Medicaid / Medi-Cal			(19%) CA		(16%) US
+Medicare					(10%) CA		(14%) US
+Public					(01%) CA		(01%) US
+Uninsured				(19%) CA		(15%) US
+House Resolution 1 (H.R. 1) 
+was passed in mid-2025.  The Congressional Budget Office estimates that by 2034, as many as 10M individuals nationwide will become uninsured as numerous new eligibility rules are imposed on Medicaid and ACA programs
+Medi-Cal covers more than half of CA’s children, 2.2M seniors, and people with disabilities.  H.R. 1 is expected to cut $30B a year in federal funding from Medi-Cal
+Facility owners and operator challenges
+slide4
+Funding for Hospitals and Providers
+Hospital will see lower reimbursement rates
+Providers will see lower payment rates
+Rual hospitals, which serve areas already burdened by severe provider shortages, will be at higher risk of closure
+Tax restrictions will block California’s ability to fund Medi-Cal
+Barriers to Enrollment
+Many Medi-Cal enrollees will face new work requirements
+Medi-Cal enrollees will have to renew eligibility more frequently
+Protections to prevent disenrollment of eligible people will no longer be mandatory
+Some immigrant populations and other groups will lose Medi-Cal eligibility
+Unprecedented Costs for Patients
+Enrollees must pay higher share of health care costs
+Retroactive Medi-Cal coverage will be reduced, putting patients at risk of medical debt
+Quality of Care
+H.R. 1 blocked California from enforcing new state rules raising nursing home staffing levels
+H.R. 1 ADDITIONAL IMPACTS
+slide5
+California Senate Bill 1953 (SB 1953) and the Alfred E. Alquist Hospital Facilities Seismic Safety Act
+First required new hospitals built after 1973 to meet stringent seismic safety standards.  After the 1994 Northridge earthquake (which damaged 11 hospitals and caused $3B in hospital damages), SB 1953 was introduced and signed in September of 1994, and is now codified in California Health & Safety Code.  This applies to all facilities with a general acute hospital license but does NOT apply to acute psychiatric hospital licenses.
+In this Bill, there are two performance category systems, and building must meet BOTH to be 2030 compliant.
+Structural Performance Category (SPC) the building’s bones.
+  SPC ratings run 1 through 5.  SPC-1 is “may collapse”; SPC-5 is “fully operational after a major earthquake.  By January 01, 2030, every building used for general acute care services must be a minimum SPC-3.  Building that meet SPC-4D can stay in service indefinitely without further upgrade.
+Nonstructural Performance Category (NPC) the guts of the building.
+ This covers medical gas piping, emergency power, water supply, HVAC ducting, anchored equipment, elevators, stairs, etc.  By January 01, 2030, every acute care building must be NPC-5, which means the systems can sustain continuous operations for 72 hours after a major earthquake.
+There have been numerous Senate Bills pass over the years extending various deadlines.  But the most recent Senate Bills have been vetoed by Governor Newsom.  That leaves hospital facilities with a very difficult choice: (a) figure out how to pay for the necessary projects to comply with the 2030 deadline, or (b) gamble on whether or not the new Governor will sign another extension.
+KNOWN CHALLENGES - OWNER
+slide6
+Time and Money…
+Frustrated by the total time it takes to develop a project from conception to completing the project and being able to treat patients.
+Departmental needs v. wants
+Business case and R.O.I.
+Design team selection
+Design process
+Agency review, approval, and permitting process
+Construction team selection
+Construction process
+Occupancy, licensing, first patient
+Economic impacts…
+Tariffs (equipment, material costs and lead times)
+War in Iraq (fuel and transportation costs)
+Lower reimbursements and higher costs
+Labor cost increases
+KNOWN CHALLENGES - OWNER
+slide7
+When developing a project, a 2024 online survey indicates the following causes plaguing the design and construction industry.
+(31%) lack of teamwork, integration, collaboration, and poor processes
+(21%) lack of trained or experienced workforces, including management, and a reliance on technology
+(16%) competitive bid process, timely payments, and a myopic focus on initial v. final costs
+(12%) lack of trust, honesty, and responsibility
+(10%) adversarial contracts and unrealistic expectations
+(09%) regulations and enforcement
+KNOWN CHALLENGES – DESIGN & CONSTRUCTION
+slide8
+Additionally, the top five causes for disputes are:
+Failure to administer the contract
+Ambiguities in the construction documents
+Failure to make timely interim awards on extension of time and associated compensation
+Incomplete design information and/or requirements
+Conflicting party interests
+KNOWN CHALLENGES – DESIGN & CONSTRUCTION
+slide9
+As the previous information has illustrated, there are numerous challenges to consider and overcome during the creation, implementation, and completion of a project.  Typically, the overall life-cycle process of a project is dysfunctional via silos and poor communication, which leads to adversarial relationships.  Over the last several years, while the design and construction industries have made several improvements, it has been slow to adopt new technologies and processes.
+We have broken down the overall process into the following eight (8) phases.
+ONE: 
+Project Development
+TWO: 
+Team Development
+THREE: 
+Design
+FOUR: 
+Agency Review
+FIVE: 
+Preconstruction
+SIX: 
+Construction
+SEVEN: 
+Close Out
+EIGHT: 
+Operation (patient ready)
+Question: What if the overall creation and delivery of a project could be improved by 5%?
+DETERMINING EFFICIENT & EFFECTIVE SOLUTIONS
+slide10
+Questions to consider: Communication
+Who is responsible for the overall project from beginning to end?
+Are the right people in the right positions?
+Are the right people making the right decisions?
+Do the right people have the necessary information to make the right decisions?
+Are the current processes efficient and effective?
+How is communication achieved between all of the various parties?
+What are the “known” and “unknown” interests / motivations of each group?
+What are the defined objective and expectations of each group?
+Does everyone know the answers to these questions?
+Does everyone agree?
+DETERMINING EFFICIENT & EFFECTIVE SOLUTIONS
+slide11
+Critical questions for establishing a project strategy:
+What is the most important project objective?
+“This project must be completed and able to treat patients by…”
+“The total project cost cannot exceed…”
+What is the biggest project concern / challenge?
+Efficient involvement of key stakeholders (e.g., ultimate users)?
+Continuous re-evaluation and redesign when new stakeholders get involved
+Ability to delegate authority to make final decisions promptly?
+Who is the decision maker?
+Rules governing procurement?
+Purchase Order v. Contract
+Signing authority
+Owner’s dominant personality and/or culture?
+DETERMINING EFFICIENT & EFFECTIVE SOLUTIONS
+slide12
+An Owner’s choice of project delivery system and procurement approach strongly influences project results.  These choices are among the first decisions an Owner makes on a project, and they form the foundation of how the project will be developed, procured, executed, and how the key stakeholders communicate and relate to each other.  In making these choices, it is critical for an Owner to consider the specific circumstances of each project, including the procurement options available to the Owner.  After thoroughly considering these issues, an Owner should make a strategic decision as to how to take full advantage of the many benefits that are inherent with each delivery system.  Considerations:
+An Owner should conduct a proactive and objective assessment of the unique characteristics of its program / project and its organization before deciding on a particular delivery system.
+An Owner should implement a procurement plan that enhances collaboration and other benefits of the delivery system and is in harmony with the reasons that the Owner chose the delivery system.
+An Owner using a competitive procurement that seeks a price and technical proposal should: establish a clear evaluation process; ensure that the process is fair, open, and transparent; and value both price and technical aspects in the selection process.
+All team members should be educated and trained on the chosen delivery process and be knowledgeable of the differences between it and other delivery systems.
+The project team should establish logistics and infrastructure to support the project delivery.
+The project team, at the outset, should establish processes to facilitate timely and effecting communication, collaboration, and issue resolution.
+DETERMINING EFFICIENT & EFFECTIVE SOLUTIONS
+slide13
+We have found that the following eleven steps are the most efficient and effective in developing and delivering projects.
+STEP ONE:
+		Develop, identify, and understand the initial scope of work and project constraints
+STEP TWO:
+		Discuss the level of involvement of each stakeholder
+STEP THREE:
+	Select the appropriate team members and expectations
+STEP FOUR:
+		Negotiate terms and finalize formal design agreement(s)
+STEP FIVE:	
+	Develop the design
+STEP SIX:	
+	Process documents through the Authority Having Jurisdiction [City, County, State, Federal]
+STEP SEVEN:
+	Negotiate terms and finalize for construction agreement(s)
+STEP EIGHT:
+		Develop detailed project specific documentation [Permits, Estimates, Schedules]
+STEP NINE:
+		Manage production and installation of construction with a focus on quality and safety
+STEP TEN:
+		Close out
+STEP ELEVEN:
+	Operational training and licensing
+EFFICIENT & EFFECTIVE SOLUTION
+slide14
+At The Howell Group, we provide services from concept to completion and are accustomed to overseeing and managing a single or multiple projects as part of an overall program.
+Program Management.
+ Is the process of managing several related projects in a coordinated manner with oversight of and focus on the client’s purpose.
+Design Management.
+ Is the process of managing the development of a project’s design with a focus on the client’s needs regarding duration, milestones, and cost.
+Construction Management.
+ Is the process of managing the overall construction with a focus on scope of work, quality, schedule, cost, safety, and function.
+Contract Management.
+ Is a process by which we generate and negotiate on the client’s behalf to determine the most effective contract agreement.
+Financial Management.
+ We have partnered with a capital financial advisor and are able to provide financial solutions, including; mergers & acquisitions, direct investment, private equity, private debt, collateralized funding, divestitures, strategic alliances, recapitalization & refinancing, management buyouts, grants, and alternative financing (equipment leasing and energy-as-a-service)
+The Howell Group, LLC
+info@thehowellgroup.co
+  949-610-5111
+THE HOWELL GROUP - SERVICES

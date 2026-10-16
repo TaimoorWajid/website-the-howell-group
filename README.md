@@ -14,6 +14,12 @@ Once the server is running, open your browser and navigate to `http://localhost:
 
 ## Code scaffolding
 
+### Production maintenance mode
+
+Set `MAINTENANCE_MODE=true` in the production host environment to return a branded maintenance page with HTTP 503 for public website routes. Leave the variable unset on staging to serve the full site. `/api/careers` stays available so its API behavior can be managed separately.
+
+## Architecture
+
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash

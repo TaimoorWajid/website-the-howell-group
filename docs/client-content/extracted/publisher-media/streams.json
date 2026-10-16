@@ -1,0 +1,66 @@
+[
+  {
+    "path": "Root Entry/",
+    "size": 512
+  },
+  {
+    "path": "Root Entry/Objects/",
+    "size": 0
+  },
+  {
+    "path": "Root Entry/Quill/",
+    "size": 0
+  },
+  {
+    "path": "Root Entry/Quill/QuillSub/",
+    "size": 0
+  },
+  {
+    "path": "Root Entry/Escher/",
+    "size": 0
+  },
+  {
+    "path": "Root Entry/Escher/EscherStm",
+    "size": 19356
+  },
+  {
+    "path": "Root Entry/Quill/QuillSub/\u0001CompObj",
+    "size": 86
+  },
+  {
+    "path": "Root Entry/VBA/",
+    "size": 0
+  },
+  {
+    "path": "Root Entry/Envelope",
+    "size": 0
+  },
+  {
+    "path": "Root Entry/\u0003Internal",
+    "size": 12
+  },
+  {
+    "path": "Root Entry/Contents",
+    "size": 26252
+  },
+  {
+    "path": "Root Entry/Escher/EscherDelayStm",
+    "size": 10009037
+  },
+  {
+    "path": "Root Entry/Quill/QuillSub/CONTENTS",
+    "size": 82944
+  },
+  {
+    "path": "Root Entry/\u0001CompObj",
+    "size": 94
+  },
+  {
+    "path": "Root Entry/\u0005SummaryInformation",
+    "size": 50852
+  },
+  {
+    "path": "Root Entry/\u0005DocumentSummaryInformation",
+    "size": 152
+  }
+]

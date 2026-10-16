@@ -10,7 +10,30 @@ import { join } from 'node:path';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+app.use('/api/careers', createCareersRouter());
+const maintenanceMode = /^(1|true|yes)$/i.test(
+  process.env['MAINTENANCE_MODE'] ?? '',
+);
+// Dynamically determine allowed hosts from environment or defaults
+const envAllowedHosts =
+  process.env['ALLOWED_HOSTS'] || process.env['NG_ALLOWED_HOSTS'];
+const defaultAllowedHosts = [
+  'localhost',
+  '127.0.0.1',
+  'thehowellgroup.co',
+  'www.thehowellgroup.co',
+  '*.thehowellgroup.co',
+  '*.hostingersite.com',
+  '*.hstgr.cloud',
+];
+
+const allowedHosts = envAllowedHosts
+  ? envAllowedHosts.split(',').map((h) => h.trim())
+  : defaultAllowedHosts;
+
+const angularApp = new AngularNodeAppEngine({
+  allowedHosts,
+});
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -34,6 +57,44 @@ app.use(
     redirect: false,
   }),
 );
+
+if (maintenanceMode) {
+  app.use((req, res) => {
+    res
+      .status(503)
+      .set('Retry-After', '3600')
+      .type('html')
+      .send(`<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Maintenance | The Howell Group</title>
+  <style>
+    :root { color-scheme: light; font-family: Arial, sans-serif; color: #202b2c; background: #f7f7f3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 2rem; }
+    main { width: min(100%, 42rem); text-align: center; }
+    img { width: min(18rem, 70vw); height: auto; margin-bottom: 3.5rem; }
+    p { color: #607171; font-size: .8rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 1rem 0; font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.05; letter-spacing: -.045em; }
+    .message { max-width: 34rem; margin: 1.25rem auto 0; color: #566263; font-size: 1.1rem; line-height: 1.7; }
+    a { display: inline-block; margin-top: 2rem; color: inherit; text-underline-offset: .25em; }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="/images/brand/howell-group-logo-client.png" alt="The Howell Group">
+    <p>We’ll be back soon</p>
+    <h1>We’re making improvements.</h1>
+    <div class="message">Our website is temporarily unavailable while we make a few updates. Please check back soon.</div>
+    <a href="mailto:info@thehowellgroup.co">Contact our team</a>
+  </main>
+</body>
+</html>`);
+  });
+}
 
 /**
  * Handle all other requests by rendering the Angular application.

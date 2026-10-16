@@ -1,0 +1,26 @@
+{
+  "receipt": {
+    "reference": "THG-5BDF48944781",
+    "jobTitle": "Preconstruction Manager",
+    "submittedAt": "2026-09-30T11:57:31.753Z",
+    "mode": "preview"
+  },
+  "fingerprint": "a4bacb1078e86140fc214ec3d08bbf9bdc6e893595dd231f3b31ea3b4e7455fd",
+  "application": {
+    "firstName": "Sample",
+    "lastName": "Applicant",
+    "email": "sample@example.com",
+    "phone": "+1 555 010 0123",
+    "location": "Test City, California",
+    "profile": "",
+    "introduction": "Local preview test. No real applicant information.",
+    "consent": true,
+    "website": "",
+    "requestId": "8bdc2bec-c540-479d-8c04-2a88f8aceaec",
+    "jobId": "THG-103",
+    "resume": {
+      "name": "careers-test-resume.pdf",
+      "data": "JVBERi0xLjQKJSBMb2NhbCBhcHBsaWNhdGlvbiB0ZXN0IGZpeHR1cmU7IG5vIHBlcnNvbmFsIGluZm9ybWF0aW9uLgolJUVPRg0K"
+    }
+  }
+}
