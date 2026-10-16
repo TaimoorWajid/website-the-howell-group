@@ -6,6 +6,7 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { createCareersRouter } from './server/careers-api';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -109,21 +110,22 @@ app.use((req, res, next) => {
 });
 
 /**
- * Start the server if this module is the main entry point.
+ * Start the server if this module is the main entry point or if a PORT is assigned by the host.
  * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
  */
-if (isMainModule(import.meta.url)) {
-  const port = process.env['PORT'] || 4000;
-  app.listen(port, (error) => {
-    if (error) {
-      throw error;
-    }
+const port = Number(process.env['PORT'] || 4000);
 
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
-}
+app.listen(port, '0.0.0.0', (error) => {
+  if (error) {
+    console.error('Failed to start Express server:', error);
+    process.exit(1);
+  }
+
+  console.log(`Node Express server listening on port ${port}`);
+});
 
 /**
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
  */
 export const reqHandler = createNodeRequestHandler(app);
+export { app };
