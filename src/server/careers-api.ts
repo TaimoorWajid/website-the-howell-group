@@ -45,10 +45,9 @@ export function createCareersRouter(options: Options = {}) {
   const catalog = async (): Promise<CareersCatalog> => {
     if (mode !== 'live' && mode !== 'preview')
       throw new Error('Invalid careers mode');
-    if (
-      unsafeStorage ||
-      (mode === 'live' && (!storageDir || !isAbsolute(storageDir)))
-    )
+    // `directory` is always absolute (resolve() of the env var or the
+    // '.data/careers' default), so this only guards the unsafe-storage case.
+    if (unsafeStorage || (mode === 'live' && !isAbsolute(directory)))
       throw new Error('Careers configuration is incomplete');
     const jobs: unknown =
       mode === 'preview'
