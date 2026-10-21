@@ -6,19 +6,19 @@ export const ABOUT_PERSPECTIVES = [
     number: '01',
     label: 'THE OWNER',
     title: 'Start with what matters.',
-    body: 'Understand the client’s mission and represent the owner’s interests throughout the project.',
+    body: 'Every project begins with the owner’s mission. We represent the owner’s interests through planning, design, construction and closeout, so every decision serves what the project must achieve.',
   },
   {
     number: '02',
     label: 'THE TEAM',
     title: 'Bring the perspectives together.',
-    body: 'Develop people-centric teams with clear responsibilities, open communication and shared priorities.',
+    body: 'Strong outcomes come from people-centric teams — clear responsibilities, open communication and shared priorities. We bring the right people together and keep every voice aligned from concept to completion.',
   },
   {
     number: '03',
     label: 'THE OUTCOME',
     title: 'Move forward with a shared purpose.',
-    body: 'Tailor the process to the project, bringing people and decisions together around the client’s goals.',
+    body: 'The process is tailored to the project, bringing people and decisions together around the client’s goals. We work together toward the project’s agreed scope — different perspectives, one shared direction.',
   },
 ] as const;
 
