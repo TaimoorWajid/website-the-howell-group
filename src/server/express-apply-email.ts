@@ -11,10 +11,11 @@
  *                location, profile, introduction, consent, website,
  *                resume: { name, data } }   // resume is NESTED, base64
  *
- * Requires the `resend` package and the RESEND_API_KEY env var
- * (same key as the Cloudflare Worker).
+ * No SDK needed: Resend is called with plain fetch, exactly like the
+ * Cloudflare Worker does. Requires only the RESEND_API_KEY env var
+ * (same key as the Worker).
  */
-import { Resend } from 'resend';
+const RESEND_API = 'https://api.resend.com/emails';
 
 /* --------------------------------- CONFIG --------------------------------- */
 const TO_EMAIL = 'info@thehowellgroup.co'; // confirmed by the user 2026-10-21
@@ -36,6 +37,24 @@ function label(key: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+/** Minimal Resend send via the REST API (no SDK). Throws on failure. */
+async function resendSend(payload: Record<string, unknown>): Promise<void> {
+  const key = process.env['RESEND_API_KEY'];
+  if (!key) throw new Error('RESEND_API_KEY is not set');
+  const res = await fetch(RESEND_API, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const detail = await res.text();
+    throw new Error(`Resend ${res.status}: ${detail.slice(0, 300)}`);
+  }
+}
+
 /**
  * Sends the notification (to the company inbox, Reply-To = applicant,
  * resume attached) + the confirmation to the applicant.
@@ -45,7 +64,6 @@ export async function emailApplication(
   body: Record<string, unknown>,
   meta: ApplicationMailMeta = {},
 ): Promise<void> {
-  const resend = new Resend(process.env['RESEND_API_KEY']);
   const fields = body ?? {};
   const jobTitle = meta.jobTitle ?? '';
   const reference = meta.reference ?? '';
@@ -81,7 +99,7 @@ export async function emailApplication(
   const detailLines = rows.map(([k, v]) => `${label(k)}: ${String(v)}`).join('\n');
 
   // A) Notification to the company inbox (Reply-To = applicant).
-  await resend.emails.send({
+  await resendSend({
     from: FROM_EMAIL,
     to: [TO_EMAIL],
     ...(CC_EMAILS.length ? { cc: CC_EMAILS } : {}),
@@ -94,13 +112,13 @@ export async function emailApplication(
       detailLines +
       (resumeName ? `\nResume attached: ${resumeName}\n` : '') +
       `\n${'-'.repeat(60)}\nTip: reply to this email to respond to the applicant directly.\n`,
-    ...(email ? { replyTo: email } : {}),
+    ...(email ? { reply_to: email } : {}),
     ...(attachments.length ? { attachments } : {}),
   });
 
   // B) Confirmation to the applicant.
   if (email) {
-    await resend.emails.send({
+    await resendSend({
       from: FROM_EMAIL,
       to: [email],
       subject: 'Application received — The Howell Group',
