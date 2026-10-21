@@ -3,6 +3,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { mkdir, readFile, rename, unlink, writeFile } from 'node:fs/promises';
 import { isAbsolute, join, resolve } from 'node:path';
 import { PREVIEW_JOBS } from '../app/core/data/careers-preview.data';
+import { LIVE_JOBS } from './jobs.data';
 import {
   ApplicationReceipt,
   CareersCatalog,
@@ -22,13 +23,11 @@ export function createCareersRouter(options: Options = {}) {
   const router = express.Router();
   // Live is the default: the site is in production and the user has removed
   // the preview/testing mode. Set CAREERS_MODE=preview to get the sample
-  // jobs back. A bundled data/jobs.json ships the real openings so no
-  // CAREERS_JOBS_FILE is required unless the jobs live elsewhere.
+  // jobs back. Live openings are bundled via ./jobs.data (generated from
+  // data/jobs.json) so they work no matter what the hosting deploys;
+  // CAREERS_JOBS_FILE overrides the bundle when set.
   const mode = options.mode ?? process.env['CAREERS_MODE'] ?? 'live';
-  const jobsFile =
-    options.jobsFile ??
-    process.env['CAREERS_JOBS_FILE'] ??
-    resolve('data/jobs.json');
+  const jobsFile = options.jobsFile ?? process.env['CAREERS_JOBS_FILE'];
   const storageDir = options.storageDir ?? process.env['CAREERS_STORAGE_DIR'];
   const publicOrigin =
     options.publicOrigin ?? process.env['CAREERS_PUBLIC_ORIGIN'];
@@ -48,13 +47,15 @@ export function createCareersRouter(options: Options = {}) {
       throw new Error('Invalid careers mode');
     if (
       unsafeStorage ||
-      (mode === 'live' && (!jobsFile || !storageDir || !isAbsolute(storageDir)))
+      (mode === 'live' && (!storageDir || !isAbsolute(storageDir)))
     )
       throw new Error('Careers configuration is incomplete');
     const jobs: unknown =
       mode === 'preview'
         ? PREVIEW_JOBS
-        : JSON.parse(await readFile(jobsFile!, 'utf8'));
+        : jobsFile
+          ? JSON.parse(await readFile(jobsFile, 'utf8'))
+          : LIVE_JOBS;
     if (
       !Array.isArray(jobs) ||
       !jobs.every(validJob) ||
