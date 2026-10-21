@@ -2,6 +2,7 @@ import { environment } from '../../../environments/environment';
 
 export const APP_CONFIG = {
   apiUrl: environment.apiUrl.replace(/\/$/, ''),
+  formEndpoint: environment.formEndpoint,
   siteUrl: environment.siteUrl,
   defaultTitle: 'Howell Group | Premium Construction & Development',
   defaultDescription:
