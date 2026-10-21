@@ -10,6 +10,7 @@ import {
   JobApplication,
   MAX_RESUME_BYTES,
 } from '../app/core/models/careers.models';
+import { emailApplication } from './express-apply-email';
 
 interface Options {
   mode?: string;
@@ -189,6 +190,14 @@ export function createCareersRouter(options: Options = {}) {
                   'This submission changed during a retry. Please reload the form before submitting again.',
               });
             return;
+          }
+          // The archive is safely on disk. Email the application
+          // (notification + auto-reply) — a mail failure must never
+          // break the archive or the response.
+          try {
+            await emailApplication(body, { jobTitle: job.title, reference: receipt.reference });
+          } catch (mailErr) {
+            console.error('Application email failed:', (mailErr as Error).message);
           }
           res.status(201).json(receipt);
         } finally {
