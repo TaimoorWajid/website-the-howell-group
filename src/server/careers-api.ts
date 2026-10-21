@@ -20,12 +20,19 @@ interface Options {
 }
 export function createCareersRouter(options: Options = {}) {
   const router = express.Router();
-  const mode = options.mode ?? process.env['CAREERS_MODE'] ?? 'preview';
-  const jobsFile = options.jobsFile ?? process.env['CAREERS_JOBS_FILE'];
+  // Live is the default: the site is in production and the user has removed
+  // the preview/testing mode. Set CAREERS_MODE=preview to get the sample
+  // jobs back. A bundled data/jobs.json ships the real openings so no
+  // CAREERS_JOBS_FILE is required unless the jobs live elsewhere.
+  const mode = options.mode ?? process.env['CAREERS_MODE'] ?? 'live';
+  const jobsFile =
+    options.jobsFile ??
+    process.env['CAREERS_JOBS_FILE'] ??
+    resolve('data/jobs.json');
   const storageDir = options.storageDir ?? process.env['CAREERS_STORAGE_DIR'];
   const publicOrigin =
     options.publicOrigin ?? process.env['CAREERS_PUBLIC_ORIGIN'];
-  const directory = resolve(storageDir ?? '.data/careers-preview');
+  const directory = resolve(storageDir ?? '.data/careers');
   // Applicant records must never be served as public assets.
   const publicPaths = ['public', 'dist', 'src'].map((path) => resolve(path));
   const unsafeStorage = publicPaths.some(
@@ -84,10 +91,16 @@ export function createCareersRouter(options: Options = {}) {
     '/applications',
     (req, res, next) => {
       const origin = req.get('origin');
-      if (
-        origin &&
-        origin !== (publicOrigin ?? `${req.protocol}://${req.get('host')}`)
-      ) {
+      // Behind a proxy (e.g. the hosting's front-end) Express sees the
+      // internal host, not the public one — honor the forwarded headers
+      // so legitimate same-site submissions are not rejected.
+      const host = (req.get('x-forwarded-host') ?? req.get('host') ?? '')
+        .split(',')[0]
+        .trim();
+      const proto = (req.get('x-forwarded-proto') ?? req.protocol)
+        .split(',')[0]
+        .trim();
+      if (origin && origin !== (publicOrigin ?? `${proto}://${host}`)) {
         res
           .status(403)
           .json({
