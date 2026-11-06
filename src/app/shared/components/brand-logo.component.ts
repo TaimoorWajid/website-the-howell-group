@@ -20,8 +20,8 @@ import { Component, input } from '@angular/core';
         padding: 0.4rem 0.6rem;
         border-radius: 2px;
       }
-      :host(.on-dark) {
-        background: var(--color-white);
+      :host(.on-dark) img {
+        filter: brightness(0) invert(1);
       }
       img {
         display: block;

@@ -479,7 +479,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     overview: {
       paragraphs: [
-        'Program just beginning including 3 partial floors conversion to Behavioral Health, 5 Elevator replacements, Generator & area upgrade, MOB floors Fire Sprinkler projects, & Plumbing Equipment & Seismic at Ingle- side Campus. Project & Savings info unavailable until 2025.',
+        'Program just beginning including 3 partial floors conversion to Behavioral Health, 5 Elevator replacements, Generator & area upgrade, MOB floors Fire Sprinkler projects, & Plumbing Equipment & Seismic at Ingle- side Campus. Major Fire Sprinkler introduction project and separate fire alarm introduction project to 8 story MOB side. Project & Savings info unavailable until 2025.',
       ],
       image: {
         src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-2.webp',
