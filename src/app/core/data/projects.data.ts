@@ -409,7 +409,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 900,
       },
     ],
-    area: 'Unclear (source page says +/-50,00 sq ft)',
+    area: '+/-50,00 sq ft',
     jurisdiction: 'OSHPD 1',
     location: 'Not listed on source page',
     howellRole: 'Not listed on source page',
@@ -479,7 +479,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     overview: {
       paragraphs: [
-        'Program just beginning including 3 partial floors conversion to Behavioral Health, 5 Elevator replacements, Generator & area upgrade, MOB floors Fire Sprinkler projects, & Plumbing Equipment & Seismic at Ingle- side Campus. Major Fire Sprinkler introduction project and separate fire alarm introduction project to 8 story MOB side. Project & Savings info unavailable until 2025.',
+        'Program including 3 partial floors conversion to Behavioral Health, 5 Elevator replacements, Generator & area upgrade. Major Fire Sprinkler introduction project and separate fire alarm introduction project to 8 story MOB side.',
       ],
       image: {
         src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-2.webp',
