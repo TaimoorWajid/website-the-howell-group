@@ -676,3 +676,19 @@ h1 {
     grid-column: 1 / -1;
   }
 }
+
+.references-teaser {
+  padding-block: clamp(4rem, 7vw, 7rem);
+  background: var(--color-off-white);
+}
+.references-teaser .eyebrow {
+  margin-bottom: 1.2rem;
+}
+.references-teaser h2 {
+  margin-bottom: 1rem;
+}
+.references-teaser > p {
+  font-size: 0.95rem;
+  max-width: 34rem;
+  margin: 0 0 0.5rem;
+}

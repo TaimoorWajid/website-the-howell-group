@@ -32,7 +32,7 @@ export const MEGA_MENUS: readonly MegaMenuConfig[] = [
             route: '/services',
           },
           {
-            title: 'About Howell',
+            title: 'About THG',
             icon: 'people',
             description: 'Meet the thinking behind the details.',
             route: '/about',
@@ -143,12 +143,12 @@ export const MEGA_MENUS: readonly MegaMenuConfig[] = [
         ],
       },
       {
-        title: 'Connect with Howell',
+        title: 'Connect with THG',
         items: [
           {
             title: 'Careers',
             icon: 'briefcase',
-            description: 'Explore your next chapter with Howell.',
+            description: 'Explore your next chapter with THG.',
             route: '/careers',
           },
           {

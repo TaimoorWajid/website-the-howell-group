@@ -27,7 +27,7 @@
     </button>
   </div>
   <div class="mobile-content">
-    <p class="eyebrow">Explore Howell</p>
+    <p class="eyebrow">Explore THG</p>
     <nav aria-label="Mobile navigation">
       @for (menu of menus; track menu.id) {
         <div
@@ -93,6 +93,14 @@
           </div>
         </div>
       }
+      <a
+        class="primary-row"
+        routerLink="/references"
+        routerLinkActive="current"
+        ariaCurrentWhenActive="page"
+        (click)="followLink()"
+        >References<app-navigation-icon name="arrow"
+      /></a>
       <a
         class="primary-row contact-row"
         routerLink="/contact"

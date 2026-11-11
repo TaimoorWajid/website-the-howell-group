@@ -31,7 +31,6 @@ export interface MarketDetail {
   ];
   relatedMarkets: readonly MarketSlug[];
   projectSlugs: readonly string[];
-  projectAttribution?: string;
   services: readonly MarketServiceId[];
   serviceCopy: string;
   invitation: string;
@@ -118,8 +117,6 @@ export const MARKETS: readonly Market[] = [
       ],
       relatedMarkets: ['licensed-clinics-outpatient'],
       projectSlugs: ['kpc-global-oc'],
-      projectAttribution:
-        'Marc Howell’s individual professional experience includes onsite construction management for operating-room and central-plant work at KPC Global OC. This is team-member experience, not a claim of Howell company delivery.',
       services: [
         'program-management',
         'design-management',

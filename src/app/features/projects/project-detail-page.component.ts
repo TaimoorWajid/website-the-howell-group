@@ -42,11 +42,9 @@ export class ProjectDetailPageComponent {
         gallery: project.gallery?.filter((image) => image.src.trim()) ?? [],
         facts: [
           { label: 'Location', value: project.location },
-          { label: 'Howell’s role', value: project.howellRole },
           { label: 'Project area', value: project.area },
           { label: 'Beds', value: project.bedCount },
           { label: 'Jurisdiction', value: project.jurisdiction },
-          { label: 'Completion', value: project.completion },
           ...(project.credits ?? []),
         ].filter((fact) => fact.value?.trim()),
         overview:

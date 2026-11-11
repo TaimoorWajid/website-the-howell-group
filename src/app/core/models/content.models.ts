@@ -39,7 +39,6 @@ export interface ServiceDetail extends Service {
   lifecycleSummary: string;
   phaseNotes: readonly { number: string; body: string }[];
   relatedServices: readonly string[];
-  teamExperience?: readonly { projectSlug: string; attribution: string }[];
   invitation: { heading: string; body: string };
 }
 export interface TeamMember {

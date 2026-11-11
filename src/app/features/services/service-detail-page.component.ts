@@ -13,7 +13,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import gsap from 'gsap';
 import { SERVICES, PROJECT_PHASES } from '../../core/data/company.data';
-import { PORTFOLIO_PROJECTS } from '../../core/data/projects.data';
 import { ServiceDetail } from '../../core/models/content.models';
 import { SeoService } from '../../core/services/seo.service';
 import { AnimationManagerService } from '../../core/animations/animation-manager.service';
@@ -46,12 +45,6 @@ export class ServiceDetailPageComponent {
         related: SERVICES.filter((other) =>
           service.relatedServices.includes(other.slug),
         ),
-        experience: (service.teamExperience ?? []).flatMap((item) => {
-          const project = PORTFOLIO_PROJECTS.find(
-            (project) => project.slug === item.projectSlug,
-          );
-          return project ? [{ project, attribution: item.attribution }] : [];
-        }),
       },
     ];
   });

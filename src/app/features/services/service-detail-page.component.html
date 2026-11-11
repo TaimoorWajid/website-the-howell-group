@@ -66,7 +66,7 @@
     </div>
     <p class="body">{{ detail.service.lifecycleSummary }}</p>
     <p class="body">
-      Howell can contribute at any stage. Earlier involvement provides greater
+      The Howell Group can contribute at any stage. Earlier involvement provides greater
       opportunity to influence the outcome.
     </p>
     <ol class="phase-list">
@@ -82,39 +82,6 @@
     </ol>
   </section>
 
-  @if (detail.experience.length) {
-    <section
-      class="detail-experience section-shell"
-      aria-labelledby="experience-title"
-    >
-      <p class="eyebrow">INDIVIDUAL PROFESSIONAL EXPERIENCE</p>
-      <h2 id="experience-title" class="detail-heading">
-        Relevant team experience.
-      </h2>
-      @for (item of detail.experience; track item.project.slug) {
-        <article class="experience-row">
-          <img
-            [src]="item.project.images[0].src"
-            [alt]="item.project.images[0].alt"
-            [width]="item.project.images[0].width"
-            [height]="item.project.images[0].height"
-            loading="lazy"
-            decoding="async"
-          />
-          <div>
-            <h3>{{ item.project.title }}</h3>
-            <p>{{ item.attribution }}</p>
-            <a
-              class="detail-link"
-              [routerLink]="['/projects', item.project.slug]"
-              >Explore {{ item.project.title }}
-              <span aria-hidden="true">↗</span></a
-            >
-          </div>
-        </article>
-      }
-    </section>
-  }
 
   <nav class="related-services section-shell" aria-labelledby="related-title">
     <p class="eyebrow">CONNECTED SERVICES</p>

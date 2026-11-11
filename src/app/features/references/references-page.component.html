@@ -1,0 +1,77 @@
+<section class="references-hero" aria-labelledby="references-page-title">
+  <div class="hero-image-mask" aria-hidden="true">
+    <img
+      class="hero-photo"
+      src="/images/projects/client/los-angeles-downtown-medical-center.webp"
+      width="1200"
+      height="900"
+      alt="L.A. Downtown Medical Center entrance"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+  <div class="hero-content section-shell">
+    <p class="eyebrow hero-eyebrow">REFERENCES</p>
+    <h1 id="references-page-title">
+      <span class="hero-line"><span>In their </span></span
+      ><span class="hero-line hero-line--light"><span>words.</span></span>
+    </h1>
+    <p class="hero-body">
+      Owners, builders and hospital leaders on working with The Howell Group.
+    </p>
+  </div>
+</section>
+
+<section class="references-list section-shell" aria-label="Reference letters">
+  <div class="references-grid">
+    @for (reference of references; track reference.id) {
+      <article class="reference-card">
+        @if (reference.project) {
+          <p class="reference-project">{{ reference.project }}</p>
+        }
+        @if (reference.subject) {
+          <p class="reference-subject">{{ reference.subject }}</p>
+        }
+        <blockquote>
+          @for (paragraph of reference.paragraphs; track paragraph) {
+            <p>{{ paragraph }}</p>
+          }
+        </blockquote>
+        <footer class="reference-footer">
+          @for (signatory of reference.signatories; track signatory.name) {
+            <p class="reference-signatory">
+              <span class="reference-name">{{ signatory.name }}</span>
+              <span class="reference-role">{{ signatory.role }}</span>
+            </p>
+          }
+          <p class="reference-company">{{ reference.company }}</p>
+          @if (reference.date) {
+            <p class="reference-date">{{ reference.date }}</p>
+          }
+        </footer>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="references-closing" aria-labelledby="references-closing-title">
+  <div class="closing-content section-shell">
+    <h2 id="references-closing-title">Tell us what matters to you.</h2>
+    <p>Let's talk about the project, the people and the path ahead.</p>
+    <div class="closing-action">
+      <span class="red-rule" aria-hidden="true"></span
+      ><a class="outline-button" routerLink="/contact"
+        >START A CONVERSATION
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.3"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M4 12h15m-6-6 6 6-6 6" /></svg
+      ></a>
+    </div>
+  </div>
+</section>
