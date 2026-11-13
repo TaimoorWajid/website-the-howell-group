@@ -181,7 +181,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/anaheim-community-hospital-gallery-8.webp',
-        alt: 'New Generator Yard',
+        alt: 'New Generator Yard at Anaheim Community Hospital',
         width: 1600,
         height: 900,
       },
@@ -265,13 +265,13 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-7.webp',
-        alt: 'Rigging in the driving rain at Orange County Global Medical Center',
+        alt: 'Rigging in the pouring rain',
         width: 1600,
         height: 900,
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-8.webp',
-        alt: "Demo'd cooling towers below / building for new above",
+        alt: "Demo'd Cooling Towers below / building for New above",
         width: 309,
         height: 180,
       },
