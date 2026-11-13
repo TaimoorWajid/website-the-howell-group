@@ -202,6 +202,10 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 455,
       },
     },
+    // Dummy content — replace with the real outcome figure once Eric confirms it.
+    contribution: {
+      outcome: 'Outcome to be confirmed.',
+    },
   },
   {
     id: 'kpc-global-oc',
@@ -290,6 +294,10 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         width: 1200,
         height: 800,
       },
+    },
+    // Dummy content — replace with the real outcome figure once Eric confirms it.
+    contribution: {
+      outcome: 'Outcome to be confirmed.',
     },
   },
   {
@@ -438,6 +446,10 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         width: 1513,
         height: 1135,
       },
+    },
+    // Dummy content — replace with the real outcome figure once Eric confirms it.
+    contribution: {
+      outcome: 'Outcome to be confirmed.',
     },
   },
   {
