@@ -1,16 +1,23 @@
 import { Component, inject } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../core/services/seo.service';
-import { REFERENCES } from './references.data';
+import { REFERENCE_ROWS, type ReferenceLetter } from './references.data';
 
 @Component({
   selector: 'app-references-page',
-  imports: [RouterLink],
+  imports: [NgTemplateOutlet, RouterLink],
   templateUrl: './references-page.component.html',
   styleUrl: './references-page.component.scss',
 })
 export class ReferencesPageComponent {
-  readonly references = REFERENCES;
+  readonly rows = REFERENCE_ROWS;
+
+  /** Alt text for a letter image, from its signatories and company. */
+  altFor(reference: ReferenceLetter): string {
+    const names = reference.signatories.map((s) => s.name).join(' and ');
+    return `Reference letter from ${names}, ${reference.company}`;
+  }
 
   constructor() {
     inject(SeoService).update({

@@ -101,70 +101,82 @@ h1 {
   margin: 0;
 }
 .references-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 3rem);
   padding-block: clamp(4rem, 7vw, 7rem);
 }
-.references-grid {
+/* Paired rows: two short letters stacked on one side, one long letter on
+   the other. Both sides stretch to the row height, so no empty space is
+   left between cards. */
+.references-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: start;
+  align-items: stretch;
+}
+.references-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  min-height: 0;
+}
+.references-stack .reference-card {
+  flex: 1 1 0;
+  min-height: 0;
 }
 .reference-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 1px 2px rgba(24, 32, 31, 0.06), 0 12px 32px rgba(24, 32, 31, 0.08);
+}
+.reference-image {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: clamp(1.25rem, 2vw, 2rem);
+  background: var(--color-white);
+}
+.reference-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.reference-caption {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem clamp(1.25rem, 2vw, 2rem) 1.4rem;
+  border-top: 1px solid var(--color-line);
   background: var(--color-off-white);
-  padding: clamp(1.75rem, 3vw, 3rem);
-  border-top: 2px solid var(--color-teal);
+}
+.reference-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.reference-role {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  line-height: 1.4;
+  margin-top: 0.15rem;
+}
+.reference-company {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.6rem;
 }
 .reference-project {
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-teal);
-  margin: 0 0 1.2rem;
-}
-.reference-subject {
-  font-size: 0.75rem;
-  letter-spacing: 0.03em;
-  color: var(--color-muted);
-  margin: 0 0 1.2rem;
-}
-.reference-card blockquote {
-  margin: 0;
-}
-.reference-card blockquote p {
-  font-size: 0.95rem;
-  margin: 0 0 1rem;
-}
-.reference-card blockquote p:last-child {
-  margin-bottom: 0;
-}
-.reference-footer {
-  margin-top: 1.8rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--color-line);
-}
-.reference-signatory {
-  margin: 0 0 0.6rem;
-}
-.reference-name {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-}
-.reference-role {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--color-muted);
-}
-.reference-company {
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin: 0;
-}
-.reference-date {
-  font-size: 0.8rem;
-  color: var(--color-muted);
-  margin: 0.2rem 0 0;
+  margin-top: 0.4rem;
 }
 .references-closing {
   position: relative;
@@ -229,8 +241,14 @@ h1 {
   transform: translateX(3px);
 }
 @media (max-width: 63.999rem) {
-  .references-grid {
+  .references-row {
     grid-template-columns: 1fr;
+  }
+  .references-stack .reference-card {
+    flex: none;
+  }
+  .reference-image img {
+    height: auto;
   }
 }
 @media (max-width: 47.999rem) {
