@@ -128,7 +128,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '68,209 sq ft',
     jurisdiction: 'HCAI (OSHPD) 1',
-    location: 'Not listed on source page',
     credits: [
       { label: 'Architect', value: 'HMC Architects' },
       { label: 'Developer', value: 'Watch Hill Capital' },
@@ -181,7 +180,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/anaheim-community-hospital-gallery-8.webp',
-        alt: 'New Generator Yard at Anaheim Community Hospital',
+        alt: 'New Generator Yard',
         width: 1600,
         height: 900,
       },
@@ -218,7 +217,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '80,000 sq ft',
     jurisdiction: 'HCAI (OSHPD) 1',
-    location: 'Not listed on source page',
     credits: [
       { label: 'Owner', value: 'KPC Healthcare Inc.' },
       { label: 'Architects', value: 'JCS and Alexander Hibbs' },
@@ -265,13 +263,13 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-7.webp',
-        alt: 'Rigging in the pouring rain',
+        alt: 'Rigging in the driving rain at Orange County Global Medical Center',
         width: 1600,
         height: 900,
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-8.webp',
-        alt: "Demo'd Cooling Towers below / building for New above",
+        alt: "Demo'd cooling towers below / building for new above",
         width: 309,
         height: 180,
       },
@@ -308,7 +306,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '5,900 sq ft',
     jurisdiction: 'City of Pomona',
-    location: 'Not listed on source page',
     credits: [
       { label: 'Owner', value: 'Western University of Health Sciences' },
       { label: 'Architects', value: 'LPA' },
@@ -457,7 +454,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '2,684 sq ft',
     jurisdiction: 'HCAI (OSHPD) 1',
-    location: 'Not listed on source page',
     credits: [
       { label: 'Owner', value: 'KPC Healthcare Inc.' },
       { label: 'Architects', value: 'Alexander Hibbs' },
