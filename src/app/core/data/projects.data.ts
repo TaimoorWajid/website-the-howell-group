@@ -407,7 +407,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
     ],
     video: {
-      src: 'https://media.thehowellgroup.co/ladmc-drone-chillers.mp4',
+      src: '/videos/ladmc-drone-chillers.mp4',
     },
     area: '+/-50,00 sq ft',
     jurisdiction: 'OSHPD 1',

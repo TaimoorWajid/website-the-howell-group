@@ -12,6 +12,18 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 app.use('/api/careers', createCareersRouter());
+/**
+ * Serve self-hosted videos (e.g. the LADMC drone footage) from a folder
+ * OUTSIDE the app, so a redeploy never wipes them. Set VIDEOS_DIR in the
+ * hosting env to the absolute path of that folder (e.g. /home/<user>/videos).
+ * Served at /videos/<file> — the player points there, and the file is
+ * uploaded once via FTP. If VIDEOS_DIR is unset, /videos simply 404s and
+ * the player falls back to the cover photo.
+ */
+const videosDir = process.env['VIDEOS_DIR'];
+if (videosDir) {
+  app.use('/videos', express.static(videosDir, { index: false, redirect: false }));
+}
 // Dynamically determine allowed hosts from environment or defaults
 const envAllowedHosts =
   process.env['ALLOWED_HOSTS'] || process.env['NG_ALLOWED_HOSTS'];
@@ -68,21 +80,20 @@ app.use((req, res, next) => {
     .catch(next);
 });
 
-if (
-  isMainModule(import.meta.url) ||
-  process.env['HOWELL_SERVER_ENTRY'] === 'true'
-) {
-  const port = Number(process.env['PORT'] || 4000);
+/**
+ * Start the server if this module is the main entry point or if a PORT is assigned by the host.
+ * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
+ */
+const port = Number(process.env['PORT'] || 4000);
 
-  app.listen(port, '0.0.0.0', (error) => {
-    if (error) {
-      console.error('Failed to start Express server:', error);
-      process.exit(1);
-    }
+app.listen(port, '0.0.0.0', (error) => {
+  if (error) {
+    console.error('Failed to start Express server:', error);
+    process.exit(1);
+  }
 
-    console.log(`Node Express server listening on port ${port}`);
-  });
-}
+  console.log(`Node Express server listening on port ${port}`);
+});
 
 /**
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
