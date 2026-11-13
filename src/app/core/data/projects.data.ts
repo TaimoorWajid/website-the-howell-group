@@ -13,6 +13,8 @@ export interface PortfolioProject extends Project {
   jurisdiction?: string;
   overview?: { paragraphs: readonly string[]; image?: PortfolioImage };
   contribution?: { brief?: string; role?: string; outcome?: string };
+  /** Self-hosted video for the project hero (e.g. LADMC drone footage). */
+  video?: { src: string };
   images: [ProjectImage & { width: number; height: number }];
 }
 
@@ -404,6 +406,9 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 900,
       },
     ],
+    video: {
+      src: 'https://media.thehowellgroup.co/ladmc-drone-chillers.mp4',
+    },
     area: '+/-50,00 sq ft',
     jurisdiction: 'OSHPD 1',
     location: '1711 West Temple Street, Los Angeles, CA 90026',

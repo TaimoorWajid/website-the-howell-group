@@ -17,7 +17,17 @@
       </div>
       <h1 id="project-title" data-card-copy>{{ project.title }}</h1>
       <div class="hero-frame project-media">
-        @if (!failedImages().has(project.images[0].src)) {
+        @if (project.video && !videoFailed()) {
+          <video
+            class="hero-video"
+            [src]="project.video.src"
+            [poster]="project.images[0].src"
+            controls
+            preload="metadata"
+            playsinline
+            (error)="videoFailed.set(true)"
+          ></video>
+        } @else if (!failedImages().has(project.images[0].src)) {
           <img
             class="hero-image"
             [src]="project.images[0].src"

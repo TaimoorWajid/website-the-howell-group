@@ -25,6 +25,7 @@ import { ProjectGalleryComponent } from './project-gallery.component';
 export class ProjectDetailPageComponent {
   private readonly project = signal<PortfolioProject | null>(null);
   protected readonly failedImages = signal<ReadonlySet<string>>(new Set());
+  protected readonly videoFailed = signal(false);
   protected readonly details = computed(() => {
     const project = this.project();
     if (!project) return [];
@@ -71,6 +72,7 @@ export class ProjectDetailPageComponent {
           PORTFOLIO_PROJECTS.find((item) => item.slug === slug) ?? null;
         this.project.set(project);
         this.failedImages.set(new Set());
+        this.videoFailed.set(false);
         if (response) response.status = project ? 200 : 404;
         const name = project?.title ?? 'Project not found';
         const path = `/projects/${encodeURIComponent(slug)}`;
