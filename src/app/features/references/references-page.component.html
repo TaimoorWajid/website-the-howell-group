@@ -23,35 +23,45 @@
 </section>
 
 <section class="references-list section-shell" aria-label="Reference letters">
-  <div class="references-grid">
-    @for (reference of references; track reference.id) {
-      <article class="reference-card">
+  <ng-template #referenceCard let-reference="reference">
+    <figure class="reference-card">
+      <span class="reference-image">
+        <img
+          [src]="reference.image"
+          [alt]="altFor(reference)"
+          [width]="reference.imageWidth"
+          [height]="reference.imageHeight"
+          loading="lazy"
+          decoding="async"
+        />
+      </span>
+      <figcaption class="reference-caption">
+        @for (signatory of reference.signatories; track signatory.name) {
+          <span class="reference-name">{{ signatory.name }}</span>
+          <span class="reference-role">{{ signatory.role }}</span>
+        }
+        <span class="reference-company">{{ reference.company }}</span>
         @if (reference.project) {
-          <p class="reference-project">{{ reference.project }}</p>
+          <span class="reference-project">{{ reference.project }}</span>
         }
-        @if (reference.subject) {
-          <p class="reference-subject">{{ reference.subject }}</p>
+      </figcaption>
+    </figure>
+  </ng-template>
+
+  @for (row of rows; track row.feature.id) {
+    <div class="references-row">
+      <div class="references-stack">
+        @for (reference of row.stack; track reference.id) {
+          <ng-container
+            *ngTemplateOutlet="referenceCard; context: { reference }"
+          />
         }
-        <blockquote>
-          @for (paragraph of reference.paragraphs; track paragraph) {
-            <p>{{ paragraph }}</p>
-          }
-        </blockquote>
-        <footer class="reference-footer">
-          @for (signatory of reference.signatories; track signatory.name) {
-            <p class="reference-signatory">
-              <span class="reference-name">{{ signatory.name }}</span>
-              <span class="reference-role">{{ signatory.role }}</span>
-            </p>
-          }
-          <p class="reference-company">{{ reference.company }}</p>
-          @if (reference.date) {
-            <p class="reference-date">{{ reference.date }}</p>
-          }
-        </footer>
-      </article>
-    }
-  </div>
+      </div>
+      <ng-container
+        *ngTemplateOutlet="referenceCard; context: { reference: row.feature }"
+      />
+    </div>
+  }
 </section>
 
 <section class="references-closing" aria-labelledby="references-closing-title">
