@@ -5,8 +5,9 @@ if (!process.env['PORT']) {
   process.env['PORT'] = '4000';
 }
 
+process.env['HOWELL_SERVER_ENTRY'] = 'true';
+
 import('./dist/the-howell-group/server/server.mjs').catch((err) => {
   console.error('Failed to start server:', err);
   process.exit(1);
 });
-
