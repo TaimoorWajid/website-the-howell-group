@@ -16,7 +16,10 @@
         >
       </div>
       <h1 id="project-title" data-card-copy>{{ project.title }}</h1>
-      <div class="hero-frame project-media">
+      <div
+        class="hero-frame project-media"
+        [class.has-video]="project.video && !videoFailed()"
+      >
         @if (project.video && !videoFailed()) {
           <video
             class="hero-video"
