@@ -126,48 +126,6 @@
         </div>
       </section>
     }
-    @if (detail.projects.length) {
-      <section class="relevant-work page-shell" aria-labelledby="work-title">
-        <header class="section-heading">
-          <div>
-            <span class="red-rule" aria-hidden="true"></span>
-            <h2 id="work-title">Related team experience.</h2>
-          </div>
-          <a class="text-link" routerLink="/projects"
-            >View all projects <span aria-hidden="true">&rarr;</span></a
-          >
-        </header>
-        <p>{{ market.detail.projectAttribution }}</p>
-        <div class="card-grid">
-          @for (project of detail.projects; track project.slug) {
-            <a
-              class="image-card project-card"
-              [routerLink]="['/projects', project.slug]"
-              [attr.aria-labelledby]="'related-project-' + project.slug"
-            >
-              <div class="card-image">
-                <img
-                  [src]="project.preview.src"
-                  [alt]="project.preview.alt"
-                  [width]="project.preview.width"
-                  [height]="project.preview.height"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div class="card-copy">
-                <h3 [id]="'related-project-' + project.slug">
-                  {{ project.title }}
-                </h3>
-                <span class="project-affordance" aria-hidden="true"
-                  >View project &rarr;</span
-                >
-              </div>
-            </a>
-          }
-        </div>
-      </section>
-    }
     @if (detail.services.length) {
       <section
         class="relevant-services page-shell"

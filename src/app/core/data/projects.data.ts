@@ -11,10 +11,10 @@ export interface PortfolioProject extends Project {
   credits?: readonly { label: string; value: string }[];
   bedCount?: string;
   jurisdiction?: string;
-  howellRole?: string;
-  completion?: string;
   overview?: { paragraphs: readonly string[]; image?: PortfolioImage };
   contribution?: { brief?: string; role?: string; outcome?: string };
+  /** Self-hosted video for the project hero (e.g. LADMC drone footage). */
+  video?: { src: string };
   images: [ProjectImage & { width: number; height: number }];
 }
 
@@ -37,9 +37,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     area: '80,000 sq ft',
     bedCount: '119 beds',
     jurisdiction: 'HCAI (OSHPD) 1',
-    location: 'Not listed on source page',
-    howellRole: 'Not listed on source page',
-    completion: 'Not listed on source page',
+    location: '200 Freedom Ln, Aliso Viejo, CA 92656',
     credits: [
       { label: 'Developer', value: 'Watch Hill Capital' },
       { label: 'Architect', value: 'HMC Architects' },
@@ -132,9 +130,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '68,209 sq ft',
     jurisdiction: 'HCAI (OSHPD) 1',
-    location: 'Not listed on source page',
-    howellRole: 'Not listed on source page',
-    completion: 'Not listed on source page',
     credits: [
       { label: 'Architect', value: 'HMC Architects' },
       { label: 'Developer', value: 'Watch Hill Capital' },
@@ -157,7 +152,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/anaheim-community-hospital-gallery-3.webp',
-        alt: 'Imaging equipment and examination table at Anaheim Community Hospital',
+        alt: 'Fluoroscopy',
         width: 681,
         height: 455,
       },
@@ -181,13 +176,13 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/anaheim-community-hospital-gallery-7.webp',
-        alt: 'Interior corridor and observation windows at Anaheim Community Hospital',
+        alt: 'Intake and observation windows at Anaheim Community Hospital',
         width: 681,
         height: 456,
       },
       {
         src: '/images/projects/client/anaheim-community-hospital-gallery-8.webp',
-        alt: 'Rooftop HVAC equipment and mechanical piping at Anaheim Community Hospital',
+        alt: 'New Generator Yard',
         width: 1600,
         height: 900,
       },
@@ -209,6 +204,10 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 455,
       },
     },
+    // Dummy content — replace with the real outcome figure once Eric confirms it.
+    contribution: {
+      outcome: 'Outcome to be confirmed.',
+    },
   },
   {
     id: 'kpc-global-oc',
@@ -224,9 +223,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '80,000 sq ft',
     jurisdiction: 'HCAI (OSHPD) 1',
-    location: 'Not listed on source page',
-    howellRole: 'Not listed on source page',
-    completion: 'Not listed on source page',
     credits: [
       { label: 'Owner', value: 'KPC Healthcare Inc.' },
       { label: 'Architects', value: 'JCS and Alexander Hibbs' },
@@ -243,7 +239,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-2.webp',
-        alt: 'Excavation and equipment work at Orange County Global Medical Center',
+        alt: 'Groundbreaking Ceremony',
         width: 1600,
         height: 1067,
       },
@@ -261,31 +257,31 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-5.webp',
-        alt: 'Mechanical equipment at Orange County Global Medical Center',
+        alt: "National Healthcare Facilities and Engineering Week. Don't miss out on our Craft Smoked BBQ Lunch!",
         width: 1600,
         height: 900,
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-6.webp',
-        alt: 'Crane and construction work at Orange County Global Medical Center',
+        alt: 'Central Plant Delivery & placement at Orange County Global Medical Center',
         width: 1600,
         height: 900,
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-7.webp',
-        alt: 'Rooftop HVAC equipment at Orange County Global Medical Center',
+        alt: 'Rigging in the driving rain at Orange County Global Medical Center',
         width: 1600,
         height: 900,
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-8.webp',
-        alt: 'Construction site photograph at Orange County Global Medical Center',
+        alt: "Demo'd cooling towers below / building for new above",
         width: 309,
         height: 180,
       },
       {
         src: '/images/projects/client/kpc-global-oc-gallery-9.webp',
-        alt: 'Central plant construction at Orange County Global Medical Center',
+        alt: 'Formed columns for CT assembly.',
         width: 1600,
         height: 900,
       },
@@ -300,6 +296,10 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         width: 1200,
         height: 800,
       },
+    },
+    // Dummy content — replace with the real outcome figure once Eric confirms it.
+    contribution: {
+      outcome: 'Outcome to be confirmed.',
     },
   },
   {
@@ -316,9 +316,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '5,900 sq ft',
     jurisdiction: 'City of Pomona',
-    location: 'Not listed on source page',
-    howellRole: 'Not listed on source page',
-    completion: 'Not listed on source page',
     credits: [
       { label: 'Owner', value: 'Western University of Health Sciences' },
       { label: 'Architects', value: 'LPA' },
@@ -409,72 +406,39 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 900,
       },
     ],
+    video: {
+      src: '/videos/ladmc-drone-chillers.mp4',
+    },
     area: '+/-50,00 sq ft',
     jurisdiction: 'OSHPD 1',
-    location: 'Not listed on source page',
-    howellRole: 'Not listed on source page',
-    completion: 'Not listed on source page',
+    location: '1711 West Temple Street, Los Angeles, CA 90026',
     credits: [
       { label: 'Owner', value: 'LADMC' },
       { label: 'Architects', value: 'HED' },
-      { label: 'MEP Engineer', value: 'SALAS O’BRIEN' },
-      { label: 'Structural Engineer', value: 'IMEG' },
+      { label: 'Mechanical / Plumbing Engineer', value: 'Kevin A. Smola and Assoc., Inc.' },
+      { label: 'Electrical Engineer', value: 'Salas O’Brien' },
+      { label: 'Structural Engineer', value: 'Degenkolb Engineers' },
+      { label: 'Geologist', value: 'Terracon Consultants' },
       { label: 'Contractor', value: 'Building Resources Companies' },
     ],
     gallery: [
       {
-        src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-1.webp',
-        alt: 'Nighttime exterior of Los Angeles Downtown Medical Center with a fire engine outside',
-        width: 1600,
-        height: 1200,
-      },
-      {
         src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-2.webp',
-        alt: 'Interior construction and exposed building services at Los Angeles Downtown Medical Center',
+        alt: 'Demo begins for 3 floors of Behavioral health.',
         width: 1513,
         height: 1135,
       },
       {
-        src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-3.webp',
-        alt: 'Exterior tower at Los Angeles Downtown Medical Center',
-        width: 1600,
-        height: 1200,
-      },
-      {
-        src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-4.webp',
-        alt: 'Rooftop mechanical equipment at Los Angeles Downtown Medical Center',
-        width: 1600,
-        height: 1200,
-      },
-      {
-        src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-5.webp',
-        alt: 'Project team at Los Angeles Downtown Medical Center',
-        width: 1600,
-        height: 1200,
-      },
-      {
         src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-6.webp',
-        alt: 'Central plant piping at Los Angeles Downtown Medical Center',
+        alt: 'Central Plant',
         width: 1221,
         height: 1628,
       },
       {
-        src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-7.webp',
-        alt: 'Mechanical equipment installation at Los Angeles Downtown Medical Center',
-        width: 1596,
-        height: 1197,
-      },
-      {
         src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-8.webp',
-        alt: 'Nighttime crane work at Los Angeles Downtown Medical Center',
+        alt: 'Motors ready to rig into penthouse for all 6 Elevators replacement.',
         width: 1600,
         height: 1200,
-      },
-      {
-        src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-9.webp',
-        alt: 'Aerial nighttime view of Los Angeles Downtown Medical Center and the city',
-        width: 1575,
-        height: 1181,
       },
     ],
     overview: {
@@ -483,10 +447,14 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
       ],
       image: {
         src: '/images/projects/client/los-angeles-downtown-medical-center-gallery-2.webp',
-        alt: 'Interior construction and exposed building services at Los Angeles Downtown Medical Center',
+        alt: 'Demo begins for 3 floors of Behavioral health.',
         width: 1513,
         height: 1135,
       },
+    },
+    // Dummy content — replace with the real outcome figure once Eric confirms it.
+    contribution: {
+      outcome: 'Outcome to be confirmed.',
     },
   },
   {
@@ -503,9 +471,6 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
     ],
     area: '2,684 sq ft',
     jurisdiction: 'HCAI (OSHPD) 1',
-    location: 'Not listed on source page',
-    howellRole: 'Not listed on source page',
-    completion: 'Not listed on source page',
     credits: [
       { label: 'Owner', value: 'KPC Healthcare Inc.' },
       { label: 'Architects', value: 'Alexander Hibbs' },

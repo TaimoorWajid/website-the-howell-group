@@ -33,7 +33,7 @@ export class ApproachPageComponent implements OnDestroy {
     inject(SeoService).update({
       title: 'Our Approach | The Howell Group',
       description:
-        'Your mission guides every phase. Explore Howell’s eight-phase project lifecycle, from project development through operation and patient readiness.',
+        'Your mission guides every phase. Explore The Howell Group’s eight-phase project lifecycle, from project development through operation and patient readiness.',
       canonicalPath: '/our-approach',
       breadcrumbs: [
         { name: 'Home', path: '/' },
