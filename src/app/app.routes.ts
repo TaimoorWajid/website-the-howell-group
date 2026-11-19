@@ -82,6 +82,14 @@ export const routes: Routes = [
     data: { footerInvitation: false, title: 'About | The Howell Group' },
   },
   {
+    path: 'references',
+    loadComponent: () =>
+      import('./features/references/references-page.component').then(
+        (module) => module.ReferencesPageComponent,
+      ),
+    data: { footerInvitation: false, title: 'References | The Howell Group' },
+  },
+  {
     path: 'careers',
     loadComponent: () =>
       import('./features/careers/careers-page.component').then(

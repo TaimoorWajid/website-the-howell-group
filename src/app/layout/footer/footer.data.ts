@@ -7,6 +7,7 @@ export const FOOTER_LINKS = {
   explore: [
     { label: 'Home', route: '/' },
     { label: 'About Us', route: '/about' },
+    { label: 'References', route: '/references' },
     { label: 'Our Approach', route: '/our-approach' },
     { label: 'Projects', route: '/projects' },
     { label: 'Markets', route: '/markets' },

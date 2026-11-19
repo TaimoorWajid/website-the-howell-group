@@ -64,7 +64,7 @@ describe('Why Howell section', () => {
     expect(root.querySelectorAll('h2').length).toBe(1);
     expect(root.querySelector('h1')).toBeNull();
     expect(root.querySelector('.why-eyebrow')?.textContent).toContain(
-      'WHY HOWELL',
+      'WHY THG',
     );
     expect(root.querySelector('h2')?.textContent).toBe(
       "The owner's vision is the measure of every decision.",

@@ -15,6 +15,18 @@ app.use('/api/careers', createCareersRouter());
 const maintenanceMode = /^(1|true|yes)$/i.test(
   process.env['MAINTENANCE_MODE'] ?? '',
 );
+/**
+ * Serve self-hosted videos (e.g. the LADMC drone footage) from a folder
+ * OUTSIDE the app, so a redeploy never wipes them. Set VIDEOS_DIR in the
+ * hosting env to the absolute path of that folder (e.g. /home/<user>/videos).
+ * Served at /videos/<file> — the player points there, and the file is
+ * uploaded once via FTP. If VIDEOS_DIR is unset, /videos simply 404s and
+ * the player falls back to the cover photo.
+ */
+const videosDir = process.env['VIDEOS_DIR'];
+if (videosDir) {
+  app.use('/videos', express.static(videosDir, { index: false, redirect: false }));
+}
 // Dynamically determine allowed hosts from environment or defaults
 const envAllowedHosts =
   process.env['ALLOWED_HOSTS'] || process.env['NG_ALLOWED_HOSTS'];

@@ -75,13 +75,6 @@ export const SERVICES: readonly ServiceDetail[] = [
       'construction-management',
       'financial-management',
     ],
-    teamExperience: [
-      {
-        projectSlug: 'los-angeles-downtown-medical-center',
-        attribution:
-          'Marc Howell’s professional experience includes planning and program management for the Los Angeles Downtown Medical Center campus program.',
-      },
-    ],
     invitation: {
       heading: 'Bring your program into focus.',
       body: 'Tell us about your campus, related projects and the priorities you need to coordinate.',
@@ -196,13 +189,6 @@ export const SERVICES: readonly ServiceDetail[] = [
       'contract-management',
       'program-management',
     ],
-    teamExperience: [
-      {
-        projectSlug: 'kpc-global-oc',
-        attribution:
-          'Marc Howell’s professional experience includes onsite construction management for operating-room and central-plant projects at Global Orange County Medical Center.',
-      },
-    ],
     invitation: {
       heading: 'Keep construction aligned with your mission.',
       body: 'Tell us where the project stands and where owner-side oversight could help.',
@@ -232,7 +218,7 @@ export const SERVICES: readonly ServiceDetail[] = [
       },
     ],
     ownerSupport:
-      'Clear agreements help owners and project participants understand what they are working toward. Howell contributes project-delivery knowledge and coordination to the agreement process.',
+      'Clear agreements help owners and project participants understand what they are working toward. The Howell Group contributes project-delivery knowledge and coordination to the agreement process.',
     lifecycleSummary:
       'Design agreements take shape alongside team development, with construction agreements established ahead of detailed preparation for the work.',
     phaseNotes: [

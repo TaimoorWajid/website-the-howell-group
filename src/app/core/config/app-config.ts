@@ -4,8 +4,8 @@ export const APP_CONFIG = {
   apiUrl: environment.apiUrl.replace(/\/$/, ''),
   formEndpoint: environment.formEndpoint,
   siteUrl: environment.siteUrl,
-  defaultTitle: 'Howell Group | Premium Construction & Development',
+  defaultTitle: 'The Howell Group | Premium Construction & Development',
   defaultDescription:
-    'Howell Group delivers premium construction, development and project leadership for enduring places, from first concept through final detail and handover.',
+    'The Howell Group delivers premium construction, development and project leadership for enduring places, from first concept through final detail and handover.',
   visualColors: { teal: 0x0d7774, red: 0xe43b32 },
 } as const;

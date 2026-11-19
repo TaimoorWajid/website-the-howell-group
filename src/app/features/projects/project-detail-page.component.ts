@@ -25,6 +25,7 @@ import { ProjectGalleryComponent } from './project-gallery.component';
 export class ProjectDetailPageComponent {
   private readonly project = signal<PortfolioProject | null>(null);
   protected readonly failedImages = signal<ReadonlySet<string>>(new Set());
+  protected readonly videoFailed = signal(false);
   protected readonly details = computed(() => {
     const project = this.project();
     if (!project) return [];
@@ -42,11 +43,9 @@ export class ProjectDetailPageComponent {
         gallery: project.gallery?.filter((image) => image.src.trim()) ?? [],
         facts: [
           { label: 'Location', value: project.location },
-          { label: 'Howell’s role', value: project.howellRole },
           { label: 'Project area', value: project.area },
           { label: 'Beds', value: project.bedCount },
           { label: 'Jurisdiction', value: project.jurisdiction },
-          { label: 'Completion', value: project.completion },
           ...(project.credits ?? []),
         ].filter((fact) => fact.value?.trim()),
         overview:
@@ -73,6 +72,7 @@ export class ProjectDetailPageComponent {
           PORTFOLIO_PROJECTS.find((item) => item.slug === slug) ?? null;
         this.project.set(project);
         this.failedImages.set(new Set());
+        this.videoFailed.set(false);
         if (response) response.status = project ? 200 : 404;
         const name = project?.title ?? 'Project not found';
         const path = `/projects/${encodeURIComponent(slug)}`;

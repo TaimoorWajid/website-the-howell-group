@@ -13,7 +13,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MARKETS, Market } from '../../core/data/markets.data';
-import { PORTFOLIO_PROJECTS } from '../../core/data/projects.data';
 import { SeoService } from '../../core/services/seo.service';
 import { SERVICES } from '../../core/data/company.data';
 import { ProjectRevealDirective } from '../projects/project-reveal.directive';
@@ -41,21 +40,6 @@ export class MarketDetailPageComponent implements OnDestroy {
             (other) => other.slug === slug && other.slug !== market.slug,
           );
           return item ? [item] : [];
-        }),
-        projects: market.detail.projectSlugs.flatMap((slug) => {
-          const item = PORTFOLIO_PROJECTS.find(
-            (project) => project.slug === slug,
-          );
-          if (!item) return [];
-          const preview =
-            [...(item.gallery ?? []), ...item.images].find(
-              (image) =>
-                image.width >= 1000 &&
-                image.width > image.height &&
-                image.src !== market.image.src &&
-                image.src !== market.detail.introductionImage.src,
-            ) ?? item.images[0];
-          return [{ ...item, preview }];
         }),
         services: market.detail.services.flatMap((id) => {
           const item = SERVICES.find((service) => service.id === id);

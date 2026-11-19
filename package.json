@@ -38,8 +38,8 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.2.23",
-    "@angular/cli": "^21.2.23",
+    "@angular/build": "^21.2.29",
+    "@angular/cli": "^21.2.29",
     "@angular/compiler-cli": "^21.2.22",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
@@ -51,5 +51,21 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.3"
+  },
+  "overrides": {
+    "@npmcli/package-json": {
+      "minimatch": "11.0.1",
+      "glob": "14.0.2"
+    },
+    "cacache": {
+      "minimatch": "11.0.1",
+      "glob": "14.0.2"
+    },
+    "ignore-walk": {
+      "minimatch": "11.0.1"
+    },
+    "@tufjs/models": {
+      "minimatch": "11.0.1"
+    }
   }
 }

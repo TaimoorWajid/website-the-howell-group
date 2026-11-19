@@ -57,7 +57,7 @@ export class MarketsPageComponent implements OnDestroy {
     inject(SeoService).update({
       title: 'Healthcare Markets | The Howell Group',
       description:
-        'Healthcare is our primary focus across Southern California. Explore five care environments and how Howell supports owner interests and coordinated delivery.',
+        'Healthcare is our primary focus across Southern California. Explore five care environments and how The Howell Group supports owner interests and coordinated delivery.',
       canonicalPath: '/markets',
       breadcrumbs: [
         { name: 'Home', path: '/' },
