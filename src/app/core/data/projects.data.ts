@@ -204,10 +204,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 455,
       },
     },
-    // Dummy content — replace with the real outcome figure once Eric confirms it.
-    contribution: {
-      outcome: 'Outcome to be confirmed.',
-    },
+    // Contribution hidden for now — add the real outcome here once Eric confirms it.
   },
   {
     id: 'kpc-global-oc',
@@ -297,10 +294,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 800,
       },
     },
-    // Dummy content — replace with the real outcome figure once Eric confirms it.
-    contribution: {
-      outcome: 'Outcome to be confirmed.',
-    },
+    // Contribution hidden for now — add the real outcome here once Eric confirms it.
   },
   {
     id: 'western-university-medical-school',
@@ -452,10 +446,7 @@ export const PORTFOLIO_PROJECTS: readonly PortfolioProject[] = [
         height: 1135,
       },
     },
-    // Dummy content — replace with the real outcome figure once Eric confirms it.
-    contribution: {
-      outcome: 'Outcome to be confirmed.',
-    },
+    // Contribution hidden for now — add the real outcome here once Eric confirms it.
   },
   {
     id: 'kpc-global-chapman',
